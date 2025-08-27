@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  // justify-content: space-around;
   height: 100%;
   color: var(--mat-sys-on-surface);
 }
@@ -49,6 +49,7 @@
 .main-content {
   display: flex;
   flex-direction: row;
+  margin: auto 0;
   // height: calc(100vh - 80px);
   background: var(--mat-sys-surface-container-lowest);
 }
