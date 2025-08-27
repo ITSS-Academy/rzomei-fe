@@ -1,0 +1,62 @@
+.container {
+  flex: 1 1 auto;
+  margin: 32px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  background-color: var(--mat-sys-on-primary);
+  box-shadow: 0px 5px 15px 0px rgba(218, 226, 249, 1);
+}
+
+.navbar-left {
+  display: flex;
+  gap: 1rem;
+
+  .nav-item {
+    display: flex;
+    padding: 0rem 2px;
+    align-items: center;
+    font-size: var(--mat-sys-label-large-size);
+    font-weight: 500;
+    color: var(--mat-sys-on-secondary-fixed-variant);
+    text-transform: capitalize;
+    min-width: 150px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+      background-color: #dae2f9; /* Màu nền khi hover */
+      color: var(--mat-sys-primary); /* Màu chữ khi hover */
+      transform: scale(1.05); /* Hiệu ứng phóng to nhẹ */
+    }
+
+    &.active {
+      background-color: #dae2f9; /* Màu nền khi hover */
+      color: var(--mat-sys-primary); /* Màu chữ khi active */
+    }
+  }
+}
+
+.navbar-right {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+// .nav-item.active {
+//   background-color: #e2e8f0;
+//   border-radius: 8px;
+//   padding: 0.5rem 1rem;
+// }
+
+// .nav-select {
+//   min-width: 120px;
+// }
+
+// mat-toolbar {
+//   background-color: #ffffff;
+// }

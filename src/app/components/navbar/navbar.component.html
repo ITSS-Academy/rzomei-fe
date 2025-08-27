@@ -1,0 +1,43 @@
+<div class="container">
+  <mat-toolbar class="container" color="primary" class="navbar">
+    <div class="navbar-left">
+      <button
+        mat-stroked-button
+        class="nav-item"
+        routerLink="/dashboard"
+        routerLinkActive="active"
+      >
+        <mat-icon>apps</mat-icon>
+        Dashbroad
+      </button>
+      <button
+        mat-button
+        class="nav-item"
+        routerLink="/builder/content"
+        routerLinkActive="active"
+      >
+        <mat-icon>description</mat-icon>
+        Content
+      </button>
+      <button
+        mat-button
+        class="nav-item"
+        routerLink="/builder/customize"
+        routerLinkActive="active"
+      >
+        <mat-icon>edit</mat-icon>
+        Customize
+      </button>
+    </div>
+    <div class="navbar-right">
+      <button mat-raised-button color="accent" class="nav-item">
+        <mat-icon>open_in_new</mat-icon>
+        Shared
+      </button>
+      <button mat-raised-button color="accent" class="nav-item">
+        <mat-icon>download</mat-icon>
+        Download
+      </button>
+    </div>
+  </mat-toolbar>
+</div>
