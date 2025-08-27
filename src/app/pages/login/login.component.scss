@@ -366,23 +366,27 @@
 }
 
 /* Responsive Design */
-// @media (max-width: 1024px) {
-//   .main-content {
-//     grid-template-columns: 1fr;
-//   }
+@media (max-width: 1024px) {
+  .main-content {
+    flex-direction: column;
+    justify-content: center;
+    // height: calc(100% - 80px);
+  }
 
-//   .right-section {
-//     display: none;
-//   }
+  .right-section {
+    display: none;
+  justify-content: center;
 
-//   .main-section {
-//     margin: 0 auto;
-//   }
+  }
 
-//   .title {
-//     font-size: 2.8rem;
-//   }
-// }
+  .main-section {
+    margin: 0 auto;
+  }
+
+  .title {
+    font-size: 2.8rem;
+  }
+}
 
 @keyframes fadeIn {
   from {
