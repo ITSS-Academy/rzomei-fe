@@ -1,0 +1,23 @@
+.content-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .btn-submit {
+    align-self: flex-end;
+  }
+}
+
+.cv-display {
+  display: flex;
+  justify-content: space-between;
+  .content-form {
+    background-color: red;
+    padding: 0 1rem;
+  }
+}

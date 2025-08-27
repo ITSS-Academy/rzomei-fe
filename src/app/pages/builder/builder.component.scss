@@ -1,0 +1,23 @@
+.builder-container {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+  margin: 0 1vh;
+}
+
+.builder-left {
+  flex: 0.5;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 50px;
+  background-color: var(--mat-sys-on-primary);
+  box-shadow: 0px 5px 15px 0px rgba(218, 226, 249, 1);
+}
+
+.builder-right {
+  flex: 1;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
