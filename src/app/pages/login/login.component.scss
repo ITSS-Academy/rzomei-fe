@@ -1,9 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 .container {
   display: flex;
   flex-direction: column;
@@ -201,7 +195,7 @@
   align-items: center;
   background-color: var(--mat-sys-primary);
   border-radius: 30px;
-  padding: 0.5rem 1rem; // nhỏ gọn hơn
+  padding: 0.2vw 1vh; // nhỏ gọn hơn
   border: 1px solid var(--mat-sys-primary); // border mỏng
   width: fit-content; // fit với text
   min-width: 0;
@@ -372,23 +366,23 @@
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
-  .main-content {
-    grid-template-columns: 1fr;
-  }
+// @media (max-width: 1024px) {
+//   .main-content {
+//     grid-template-columns: 1fr;
+//   }
 
-  .right-section {
-    display: none;
-  }
+//   .right-section {
+//     display: none;
+//   }
 
-  .main-section {
-    margin: 0 auto;
-  }
+//   .main-section {
+//     margin: 0 auto;
+//   }
 
-  .title {
-    font-size: 2.8rem;
-  }
-}
+//   .title {
+//     font-size: 2.8rem;
+//   }
+// }
 
 @keyframes fadeIn {
   from {
@@ -400,4 +394,12 @@
 }
 .container {
   animation: fadeIn 1s ease-in;
+}
+
+
+
+.right-section{
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
