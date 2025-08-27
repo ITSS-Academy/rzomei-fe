@@ -1,9 +1,26 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
+import { BuilderComponent } from './pages/builder/builder.component';
+import { ContentComponent } from './pages/builder/subpages/content/content.component';
+import { CustomizeComponent } from './pages/builder/subpages/customize/customize.component';
 
 export const routes: Routes = [
-    {
-        path: 'login',
-        component: LoginComponent,
-    }
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'builder',
+    component: BuilderComponent,
+    children: [
+      {
+        path: 'content',
+        component: ContentComponent,
+      },
+      {
+        path: 'customize',
+        component: CustomizeComponent,
+      },
+    ],
+  },
 ];
