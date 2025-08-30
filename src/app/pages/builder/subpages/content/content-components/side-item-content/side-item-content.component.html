@@ -2,7 +2,7 @@
   <div class="cv-section-header">
     <mat-icon color="primary">grid_view</mat-icon>
     <span class="cv-section-title">Các phần CV</span>
-    <span class="cv-section-count">4 phần</span>
+    <!-- <span class="cv-section-count">4 phần</span> -->
   </div>
 
   <mat-accordion class="cv-section-accordion">
@@ -22,86 +22,23 @@
           </div>
         </mat-panel-title>
       </mat-expansion-panel-header>
-
       <!-- Nội dung mở rộng của từng section -->
       <div class="cv-section-content">
-        @switch (section.type) { @case ('personal') {
-        <div class="personal-info-section">
-          <div class="upload-section">
-            <h4>Ảnh Đại Diện</h4>
-            <div class="upload-area">
-              <div class="avatar-placeholder">
-                <span>CV</span>
-              </div>
-              <div class="upload-controls">
-                <button mat-stroked-button color="primary">
-                  <mat-icon>upload</mat-icon>
-                  Upload Image
-                </button>
-                <p class="upload-note">
-                  Supported: JPEG, PNG, JPG, WebP (Max 5MB)
-                </p>
-                <mat-form-field appearance="outline">
-                  <mat-label>Or paste image URL</mat-label>
-                  <input matInput placeholder="https://..." />
-                  <mat-icon matPrefix>link</mat-icon>
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
+        <app-section-form 
+          [section]="section" 
+          [data]="getSectionData(section.instanceId!)"
+          (dataChange)="onSectionDataChange(section.instanceId!, $event)">
+        </app-section-form>
 
-          <div class="form-grid">
-            <mat-form-field appearance="outline">
-              <mat-label>Họ và Tên *</mat-label>
-              <input matInput />
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-              <mat-label>Địa Chỉ Email *</mat-label>
-              <input matInput type="email" />
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-              <mat-label>Số Điện Thoại</mat-label>
-              <input matInput />
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-              <mat-label>Địa Chỉ</mat-label>
-              <input matInput />
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-              <mat-label>Hồ Sơ LinkedIn</mat-label>
-              <input matInput />
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-              <mat-label>Trang Web</mat-label>
-              <input matInput />
-            </mat-form-field>
-          </div>
-        </div>
-        } @case ('summary') { 
-        <div class="summary-section">
-          <h4>Tóm Tắt Chuyên Nghiệp</h4>
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Mô tả ngắn về bản thân</mat-label>
-            <textarea
-              matInput
-              rows="4"
-              placeholder="Viết mô tả về kinh nghiệm và kỹ năng của bạn..."
-            ></textarea>
-          </mat-form-field>
-        </div>
-        } @default {
-        <div class="section-placeholder">
-          <p>Nội dung của {{ section.title }} sẽ được hiển thị ở đây</p>
-          <button mat-flat-button color="primary">
-            Chỉnh sửa {{ section.title }}
+        <div class="cv-section-actions">
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="removeSection(section.instanceId!)"
+          >
+            <mat-icon>delete</mat-icon>
           </button>
         </div>
-        } }
       </div>
     </mat-expansion-panel>
     }

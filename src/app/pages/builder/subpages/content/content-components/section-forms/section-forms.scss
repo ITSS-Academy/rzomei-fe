@@ -1,0 +1,201 @@
+.personal-info-section {
+  .upload-section {
+    margin-bottom: 1.5rem;
+
+    h4 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .upload-area {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+
+      .avatar-placeholder {
+        width: 120px;
+        height: 120px;
+        border: 2px dashed var(--border-color);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--surface-color);
+        color: var(--text-secondary);
+        font-weight: 600;
+        font-size: 1.2rem;
+      }
+
+      .upload-controls {
+        flex: 1;
+
+        button {
+          margin-bottom: 0.5rem;
+        }
+
+        .upload-note {
+          color: var(--text-secondary);
+          font-size: 0.85rem;
+          margin: 0.5rem 0 1rem 0;
+        }
+
+        mat-form-field {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
+}
+
+// Common styles for all sections
+.education-section,
+.experience-section,
+.skills-section,
+.projects-section,
+.certificates-section,
+.languages-section {
+  h4, h5 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
+
+  .full-width {
+    width: 100%;
+    margin-top: 1rem;
+  }
+}
+
+// Experience and Certificates specific styles
+.experience-section,
+.certificates-section {
+  .date-checkbox-group,
+  .expiry-checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    mat-form-field.disabled {
+      opacity: 0.6;
+    }
+
+    mat-checkbox {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+// Skills specific styles
+.skills-section {
+  .skills-list {
+    margin: 1.5rem 0;
+  }
+
+  .skill-item {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: var(--surface-color);
+
+    .skill-header {
+      display: grid;
+      grid-template-columns: 2fr 1fr auto;
+      gap: 1rem;
+      align-items: flex-start;
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
+
+      .skill-name {
+        min-width: 0;
+      }
+
+      .skill-level {
+        min-width: 150px;
+
+        @media (max-width: 768px) {
+          min-width: 0;
+        }
+      }
+
+      .remove-skill {
+        margin-top: 8px;
+      }
+    }
+
+    .skill-progress {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1rem;
+
+      mat-slider {
+        flex: 1;
+      }
+
+      .progress-label {
+        min-width: 40px;
+        text-align: center;
+        font-weight: 600;
+        color: var(--primary-color);
+      }
+    }
+  }
+
+  .add-skill-btn {
+    margin: 1rem 0;
+    width: 100%;
+  }
+
+  .skill-categories {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+
+    mat-form-field {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .empty-state {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 2rem;
+    font-style: italic;
+  }
+}
