@@ -1,0 +1,36 @@
+<mat-card class="side-tool-container" [class.collapsed]="isCollapsed">
+  <div class="title-row">
+    <div class="title">
+      <button mat-icon-button (click)="toggleSidebar()">
+        <mat-icon>shopping_bag</mat-icon>
+      </button>
+    </div>
+  </div>
+  <br />
+  @if (availableBlocks.length > 0) { 
+    @for (block of availableBlocks; track block.id) {
+      <div class="tool-block">
+        <mat-card class="tool-card" appearance="outlined">
+          <div class="tool-content">
+            <button mat-mini-fab disabled>
+              <mat-icon>{{ block.icon }}</mat-icon>
+            </button>
+            @if (!isCollapsed) {
+              <div class="tool-info">
+                <div class="tool-title">{{ block.title }}</div>
+                <div class="tool-desc">{{ block.desc }}</div>
+              </div>
+              <button mat-icon-button (click)="addBlock(block.id)">
+                <mat-icon>add</mat-icon>
+              </button>
+            }
+          </div>
+        </mat-card>
+      </div>
+    }
+  } @else { 
+    @if (!isCollapsed) {
+      <div class="empty-blocks">Tất cả khối đã được thêm</div>
+    } 
+  }
+</mat-card>
