@@ -1,35 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../../../shared/material/material.module';
-import { FormsModule } from '@angular/forms';
+import { SideToolContentComponent } from './content-components/side-tool-content/side-tool-content.component';
+import { SideItemContentComponent } from './content-components/side-item-content/side-item-content.component';
+import { CvSectionsDataService } from './services/cv-sections-data.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.scss'],
-  imports: [CommonModule, MaterialModule, FormsModule],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    SideToolContentComponent,
+    SideItemContentComponent,
+  ],
 })
 export class ContentComponent {
-  isEditing = false;
 
-  // CV details
-  cvDetails = {
-    fullName: '',
-    professionalTitle: '',
-    email: 'Email',
-    phone: 'Phone',
-    location: 'Location',
-  };
-
-  // Temporary form data
-  formData = { ...this.cvDetails };
-
-  toggleEdit(): void {
-    this.isEditing = !this.isEditing;
-  }
-
-  updateCV(): void {
-    this.cvDetails = { ...this.formData };
-    this.toggleEdit();
-  }
 }

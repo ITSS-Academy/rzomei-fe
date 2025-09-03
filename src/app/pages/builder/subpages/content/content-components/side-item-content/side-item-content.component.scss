@@ -1,0 +1,188 @@
+.cv-section-list {
+  // background: var(--mat-sys-surface, #fff);
+  background-color: var(--mat-sys-on-secondary);
+  border-radius: var(--mat-sys-corner-large, 16px);
+  box-shadow: 0px 5px 15px 0px rgb(218, 226, 249);
+  padding: 1.5rem 1rem;
+  // min-width: 200px;
+  max-width: 500px ;
+}
+
+.cv-section-header {
+  display: flex;
+  align-items: center;
+  font-weight: var(--mat-sys-bold-font-weight, 700);
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: var(--mat-sys-primary, #405f90);
+  gap: 0.7rem;
+
+  .cv-section-title {
+    flex: 1;
+  }
+
+  .cv-section-count {
+    color: var(--mat-sys-on-surface-variant, #43474f);
+    font-size: 0.95rem;
+    font-weight: var(--mat-sys-medium-font-weight, 500);
+  }
+}
+
+.cv-section-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.cv-section-item {
+  border-radius: var(--mat-sys-corner-medium, 12px);
+  box-shadow: none;
+  border: 1.5px solid var(--mat-sys-outline-variant, #c3c6d0);
+  transition: box-shadow 0.2s, border 0.2s;
+
+  &:hover {
+    box-shadow: var(--mat-sys-level2) !important;
+    border: 1.5px solid var(--mat-sys-primary, #405f90) !important;
+  }
+
+  &.mat-expanded {
+    background: var(--mat-sys-surface, #fff) !important;
+    border: 1.5px solid var(--mat-sys-primary, #405f90) !important;
+    box-shadow: 0 4px 12px rgba(64, 95, 144, 0.1) !important;
+  }
+}
+
+.cv-section-item-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.cv-section-icon {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  position: relative;
+
+  .cv-section-index {
+    background: var(--mat-sys-primary-container, #d6e3ff);
+    color: var(--mat-sys-primary, #405f90);
+    border-radius: var(--mat-sys-corner-small, 6px);
+    font-size: 0.9rem;
+    font-weight: var(--mat-sys-bold-font-weight, 700);
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.6rem;
+    transition: all 0.2s ease;
+  }
+
+  mat-icon {
+    color: var(--mat-sys-primary, #405f90);
+    font-size: 1.4rem;
+    transition: color 0.2s ease;
+  }
+}
+
+.cv-section-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+
+  .cv-section-name {
+    font-weight: var(--mat-sys-bold-font-weight, 700);
+    color: var(--mat-sys-on-surface, #1a1c1f);
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+
+  .cv-section-desc {
+    color: var(--mat-sys-on-surface-variant, #43474f);
+    font-size: 0.9rem;
+    line-height: 1.2;
+    font-weight: var(--mat-sys-regular-font-weight, 400);
+  }
+}
+
+.cv-section-content {
+  padding: 1.5rem 1rem 1rem;
+  background: var(--mat-sys-surface, #fff);
+  border-top: 1px solid var(--mat-sys-outline-variant, #c3c6d0);
+
+  .form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
+
+  .section-actions {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: flex-end;
+    padding-top: 1rem;
+    border-top: 1px solid var(--mat-sys-outline-variant, #c3c6d0);
+
+    button {
+      min-width: 80px;
+    }
+  }
+}
+
+// Tùy chỉnh expansion panel header
+::ng-deep .cv-section-item {
+  .mat-expansion-panel-header {
+    padding: 1rem 1.2rem !important;
+    height: auto !important;
+    min-height: 64px !important;
+
+    .mat-expansion-panel-header-title {
+      margin-right: 0 !important;
+    }
+
+    .mat-expansion-indicator {
+      color: var(--mat-sys-primary, #405f90) !important;
+      transition: transform 0.2s ease !important;
+    }
+  }
+
+  .mat-expansion-panel-body {
+    padding: 0 !important;
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .cv-section-list {
+    min-width: 280px;
+    padding: 1rem 0.8rem;
+  }
+
+  .cv-section-header {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .cv-section-accordion {
+    gap: 0.6rem;
+  }
+
+  .cv-section-content {
+    padding: 1rem 0.8rem 0.8rem;
+
+    .section-actions {
+      flex-direction: column-reverse;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

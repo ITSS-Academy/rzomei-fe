@@ -1,9 +1,9 @@
 .container {
   display: flex;
   flex-direction: column;
-  // justify-content: space-around;
   height: 100%;
   color: var(--mat-sys-on-surface);
+  background-color: #FFF;
 }
 
 .header {
@@ -12,7 +12,7 @@
   gap: 15px;
   cursor: pointer;
   margin: 1rem;
-  background: var(--mat-sys-surface-container-lowest);
+  // background: var(--mat-sys-surface-container-lowest);
   color: var(--mat-sys-on-surface);
 }
 

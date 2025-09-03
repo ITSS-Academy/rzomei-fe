@@ -1,0 +1,52 @@
+<app-header></app-header>
+
+<div class="dashboard-container">
+  <div class="header">
+    <h2>CV của Tôi</h2>
+    <p>quản lý và chỉnh sửa CV của bạn tại đây</p>
+  </div>
+
+  <div class="edit-cv">
+    <button mat-flat-button color="primary" class="create-cv-btn">
+      + Tạo CV mới
+    </button>
+
+    <div class="view-toggle" default="grid">
+      <mat-button-toggle-group
+        name="viewMode"
+        aria-label="View Mode"
+        [(ngModel)]="viewMode"
+      >
+        <mat-button-toggle value="grid">
+          <mat-icon>grid_view</mat-icon>
+          Lưới
+        </mat-button-toggle>
+        <mat-button-toggle value="list">
+          <mat-icon>list</mat-icon>
+          Danh sách
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+</div>
+
+@if (viewMode === 'grid') {
+<div class="card-cv grid-view">
+  @for (item of [1, 2, 3, 4]; track $index) {
+  <app-card-cv
+    [title]="'Demo ' + item"
+    [template]="'templates_demo_form_resume_' + item"
+  ></app-card-cv>
+  }
+</div>
+} @else {
+<!-- List View -->
+<div class="list-card-cv list-view">
+  @for (item of [1, 2, 3, 4]; track $index) {
+  <app-list-card-cv
+    [title]="'Demo ' + item"
+    [template]="'templates_demo_form_resume_' + item"
+  ></app-list-card-cv>
+  }
+</div>
+}

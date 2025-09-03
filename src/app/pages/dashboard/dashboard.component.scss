@@ -1,0 +1,124 @@
+.dashboard-container {
+  max-width: 1280px; // rộng hơn một chút cho thoáng
+  margin: 2.5rem auto;
+  padding: 0 2rem;
+  font-family: var(--mat-sys-plain-font-family, "Roboto", Arial, sans-serif);
+
+  .header {
+    h2 {
+      font-size: 2rem; // đồng nhất, không dùng vh để dễ kiểm soát
+      font-weight: 600;
+      color: var(--mat-sys-on-surface, #0f1724);
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .edit-cv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .create-cv-btn {
+      height: 48px;
+      padding: 0 24px;
+      font-size: 16px;
+      font-weight: var(--mat-sys-medium-font-weight, 500);
+      min-width: 140px;
+      font-family: var(
+        --mat-sys-plain-font-family,
+        "Roboto",
+        Arial,
+        sans-serif
+      );
+
+      &.mat-primary {
+        background-color: var(--mat-sys-primary);
+        color: var(--mat-sys-on-primary);
+      }
+    }
+  }
+}
+
+.view-toggle {
+  ::ng-deep .mat-button-toggle-group {
+    border: 1px solid var(--mat-sys-primary, #405f90) !important;
+    border-radius: 50px;
+    // background: var(--mat-sys-primary-container, #d6e3ff);
+    overflow: hidden;
+    // border: none !important;
+  }
+
+  ::ng-deep .mat-button-toggle {
+    border: none !important;
+    border-radius: 50px;
+    margin: 4px;
+    min-width: 120px;
+    height: 40px;
+    font-family: var(--mat-sys-plain-font-family, "Roboto", Arial, sans-serif);
+
+    &.mat-button-toggle-checked {
+      background-color: var(--mat-sys-primary);
+      color: var(--mat-sys-on-primary);
+
+      .mat-button-toggle-label-content {
+        color: var(--mat-sys-on-primary);
+      }
+
+      .mat-icon {
+        color: var(--mat-sys-on-primary);
+      }
+    }
+
+    &:not(.mat-button-toggle-checked) {
+      background-color: transparent;
+      color: var(--mat-sys-primary);
+
+      .mat-icon {
+        color: var(--mat-sys-primary);
+      }
+    }
+  }
+
+  ::ng-deep .mat-button-toggle-label-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: var(--mat-sys-medium-font-weight, 500);
+    font-size: 14px;
+    font-family: var(--mat-sys-plain-font-family, "Roboto", Arial, sans-serif);
+  }
+
+  ::ng-deep .mat-button-toggle-ripple {
+    border-radius: 50px;
+  }
+}
+
+.card-cv {
+  max-width: 1280px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 12px;
+  grid-auto-rows: auto;
+}
+
+.card-cv,
+.list-card-cv {
+  max-width: 1280px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+  gap: 24px;
+}
+
+.card-cv.grid-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-auto-rows: auto;
+}
+
+.list-card-cv.list-view {
+  display: flex;
+  flex-direction: column;
+}

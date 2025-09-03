@@ -1,0 +1,69 @@
+<div class="cv-section-list">
+  <div class="cv-section-header">
+    <mat-icon color="primary">grid_view</mat-icon>
+    <span class="cv-section-title">Các phần CV</span>
+    <!-- <span class="cv-section-count">4 phần</span> -->
+  </div>
+
+  <mat-accordion class="cv-section-accordion">
+    @for (section of (cvSections$ | async); track section) {
+    <mat-expansion-panel class="cv-section-item" [expanded]="section.expanded">
+      <mat-expansion-panel-header class="cv-section-header-panel">
+        <mat-panel-title class="cv-section-panel-title">
+          <div class="cv-section-item-content">
+            <div class="cv-section-icon">
+              <span class="cv-section-index">{{ $index + 1 }}</span>
+              <mat-icon>{{ section.icon || "layers" }}</mat-icon>
+            </div>
+            <div class="cv-section-info">
+              <div class="cv-section-name">{{ section.title }}</div>
+              <div class="cv-section-desc">{{ section.desc }}</div>
+            </div>
+          </div>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <!-- Nội dung mở rộng của từng section -->
+      <div class="cv-section-content">
+        <app-section-form
+          [section]="section"
+          [data]="section.data"
+        >
+      </app-section-form>
+
+        <!-- <div class="cv-section-actions">
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="removeSection(section.instanceId!)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div> -->
+      </div>
+    </mat-expansion-panel>
+    }
+  </mat-accordion>
+  <!-- <div
+    style="
+      margin-top: 20px;
+      padding: 16px;
+      text-align: center;
+      border-top: 1px solid #e0e0e0;
+    "
+  >
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="addAllCVData()"
+      style="margin-right: 12px"
+    >
+      <mat-icon>save</mat-icon>
+      Add CV Data
+    </button>
+
+    <button mat-stroked-button color="accent" (click)="exportRawData()">
+      <mat-icon>download</mat-icon>
+      Export Raw Data
+    </button>
+  </div> -->
+</div>

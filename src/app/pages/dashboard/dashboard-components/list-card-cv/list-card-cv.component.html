@@ -1,0 +1,42 @@
+<mat-card class="list-cv-card" appearance="outlined">
+  <mat-card-content class="list-cv-card__content">
+    <div class="list-cv-card__icon">
+      <mat-icon>description</mat-icon>
+    </div>
+    
+    <div class="list-cv-card__info">
+      <div class="list-cv-card__main">
+        <mat-card-title class="list-cv-card__title">{{ title }}</mat-card-title>
+        <mat-card-subtitle class="list-cv-card__template">
+          <mat-icon>link</mat-icon>
+          {{ template }}
+        </mat-card-subtitle>
+      </div>
+      
+      <div class="list-cv-card__dates">
+        <span class="date-item">
+          <mat-icon>event</mat-icon>
+          {{ createdAt | date: 'dd/MM/yyyy' }}
+        </span>
+        <span class="date-item">
+          <mat-icon>schedule</mat-icon>
+          {{ updatedAt | date: 'dd/MM/yyyy' }}
+        </span>
+      </div>
+    </div>
+    
+    <mat-card-actions class="list-cv-card__actions" align="end">
+      <button mat-stroked-button color="primary" class="action-btn">
+        <mat-icon>content_copy</mat-icon>
+        Sao chép
+      </button>
+      <button mat-flat-button color="primary" class="action-btn">
+        <mat-icon>edit</mat-icon>
+        Chỉnh sửa
+      </button>
+      <button mat-icon-button class="more-btn">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card-content>
+</mat-card>
