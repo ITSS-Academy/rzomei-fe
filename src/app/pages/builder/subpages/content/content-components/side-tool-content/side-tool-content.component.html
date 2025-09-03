@@ -1,14 +1,34 @@
 <mat-card class="side-tool-container" [class.collapsed]="isCollapsed">
   <div class="title-row">
     <div class="title">
-      <button mat-icon-button (click)="toggleSidebar()">
+      <!-- <button mat-icon-button (click)="toggleSidebar()">
         <mat-icon>shopping_bag</mat-icon>
-      </button>
+      </button> -->
     </div>
   </div>
   <br />
-  @if (availableBlocks.length > 0) { 
-    @for (block of availableBlocks; track block.id) {
+  
+  <!-- Export Section -->
+  <!-- @if (!isCollapsed) {
+    <div class="export-section">
+      <h4>Xuất dữ liệu</h4>
+      <div class="export-actions">
+        <button mat-raised-button color="primary" (click)="exportCVJson()">
+          <mat-icon>download</mat-icon>
+          Tải xuống JSON
+        </button>
+        <button mat-stroked-button color="accent" (click)="previewCVData()">
+          <mat-icon>preview</mat-icon>
+          Xem dữ liệu
+        </button>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <br />
+  } -->
+
+  @if (sectionTemplates.length > 0) { 
+    @for (block of sectionTemplates; track block.id) {
       <div class="tool-block">
         <mat-card class="tool-card" appearance="outlined">
           <div class="tool-content">
@@ -20,7 +40,7 @@
                 <div class="tool-title">{{ block.title }}</div>
                 <div class="tool-desc">{{ block.desc }}</div>
               </div>
-              <button mat-icon-button (click)="addBlock(block.id)">
+              <button mat-icon-button (click)="addBlock(block)">
                 <mat-icon>add</mat-icon>
               </button>
             }

@@ -38,6 +38,32 @@
   }
 }
 
+.export-section {
+  margin-bottom: 1rem;
+  
+  h4 {
+    color: var(--mat-sys-primary, #405f90);
+    font-size: 1rem;
+    font-weight: var(--mat-sys-medium-font-weight, 500);
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .export-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
+    button {
+      width: 100%;
+      font-size: 0.875rem;
+      
+      mat-icon {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}
+
 .tool-card {
   display: flex;
   align-items: center;

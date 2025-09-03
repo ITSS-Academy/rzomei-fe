@@ -1,25 +1,22 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { CVSection } from '../../services/cv-sections.service';
+import { MaterialModule } from '../../../../../../shared/material/material.module';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-personal-form',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule
-  ],
+  imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule],
   template: `
     <div class="personal-info-section">
       <div class="upload-section">
-        <h4>Ảnh Đại Diện</h4>
+        <!-- <h4>Ảnh Đại Diện</h4>
         <div class="upload-area">
           <div class="avatar-placeholder">
             <span>CV</span>
@@ -29,61 +26,50 @@ import { CVSection } from '../../services/cv-sections.service';
               <mat-icon>upload</mat-icon>
               Upload Image
             </button>
-            <p class="upload-note">
-              Supported: JPEG, PNG, JPG, WebP (Max 5MB)
-            </p>
+            <p class="upload-note">Supported: JPEG, PNG, JPG, WebP (Max 5MB)</p>
             <mat-form-field appearance="outline">
-              <mat-label>Or paste image URL</mat-label>
-              <input matInput placeholder="https://..." />
+              <mat-label>Avatar URL</mat-label>
+              <input
+                matInput
+                placeholder="https://..."
+                [value]="data?.avatar || ''"
+                (input)="updateData('avatar', $event)"
+              />
               <mat-icon matPrefix>link</mat-icon>
             </mat-form-field>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div class="form-grid">
-        <mat-form-field appearance="outline">
-          <mat-label>Họ và Tên *</mat-label>
-          <input matInput [value]="data?.fullName || ''" (input)="updateData('fullName', $event)" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Địa Chỉ Email *</mat-label>
-          <input matInput type="email" [value]="data?.email || ''" (input)="updateData('email', $event)" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Số Điện Thoại</mat-label>
-          <input matInput [value]="data?.phone || ''" (input)="updateData('phone', $event)" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Địa Chỉ</mat-label>
-          <input matInput [value]="data?.address || ''" (input)="updateData('address', $event)" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Hồ Sơ LinkedIn</mat-label>
-          <input matInput [value]="data?.linkedin || ''" (input)="updateData('linkedin', $event)" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Trang Web</mat-label>
-          <input matInput [value]="data?.website || ''" (input)="updateData('website', $event)" />
-        </mat-form-field>
+        <form class="example-form" [formGroup]="formGroup">
+          <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input
+              type="email"
+              matInput
+              [formControl]="emailFormControl"
+              placeholder="Ex. pat@example.com"
+            />
+            @if (emailFormControl.hasError('email') &&
+            !emailFormControl.hasError('required')) {
+            <mat-error>Please enter a valid email address</mat-error>
+            } @if (emailFormControl.hasError('required')) {
+            <mat-error>Email is <strong>required</strong></mat-error>
+            }
+          </mat-form-field>
+        </form>
       </div>
     </div>
   `,
-  styleUrls: ['./section-forms.scss']
+  styleUrls: ['./section-forms.scss'],
 })
 export class PersonalFormComponent {
-  @Input() section!: CVSection;
-  @Input() data: any = {};
-  @Output() dataChange = new EventEmitter<any>();
-
-  updateData(field: string, event: Event): void {
-    const value = (event.target as HTMLInputElement).value;
-    const updatedData = { ...this.data, [field]: value };
-    this.dataChange.emit(updatedData);
+  constructor() {
+    this.formGroup.addControl('email', this.emailFormControl);
   }
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+  formGroup = new FormGroup({});
 }

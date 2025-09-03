@@ -8,6 +8,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CVSection } from '../../services/cv-sections.service';
+import { CvSectionsDataService } from '../../services/cv-sections-data.service';
 
 @Component({
   selector: 'app-experience-form',
@@ -43,11 +44,6 @@ import { CVSection } from '../../services/cv-sections.service';
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Loại hình công việc</mat-label>
-          <input matInput [value]="data?.employmentType || ''" placeholder="Full-time, Part-time, Contract..." (input)="updateData('employmentType', $event)" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
           <mat-label>Ngày bắt đầu</mat-label>
           <input matInput [matDatepicker]="startPicker" [value]="data?.startDate || ''" (dateInput)="updateData('startDate', $event)">
           <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
@@ -55,14 +51,14 @@ import { CVSection } from '../../services/cv-sections.service';
         </mat-form-field>
 
         <div class="date-checkbox-group">
-          <mat-form-field appearance="outline" [class.disabled]="data?.isCurrentJob">
+          <mat-form-field appearance="outline" [class.disabled]="data?.current">
             <mat-label>Ngày kết thúc</mat-label>
             <input matInput [matDatepicker]="endPicker" [value]="data?.endDate || ''" 
-                   [disabled]="data?.isCurrentJob" (dateInput)="updateData('endDate', $event)">
+                   [disabled]="data?.current" (dateInput)="updateData('endDate', $event)">
             <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>
             <mat-datepicker #endPicker></mat-datepicker>
           </mat-form-field>
-          <mat-checkbox [checked]="data?.isCurrentJob || false" (change)="updateData('isCurrentJob', $event.checked)">
+          <mat-checkbox [checked]="data?.current || false" (change)="updateData('current', $event.checked)">
             Hiện tại đang làm việc ở đây
           </mat-checkbox>
         </div>
@@ -87,6 +83,8 @@ export class ExperienceFormComponent {
   @Input() data: any = {};
   @Output() dataChange = new EventEmitter<any>();
 
+  constructor(private cvSectionsDataService: CvSectionsDataService) {}
+
   updateData(field: string, event: Event | any): void {
     let value: any;
     if (typeof event === 'boolean') {
@@ -99,11 +97,18 @@ export class ExperienceFormComponent {
     
     const updatedData = { ...this.data, [field]: value };
     
-    // Nếu đang làm việc hiện tại, xóa ngày kết thúc
-    if (field === 'isCurrentJob' && value) {
-      updatedData.endDate = null;
+    // Nếu đang làm việc hiện tại, xóa ngày kết thúc và set endDate = "Present"
+    if (field === 'current' && value) {
+      updatedData.endDate = "Present";
     }
     
     this.dataChange.emit(updatedData);
+    
+    // Sử dụng section.instanceId để phân biệt các experience sections
+    this.cvSectionsDataService.updateSectionData(
+      this.section.instanceId || this.section.id, 
+      'experience', 
+      updatedData
+    );
   }
 }

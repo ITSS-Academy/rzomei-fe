@@ -6,6 +6,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CVSection } from '../../services/cv-sections.service';
+import { CvSectionsDataService } from '../../services/cv-sections-data.service';
 
 @Component({
   selector: 'app-certificates-form',
@@ -19,25 +20,25 @@ import { CVSection } from '../../services/cv-sections.service';
     MatCheckboxModule
   ],
   template: `
-    <div class="certificates-section">
-      <h4>Chứng chỉ</h4>
+    <div class="awards-section">
+      <h4>Giải thưởng/Chứng chỉ</h4>
       
       <div class="form-grid">
         <mat-form-field appearance="outline">
-          <mat-label>Tên chứng chỉ *</mat-label>
-          <input matInput [value]="data?.name || ''" (input)="updateData('name', $event)" />
+          <mat-label>Tên giải thưởng/chứng chỉ *</mat-label>
+          <input matInput [value]="data?.title || ''" (input)="updateData('title', $event)" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Tổ chức cấp</mat-label>
-          <input matInput [value]="data?.organization || ''" (input)="updateData('organization', $event)" />
+          <input matInput [value]="data?.issuer || ''" (input)="updateData('issuer', $event)" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Ngày cấp</mat-label>
-          <input matInput [matDatepicker]="issuedPicker" [value]="data?.issuedDate || ''" (dateInput)="updateData('issuedDate', $event)">
-          <mat-datepicker-toggle matIconSuffix [for]="issuedPicker"></mat-datepicker-toggle>
-          <mat-datepicker #issuedPicker></mat-datepicker>
+          <mat-label>Ngày nhận</mat-label>
+          <input matInput [matDatepicker]="receivedPicker" [value]="data?.dateReceived || ''" (dateInput)="updateData('dateReceived', $event)">
+          <mat-datepicker-toggle matIconSuffix [for]="receivedPicker"></mat-datepicker-toggle>
+          <mat-datepicker #receivedPicker></mat-datepicker>
         </mat-form-field>
 
         <div class="expiry-checkbox-group">
@@ -54,13 +55,8 @@ import { CVSection } from '../../services/cv-sections.service';
         </div>
 
         <mat-form-field appearance="outline">
-          <mat-label>Mã chứng chỉ (tùy chọn)</mat-label>
-          <input matInput [value]="data?.credentialId || ''" (input)="updateData('credentialId', $event)" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
           <mat-label>URL xác thực (tùy chọn)</mat-label>
-          <input matInput [value]="data?.credentialUrl || ''" placeholder="https://..." (input)="updateData('credentialUrl', $event)" />
+          <input matInput [value]="data?.verificationUrl || ''" placeholder="https://..." (input)="updateData('verificationUrl', $event)" />
         </mat-form-field>
       </div>
 
@@ -83,6 +79,8 @@ export class CertificatesFormComponent {
   @Input() data: any = {};
   @Output() dataChange = new EventEmitter<any>();
 
+  constructor(private cvSectionsDataService: CvSectionsDataService) {}
+
   updateData(field: string, event: Event | any): void {
     let value: any;
     if (typeof event === 'boolean') {
@@ -101,5 +99,12 @@ export class CertificatesFormComponent {
     }
     
     this.dataChange.emit(updatedData);
+    
+    // Sử dụng section.instanceId để phân biệt các certificate sections
+    this.cvSectionsDataService.updateSectionData(
+      this.section.instanceId || this.section.id, 
+      'certificates', 
+      updatedData
+    );
   }
 }

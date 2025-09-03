@@ -1,0 +1,44 @@
+<mat-card class="cv-card" appearance="outlined">
+  <mat-card-content class="cv-card__content">
+    <div class="cv-card__info">
+      <mat-card-title class="cv-card__title">{{ title }}</mat-card-title>
+      <mat-card-subtitle class="cv-card__template">
+        <mat-icon>description</mat-icon>
+        {{ template }}
+      </mat-card-subtitle>
+      
+      <div class="cv-card__dates">
+        <span class="date-item">
+          <mat-icon>event</mat-icon>
+          25/08/2025
+        </span>
+        <span class="date-item">
+          <mat-icon>schedule</mat-icon>
+          25/08/2025
+        </span>
+      </div>
+      
+      <mat-card-actions class="cv-card__actions" align="start">
+        <button mat-stroked-button color="primary">
+          <mat-icon>content_copy</mat-icon>
+          Sao chép
+        </button>
+        <button mat-flat-button color="primary">
+          <mat-icon>edit</mat-icon>
+          Chỉnh sửa
+        </button>
+        <button mat-icon-button>
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </mat-card-actions>
+    </div>
+    
+    <div class="cv-card__preview">
+      <img
+        src="https://graduateships.com/wp-content/uploads/2020/04/Screenshot-2020-04-25-at-10.40.10.png"
+        alt="CV Preview"
+      />
+    </div>
+  </mat-card-content>
+</mat-card>
+

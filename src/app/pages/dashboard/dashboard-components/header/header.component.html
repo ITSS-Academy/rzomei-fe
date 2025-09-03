@@ -1,0 +1,52 @@
+<div class="container">
+  <mat-toolbar class="container" color="primary" class="navbar">
+    <div class="navbar-left">
+      <div class="header">
+        <div class="logo">
+          <img src="Icon.png" alt="Rzomie Logo" />
+        </div>
+        <div class="brand-info">
+          <div class="brand-title">Rzomie</div>
+          <div class="brand-subtitle">Easy Resume Builder</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="navbar-right">
+      <div class="user-profile-section" [matMenuTriggerFor]="menu">
+        <img
+          src="https://scontent.fsgn5-9.fna.fbcdn.net/v/t39.30808-1/508382897_2249327338834759_368973359405840294_n.jpg?stp=dst-jpg_s160x160_tt6&_nc_cat=105&ccb=1-7&_nc_sid=e99d92&_nc_ohc=drk0K_hsM5gQ7kNvwG-3iVX&_nc_oc=AdniDZwbxtqh0cpKEQ735wtkXU0MSz8cqlxJmd_d-WyaT6jTHFQB4z_iUitaOYr9i9pZRz6X2ZUDsmnWnBQSbSrv&_nc_zt=24&_nc_ht=scontent.fsgn5-9.fna&_nc_gid=r7HzTrC4Bod7-FK7nRo2Hg&oh=00_AfVYaK_4QwKL_eDG-XUH6nagfD7fJpixDgBJxCeKAUqJdw&oe=68BB4E2B"
+          class="user-avatar"
+        />
+        <div class="user-info">
+          <div class="user-name">Văn Hữu Gia Cường</div>
+          <div class="user-email">cuongdeptrai&#64;gmail.com</div>
+        </div>
+        <mat-icon class="dropdown-arrow">keyboard_arrow_down</mat-icon>
+      </div>
+      <mat-menu #menu="matMenu" class="user-dropdown-menu">
+        <!-- Language Section -->
+        <button mat-menu-item (click)="changeLanguage()">
+          <mat-icon>language</mat-icon>
+          <span>English</span>
+        </button>
+
+        <button mat-menu-item (click)="changeLanguage()">
+          <mat-icon class="active-icon">language</mat-icon>
+          <span>Tiếng Việt</span>
+        </button>
+        <mat-divider></mat-divider>
+
+        <!-- Logout -->
+        <button
+          mat-menu-item
+          class="logout-menu-item"
+          (click)="onLogoutClick()"
+        >
+          <mat-icon>logout</mat-icon>
+          <span>Đăng xuất</span>
+        </button>
+      </mat-menu>
+    </div>
+  </mat-toolbar>
+</div>

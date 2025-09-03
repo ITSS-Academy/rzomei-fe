@@ -8,6 +8,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSelectModule } from '@angular/material/select';
 import { CVSection } from '../../services/cv-sections.service';
+import { CvSectionsDataService } from '../../services/cv-sections-data.service';
 
 @Component({
   selector: 'app-skills-form',
@@ -20,107 +21,88 @@ import { CVSection } from '../../services/cv-sections.service';
     MatIconModule,
     MatChipsModule,
     MatSliderModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   template: `
     <div class="skills-section">
       <h4>Kỹ năng và trình độ</h4>
-      
-      <div class="skills-list">
-        @for (skill of data?.skills || []; track skill.name) {
-          <div class="skill-item">
-            <div class="skill-header">
-              <mat-form-field appearance="outline" class="skill-name">
-                <mat-label>Tên kỹ năng</mat-label>
-                <input matInput [value]="skill.name" (input)="updateSkill($index, 'name', $event)" />
-              </mat-form-field>
-              
-              <mat-form-field appearance="outline" class="skill-level">
-                <mat-label>Trình độ</mat-label>
-                <mat-select [value]="skill.level" (selectionChange)="updateSkill($index, 'level', $event.value)">
-                  <mat-option value="beginner">Mới bắt đầu</mat-option>
-                  <mat-option value="intermediate">Trung bình</mat-option>
-                  <mat-option value="advanced">Nâng cao</mat-option>
-                  <mat-option value="expert">Chuyên gia</mat-option>
-                </mat-select>
-              </mat-form-field>
-              
-              <button mat-icon-button color="warn" (click)="removeSkill($index)" class="remove-skill">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
-            
-            <div class="skill-progress">
-              <mat-slider
-                [min]="0"
-                [max]="100"
-                [step]="10"
-                (input)="updateSkill($index, 'percentage', $event)"
-                discrete
-                showTickMarks>
-                <input matSliderThumb [value]="skill.percentage || 0">
-              </mat-slider>
-              <span class="progress-label">{{skill.percentage || 0}}%</span>
-            </div>
-          </div>
-        } @empty {
-          <p class="empty-state">Chưa có kỹ năng nào. Hãy thêm kỹ năng đầu tiên!</p>
-        }
+
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Danh mục kỹ năng</mat-label>
+          <input
+            matInput
+            [value]="data?.category || ''"
+            (input)="updateData('category', $event)"
+            placeholder="Programming Languages, Frontend Technologies..."
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Trình độ</mat-label>
+          <mat-select
+            [value]="data?.level || ''"
+            (selectionChange)="updateData('level', $event.value)"
+          >
+            <mat-option value="Beginner">Mới bắt đầu</mat-option>
+            <mat-option value="Amateur">Nghiệp dư</mat-option>
+            <mat-option value="Proficient">Thành thạo</mat-option>
+            <mat-option value="Expert">Chuyên gia</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
 
-      <button mat-stroked-button color="primary" (click)="addSkill()" class="add-skill-btn">
-        <mat-icon>add</mat-icon>
-        Thêm kỹ năng
-      </button>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Các kỹ năng</mat-label>
+        <input
+          matInput
+          [value]="data?.items ? data.items.join(', ') : ''"
+          (input)="updateSkillItems($event)"
+          placeholder="JavaScript, TypeScript, React, Node.js (phân cách bằng dấu phẩy)"
+        />
+      </mat-form-field>
 
-      <div class="skill-categories">
-        <h5>Phân loại kỹ năng</h5>
-        <mat-form-field appearance="outline">
-          <mat-label>Kỹ năng kỹ thuật</mat-label>
-          <input matInput [value]="data?.technicalSkills || ''" 
-                 (input)="updateData('technicalSkills', $event)"
-                 placeholder="JavaScript, Python, React..." />
-        </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Mô tả</mat-label>
+        <textarea
+          matInput
+          rows="3"
+          [value]="data?.description || ''"
+          (input)="updateData('description', $event)"
+          placeholder="Mô tả về trình độ và kinh nghiệm với các kỹ năng này..."
+        ></textarea>
+      </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Kỹ năng mềm</mat-label>
-          <input matInput [value]="data?.softSkills || ''" 
-                 (input)="updateData('softSkills', $event)"
-                 placeholder="Giao tiếp, Lãnh đạo, Giải quyết vấn đề..." />
-        </mat-form-field>
+      <!-- Debug info -->
+      <div class="debug-info" style="margin-top: 16px; padding: 8px; background: #f5f5f5; border-radius: 4px;">
+        <small>Section ID: {{ section.instanceId }}</small>
       </div>
     </div>
   `,
-  styleUrls: ['./section-forms.scss']
+  styleUrls: ['./section-forms.scss'],
 })
 export class SkillsFormComponent {
   @Input() section!: CVSection;
-  @Input() data: any = { skills: [] };
+  @Input() data: any = {};
   @Output() dataChange = new EventEmitter<any>();
 
-  addSkill(): void {
-    const newSkill = {
-      name: '',
-      level: 'intermediate',
-      percentage: 50
-    };
-    const updatedSkills = [...(this.data.skills || []), newSkill];
-    this.updateData('skills', updatedSkills);
-  }
+  constructor(private cvSectionsDataService: CvSectionsDataService) {}
 
-  removeSkill(index: number): void {
-    const updatedSkills = this.data.skills.filter((_: any, i: number) => i !== index);
-    this.updateData('skills', updatedSkills);
-  }
+  updateSkillItems(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    const items = value
+      .split(',')
+      .map((item) => item.trim())
+      .filter((item) => item);
+    const updatedData = { ...this.data, items };
+    this.dataChange.emit(updatedData);
 
-  updateSkill(index: number, field: string, value: any): void {
-    if (typeof value === 'object' && value.target) {
-      value = value.target.value;
-    }
-    
-    const updatedSkills = [...this.data.skills];
-    updatedSkills[index] = { ...updatedSkills[index], [field]: value };
-    this.updateData('skills', updatedSkills);
+    // Sử dụng section.instanceId để phân biệt các skill sections
+    this.cvSectionsDataService.updateSectionData(
+      this.section.instanceId || this.section.id, 
+      'skills', 
+      updatedData
+    );
   }
 
   updateData(field: string, value: any): void {
@@ -129,5 +111,12 @@ export class SkillsFormComponent {
     }
     const updatedData = { ...this.data, [field]: value };
     this.dataChange.emit(updatedData);
+
+    // Sử dụng section.instanceId
+    this.cvSectionsDataService.updateSectionData(
+      this.section.instanceId || this.section.id, 
+      'skills', 
+      updatedData
+    );
   }
 }

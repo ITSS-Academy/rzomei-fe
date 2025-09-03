@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CVSection } from '../../services/cv-sections.service';
+import { CvSectionsDataService } from '../../services/cv-sections-data.service';
 
 @Component({
   selector: 'app-projects-form',
@@ -27,22 +28,19 @@ import { CVSection } from '../../services/cv-sections.service';
       <div class="form-grid">
         <mat-form-field appearance="outline">
           <mat-label>Tên dự án *</mat-label>
-          <input matInput [value]="data?.name || ''" (input)="updateData('name', $event)" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Vai trò</mat-label>
-          <input matInput [value]="data?.role || ''" (input)="updateData('role', $event)" />
+          <input matInput [value]="data?.title || ''" (input)="updateData('title', $event)" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Công nghệ sử dụng</mat-label>
-          <input matInput [value]="data?.technologies || ''" placeholder="React, Node.js, MongoDB..." (input)="updateData('technologies', $event)" />
+          <input matInput [value]="data?.technologies ? data.technologies.join(', ') : ''" 
+                 (input)="updateTechnologies($event)" 
+                 placeholder="React, Node.js, MongoDB (phân cách bằng dấu phẩy)" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Link dự án</mat-label>
-          <input matInput [value]="data?.link || ''" placeholder="https://..." (input)="updateData('link', $event)" />
+          <input matInput [value]="data?.url || ''" placeholder="https://..." (input)="updateData('url', $event)" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -51,10 +49,17 @@ import { CVSection } from '../../services/cv-sections.service';
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Thời gian hoàn thành</mat-label>
-          <input matInput [matDatepicker]="datePicker" [value]="data?.completedDate || ''" (dateInput)="updateData('completedDate', $event)">
-          <mat-datepicker-toggle matIconSuffix [for]="datePicker"></mat-datepicker-toggle>
-          <mat-datepicker #datePicker></mat-datepicker>
+          <mat-label>Ngày bắt đầu</mat-label>
+          <input matInput [matDatepicker]="startPicker" [value]="data?.startDate || ''" (dateInput)="updateData('startDate', $event)">
+          <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Ngày kết thúc</mat-label>
+          <input matInput [matDatepicker]="endPicker" [value]="data?.endDate || ''" (dateInput)="updateData('endDate', $event)">
+          <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
         </mat-form-field>
       </div>
 
@@ -77,6 +82,22 @@ export class ProjectsFormComponent {
   @Input() data: any = {};
   @Output() dataChange = new EventEmitter<any>();
 
+  constructor(private cvSectionsDataService: CvSectionsDataService) {}
+
+  updateTechnologies(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    const technologies = value.split(',').map(tech => tech.trim()).filter(tech => tech);
+    const updatedData = { ...this.data, technologies };
+    this.dataChange.emit(updatedData);
+    
+    // Sử dụng section.instanceId để phân biệt các project sections
+    this.cvSectionsDataService.updateSectionData(
+      this.section.instanceId || this.section.id, 
+      'projects', 
+      updatedData
+    );
+  }
+
   updateData(field: string, event: Event | any): void {
     let value: any;
     if (event.target) {
@@ -86,5 +107,12 @@ export class ProjectsFormComponent {
     }
     const updatedData = { ...this.data, [field]: value };
     this.dataChange.emit(updatedData);
+    
+    // Sử dụng section.instanceId để phân biệt các project sections
+    this.cvSectionsDataService.updateSectionData(
+      this.section.instanceId || this.section.id, 
+      'projects', 
+      updatedData
+    );
   }
 }

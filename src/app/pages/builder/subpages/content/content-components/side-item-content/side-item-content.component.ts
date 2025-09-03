@@ -1,46 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MaterialModule } from '../../../../../../shared/material/material.module';
-import { CvSectionsService, CVSection } from '../../services/cv-sections.service';
+import { CvSectionState } from '../../../../../../ngrx/cv-section/cv-section.state';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 import { SectionFormComponent } from '../section-forms/section-form.component';
 
 @Component({
   selector: 'app-side-item-content',
-  imports: [MaterialModule, SectionFormComponent],
+  imports: [MaterialModule, AsyncPipe, SectionFormComponent],
   templateUrl: './side-item-content.component.html',
   styleUrl: './side-item-content.component.scss',
 })
-export class SideItemContentComponent implements OnInit {
-  sections: CVSection[] = [];
-  sectionData: { [instanceId: string]: any } = {};
+export class SideItemContentComponent {
 
-  constructor(private cvSectionsService: CvSectionsService) {}
+  cvSections$!: Observable<any>
 
-  ngOnInit() {
-    // Subscribe để cập nhật sections khi có thay đổi
-    this.cvSectionsService.sections$.subscribe(sections => {
-      this.sections = this.cvSectionsService.getActiveSections();
-    });
-  }
-
-  // Toggle section expand/collapse
-  toggleSection(instanceId: string) {
-    this.cvSectionsService.toggleSection(instanceId);
-  }
-
-  // Xóa section khỏi CV
-  removeSection(instanceId: string) {
-    this.cvSectionsService.removeSection(instanceId);
-  }
-
-  // Cập nhật data cho section
-  onSectionDataChange(instanceId: string, data: any): void {
-    this.sectionData[instanceId] = data;
-    // TODO: Gửi data về service hoặc lưu vào database
-    console.log(`Data updated for ${instanceId}:`, data);
-  }
-
-  // Lấy data cho section
-  getSectionData(instanceId: string): any {
-    return this.sectionData[instanceId] || {};
+  constructor(private store: Store<{cvSections: CvSectionState}>) {
+    this.cvSections$ = this.store.select('cvSections', 'sections');
+    this.cvSections$.subscribe(data => {
+      console.log(data);
+    })
   }
 }
