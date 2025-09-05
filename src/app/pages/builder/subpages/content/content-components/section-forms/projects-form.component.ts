@@ -6,8 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { CVSection } from '../../services/cv-sections.service';
-import { CvSectionsDataService } from '../../services/cv-sections-data.service';
+import { Project } from '../../../../../../models/cv-block.model';
 
 @Component({
   selector: 'app-projects-form',
@@ -78,24 +77,18 @@ import { CvSectionsDataService } from '../../services/cv-sections-data.service';
   styleUrls: ['./section-forms.scss']
 })
 export class ProjectsFormComponent {
-  @Input() section!: CVSection;
+  @Input() section!: Project;
   @Input() data: any = {};
   @Output() dataChange = new EventEmitter<any>();
 
-  constructor(private cvSectionsDataService: CvSectionsDataService) {}
+  constructor() {}
 
   updateTechnologies(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
     const technologies = value.split(',').map(tech => tech.trim()).filter(tech => tech);
     const updatedData = { ...this.data, technologies };
     this.dataChange.emit(updatedData);
-    
-    // Sử dụng section.instanceId để phân biệt các project sections
-    this.cvSectionsDataService.updateSectionData(
-      this.section.instanceId || this.section.id, 
-      'projects', 
-      updatedData
-    );
+  
   }
 
   updateData(field: string, event: Event | any): void {
@@ -107,12 +100,5 @@ export class ProjectsFormComponent {
     }
     const updatedData = { ...this.data, [field]: value };
     this.dataChange.emit(updatedData);
-    
-    // Sử dụng section.instanceId để phân biệt các project sections
-    this.cvSectionsDataService.updateSectionData(
-      this.section.instanceId || this.section.id, 
-      'projects', 
-      updatedData
-    );
   }
 }

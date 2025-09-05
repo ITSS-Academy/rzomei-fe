@@ -3,23 +3,38 @@ import { MaterialModule } from '../../../../../../shared/material/material.modul
 import { CvSectionState } from '../../../../../../ngrx/cv-section/cv-section.state';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
-import { SectionFormComponent } from '../section-forms/section-form.component';
-
+import {PersonalFormComponent} from '../section-forms/personal-form/personal-form.component';
+import * as CvSectionActions from '../../../../../../ngrx/cv-section/cv-section.actions';
 @Component({
   selector: 'app-side-item-content',
-  imports: [MaterialModule, AsyncPipe, SectionFormComponent],
+  imports: [MaterialModule, PersonalFormComponent],
   templateUrl: './side-item-content.component.html',
   styleUrl: './side-item-content.component.scss',
 })
-export class SideItemContentComponent {
+export class SideItemContentComponent implements OnInit {
 
-  cvSections$!: Observable<any>
+  cvSections$!: Observable<any | null>
+  blocks: any[] = []
 
   constructor(private store: Store<{cvSections: CvSectionState}>) {
     this.cvSections$ = this.store.select('cvSections', 'sections');
+  }
+
+  ngOnInit(): void {
     this.cvSections$.subscribe(data => {
-      console.log(data);
+      if(data){
+        console.log(data);
+        this.store.dispatch(CvSectionActions.generateCv({ data }));
+        this.blocks = []
+        for(let key of Object.keys(data)){
+          const section = {
+            type: key,
+            content: data[key]
+          }
+          this.blocks.push(section);
+        }
+        console.log(this.blocks);
+      }
     })
   }
 }

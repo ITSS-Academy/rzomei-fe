@@ -1,0 +1,137 @@
+<div class="personal-info-section">
+  <div class="personal-card">
+      <mat-icon class="edit-button" *ngIf="!isEditing" (click)="toggleEditMode()">edit</mat-icon>
+
+    <div class="card-header" *ngIf="!isEditing">
+      <div class="personal-details">
+        <div class="person-name"
+             [ngClass]="nameFormControl.value ? 'text-filled' : 'text-empty'">
+          {{ nameFormControl.value || 'Họ và tên' }}
+        </div>
+        <div class="person-title text-empty">
+          {{ titleFormControl.value || 'Vị trí ứng tuyển' }}
+        </div>
+      </div>
+    </div>
+
+    <div class="body-row" *ngIf="!isEditing">
+      <div class="contact-info">
+        <div class="contact-item">
+          <mat-icon [ngClass]="emailFormControl.value ? 'icon-filled' : 'icon-empty'">mail</mat-icon>
+          <span [ngClass]="emailFormControl.value ? 'text-filled' : 'text-empty'">
+            {{ emailFormControl.value || 'example@gmail.com' }}
+          </span>
+        </div>
+        <div class="contact-item">
+          <mat-icon [ngClass]="phoneFormControl.value ? 'icon-filled' : 'icon-empty'">call</mat-icon>
+          <span [ngClass]="phoneFormControl.value ? 'text-filled' : 'text-empty'">
+            {{ phoneFormControl.value || '+84 999 999 999' }}
+          </span>
+        </div>
+        <div class="contact-item">
+          <mat-icon [ngClass]="locationFormControl.value ? 'icon-filled' : 'icon-empty'">location_on</mat-icon>
+          <span [ngClass]="locationFormControl.value ? 'text-filled' : 'text-empty'">
+            {{ locationFormControl.value || '181 Cao Thắng' }}
+          </span>
+        </div>
+      </div>
+
+      <div class="profile-image">
+        <div class="image-placeholder">
+          <mat-icon>photo_camera</mat-icon>
+        </div>
+      </div>
+    </div>
+
+    <form *ngIf="isEditing" [formGroup]="formGroup" class="personal-form">
+      <div class="form-header">
+        <h3 class="form-title">Edit Personal Details</h3>
+      </div>
+
+      <div class="top-row">
+        <div class="top-left">
+          <mat-form-field appearance="outline">
+            <mat-icon matPrefix>person</mat-icon>
+            <mat-label>Full name</mat-label>
+            <input matInput formControlName="name" />
+            <mat-hint align="start">Nhập họ và tên</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-icon matPrefix>work</mat-icon>
+            <mat-label>Professional title</mat-label>
+            <input matInput formControlName="title" />
+            <mat-hint align="start">Ví dụ: Software Engineer</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="photo-block">
+          <label class="photo-title">Photo</label>
+          <div class="photo-circle" (click)="fileInput.click()">
+            <img *ngIf="avatarPreview" [src]="avatarPreview" alt="avatar" />
+            <mat-icon *ngIf="!avatarPreview">photo_camera</mat-icon>
+          </div>
+          <div class="photo-actions">
+            <button mat-button color="warn" type="button" (click)="removeAvatar()" *ngIf="avatarPreview">Remove</button>
+            <input #fileInput type="file" accept="image/*" (change)="onAvatarSelected($event)" hidden />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+          <mat-icon matPrefix>mail</mat-icon>
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" />
+          <mat-hint align="start">Ví dụ: name&#64;example.com</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-icon matPrefix>call</mat-icon>
+          <mat-label>Số điện thoại</mat-label>
+          <input matInput type="text" formControlName="phone" />
+          <mat-hint align="start">Ví dụ: +84 912 345 678</mat-hint>
+        </mat-form-field>
+
+        <!-- <mat-form-field appearance="outline">
+          <mat-icon matPrefix>language</mat-icon>
+          <mat-label>Website</mat-label>
+          <input matInput type="url" formControlName="website" />
+        </mat-form-field> -->
+
+        <mat-form-field appearance="outline">
+          <span matTextPrefix>https://</span>
+          <mat-icon matPrefix>link</mat-icon>
+          <mat-label>LinkedIn</mat-label>
+          <input matInput type="url" formControlName="linkedin" />
+          <mat-hint align="start">Ví dụ: linkedin.com&#47;in&#47;ten-ban</mat-hint>
+        </mat-form-field>
+
+        <!-- <mat-form-field appearance="outline">
+          <mat-icon matPrefix>code</mat-icon>
+          <mat-label>Github</mat-label>
+          <input matInput type="url" formControlName="github" />
+        </mat-form-field> -->
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-icon matPrefix>location_on</mat-icon>
+          <mat-label>Địa chỉ</mat-label>
+          <input matInput formControlName="location" />
+          <mat-hint align="start">Ví dụ: Ho Chi Minh City, Việt Nam</mat-hint>
+        </mat-form-field>
+
+        <!-- <mat-form-field appearance="outline" class="full-width">
+          <mat-icon matPrefix>notes</mat-icon>
+          <mat-label>Tóm tắt</mat-label>
+          <textarea matInput rows="3" formControlName="summary"></textarea>
+        </mat-form-field> -->
+      </div>
+
+      <div class="form-actions">
+        <button mat-flat-button color="primary" type="button" (click)="updateSection()">Lưu</button>
+        <button mat-stroked-button type="button" (click)="toggleEditMode()">Hủy</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+

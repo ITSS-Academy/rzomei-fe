@@ -7,8 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSelectModule } from '@angular/material/select';
-import { CVSection } from '../../services/cv-sections.service';
-import { CvSectionsDataService } from '../../services/cv-sections-data.service';
+import { Skill } from '../../../../../../models/cv-block.model';
 
 @Component({
   selector: 'app-skills-form',
@@ -74,19 +73,19 @@ import { CvSectionsDataService } from '../../services/cv-sections-data.service';
       </mat-form-field>
 
       <!-- Debug info -->
-      <div class="debug-info" style="margin-top: 16px; padding: 8px; background: #f5f5f5; border-radius: 4px;">
+      <!-- <div class="debug-info" style="margin-top: 16px; padding: 8px; background: #f5f5f5; border-radius: 4px;">
         <small>Section ID: {{ section.instanceId }}</small>
-      </div>
+      </div> -->
     </div>
   `,
   styleUrls: ['./section-forms.scss'],
 })
 export class SkillsFormComponent {
-  @Input() section!: CVSection;
+  @Input() section!: Skill;
   @Input() data: any = {};
   @Output() dataChange = new EventEmitter<any>();
 
-  constructor(private cvSectionsDataService: CvSectionsDataService) {}
+  constructor() {}
 
   updateSkillItems(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
@@ -96,13 +95,6 @@ export class SkillsFormComponent {
       .filter((item) => item);
     const updatedData = { ...this.data, items };
     this.dataChange.emit(updatedData);
-
-    // Sử dụng section.instanceId để phân biệt các skill sections
-    this.cvSectionsDataService.updateSectionData(
-      this.section.instanceId || this.section.id, 
-      'skills', 
-      updatedData
-    );
   }
 
   updateData(field: string, value: any): void {
@@ -111,12 +103,5 @@ export class SkillsFormComponent {
     }
     const updatedData = { ...this.data, [field]: value };
     this.dataChange.emit(updatedData);
-
-    // Sử dụng section.instanceId
-    this.cvSectionsDataService.updateSectionData(
-      this.section.instanceId || this.section.id, 
-      'skills', 
-      updatedData
-    );
   }
 }

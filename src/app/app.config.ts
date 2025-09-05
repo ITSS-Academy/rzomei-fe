@@ -8,6 +8,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { cvSectionReducer } from './ngrx/cv-section/cv-section.reducer';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
+import { HttpClientAuth } from './utils/http-client-auth';
 
 
 // Reducers
@@ -15,7 +16,7 @@ import { authReducer } from './ngrx/auth/auth.reducer';
 
 //Effects
 import * as AuthEffects from './ngrx/auth/auth.effects';
-import { HttpClientAuth } from './utils/http-client-auth';
+import * as CvEffects from './ngrx/cv-section/cv-section.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -33,7 +34,8 @@ export const appConfig: ApplicationConfig = {
       cvSections: cvSectionReducer,
     }),
     provideEffects(
-      AuthEffects
+      AuthEffects,
+      CvEffects,
     ),
   ],
 };

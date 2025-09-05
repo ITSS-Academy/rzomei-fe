@@ -5,8 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { CVSection } from '../../services/cv-sections.service';
-import { CvSectionsDataService } from '../../services/cv-sections-data.service';
+import { Certification } from '../../../../../../models/cv-block.model';
 
 @Component({
   selector: 'app-certificates-form',
@@ -75,11 +74,11 @@ import { CvSectionsDataService } from '../../services/cv-sections-data.service';
   styleUrls: ['./section-forms.scss']
 })
 export class CertificatesFormComponent {
-  @Input() section!: CVSection;
+  @Input() section!: Certification;
   @Input() data: any = {};
   @Output() dataChange = new EventEmitter<any>();
 
-  constructor(private cvSectionsDataService: CvSectionsDataService) {}
+  constructor() {}
 
   updateData(field: string, event: Event | any): void {
     let value: any;
@@ -99,12 +98,5 @@ export class CertificatesFormComponent {
     }
     
     this.dataChange.emit(updatedData);
-    
-    // Sử dụng section.instanceId để phân biệt các certificate sections
-    this.cvSectionsDataService.updateSectionData(
-      this.section.instanceId || this.section.id, 
-      'certificates', 
-      updatedData
-    );
   }
 }

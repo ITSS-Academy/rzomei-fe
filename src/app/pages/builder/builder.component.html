@@ -2,13 +2,21 @@
   <app-navbar></app-navbar>
   <div class="builder-container">
     <!-- design -->
-    <router-outlet />
+    <div class="builder-left">
+      <router-outlet />
+    </div>
     <!-- preview -->
     <div class="builder-right">
-      <img
-        src="https://graduateships.com/wp-content/uploads/2020/04/Screenshot-2020-04-25-at-10.40.10.png"
-        alt=""
-      />
+      <!-- use iframe to preview the cv -->
+      @if(generatedCv$ | async) {
+        <iframe 
+        [srcdoc]="safeHtml" 
+        class="cv-preview-iframe"
+        frameborder="0">
+      </iframe>
+      } @else {
+        <h2>Loading...</h2>
+      }
     </div>
   </div>
 </div>

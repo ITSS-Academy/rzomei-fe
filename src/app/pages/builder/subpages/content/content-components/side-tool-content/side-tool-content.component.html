@@ -28,7 +28,7 @@
   } -->
 
   @if (sectionTemplates.length > 0) { 
-    @for (block of sectionTemplates; track block.id) {
+    @for (block of sectionTemplates; track $index) {
       <div class="tool-block">
         <mat-card class="tool-card" appearance="outlined">
           <div class="tool-content">
@@ -38,7 +38,7 @@
             @if (!isCollapsed) {
               <div class="tool-info">
                 <div class="tool-title">{{ block.title }}</div>
-                <div class="tool-desc">{{ block.desc }}</div>
+                <div class="tool-desc">{{ block.description }}</div>
               </div>
               <button mat-icon-button (click)="addBlock(block)">
                 <mat-icon>add</mat-icon>

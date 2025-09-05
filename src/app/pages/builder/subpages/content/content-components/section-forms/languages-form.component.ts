@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { CVSection } from '../../services/cv-sections.service';
-import { CvSectionsDataService } from '../../services/cv-sections-data.service';
+import { Language } from '../../../../../../models/cv-block.model';
 
 @Component({
   selector: 'app-languages-form',
@@ -62,11 +61,11 @@ import { CvSectionsDataService } from '../../services/cv-sections-data.service';
   styleUrls: ['./section-forms.scss']
 })
 export class LanguagesFormComponent {
-  @Input() section!: CVSection;
+  @Input() section!: Language;
   @Input() data: any = {};
   @Output() dataChange = new EventEmitter<any>();
 
-  constructor(private cvSectionsDataService: CvSectionsDataService) {}
+  constructor() {}
 
   updateData(field: string, event: Event | any): void {
     let value: any;
@@ -80,11 +79,5 @@ export class LanguagesFormComponent {
     const updatedData = { ...this.data, [field]: value };
     this.dataChange.emit(updatedData);
     
-    // Sử dụng section.instanceId để phân biệt các language sections
-    this.cvSectionsDataService.updateSectionData(
-      this.section.instanceId || this.section.id, 
-      'languages', 
-      updatedData
-    );
   }
 }

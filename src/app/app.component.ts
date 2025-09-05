@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { AuthState } from './ngrx/auth/auth.state';
 import { Store } from '@ngrx/store';
 import { Auth, onAuthStateChanged } from '@angular/fire/auth';
@@ -7,6 +7,7 @@ import { clearAuth, storeAuth } from './ngrx/auth/auth.actions';
 import { Observable } from 'rxjs';
 import { AuthModel } from './models/auth.model';
 import { MaterialModule } from './shared/material/material.module';
+import { CvService } from './services/cv.service';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, MaterialModule],
@@ -17,7 +18,8 @@ export class AppComponent {
   title = 'rzomie-fe';
   auth$!: Observable<AuthModel | null>;
 
-  constructor(private store: Store<{ auth: AuthState }>, private auth: Auth, private route: Router) {
+  constructor(private store: Store<{ auth: AuthState }>, private auth: Auth) {
+    // this.cvService.generateCv({});
     this.auth$ = this.store.select('auth', "authInfo");
     onAuthStateChanged(this.auth, async (user) => {
       if (user) {

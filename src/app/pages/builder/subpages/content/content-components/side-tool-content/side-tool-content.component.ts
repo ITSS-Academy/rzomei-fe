@@ -1,14 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MaterialModule } from '../../../../../../shared/material/material.module';
-import {
-  CvSectionsService,
-  CVSection,
-} from '../../services/cv-sections.service';
 
 import * as CvSectionsActions from '../../../../../../ngrx/cv-section/cv-section.actions';
 import { CvSectionState } from '../../../../../../ngrx/cv-section/cv-section.state';
 import { Store } from '@ngrx/store';
-import { PersonalFormComponent } from '../section-forms/personal-form.component';
+import { CVBlockForRendering } from '../../../../../../models/cv-block.model';
 @Component({
   selector: 'app-side-tool-content',
   imports: [MaterialModule],
@@ -19,130 +15,139 @@ export class SideToolContentComponent {
   isCollapsed = false;
 
   constructor(
-    private cvSectionsService: CvSectionsService,
     private store: Store<{cvSections: CvSectionState}>
   ) {}
-  sectionTemplates: CVSection[] = [
+  sectionTemplates: CVBlockForRendering[] = [
     {
-      id: 'personal',
+      type: 'personalInfo',
       icon: 'person',
       title: 'Thông tin cá nhân',
-      desc: 'Thông tin liên lạc cơ bản',
-      type: 'personal',
-      isActive: true, // Luôn có sẵn
-      order: 1,
-      canDuplicate: true // Có thể có nhiều thông tin cá nhân
+      description: 'Thông tin cá nhân của bạn',
+      data: {}
+      
     },
     {
-      id: 'education',
+      type: 'education',
       icon: 'school',
       title: 'Học vấn',
-      desc: 'Nền tảng học thuật và bằng cấp',
-      type: 'education',
-      isActive: false,
-      order: 2,
-      canDuplicate: true // Có thể có nhiều bằng cấp
+      description: 'Thông tin về quá trình học tập của bạn',
+      data: {}
     },
     {
-      id: 'experience',
+      type: 'experience',
       icon: 'work',
       title: 'Kinh nghiệm làm việc',
-      desc: 'Lịch sử công việc chuyên môn',
-      type: 'experience',
-      isActive: false,
-      order: 3,
-      canDuplicate: true // Có thể có nhiều công việc
+      description: 'Thông tin về kinh nghiệm làm việc của bạn',
+      data: {}
     },
     {
-      id: 'skills',
-      icon: 'psychology',
-      title: 'Kỹ năng',
-      desc: 'Kỹ năng kỹ thuật và mềm',
       type: 'skills',
-      isActive: false,
-      order: 4,
-      canDuplicate: true // Có thể có nhiều kỹ năng
+      icon: 'star',
+      title: 'Kỹ năng',
+      description: 'Thông tin về các kỹ năng của bạn',
+      data: {}
     },
     {
-      id: 'projects',
+      type: 'projects',
       icon: 'assignment',
       title: 'Dự án',
-      desc: 'Các dự án và thành tựu',
-      type: 'projects',
-      isActive: false,
-      order: 5,
-      canDuplicate: true // Có thể có nhiều dự án
+      description: 'Thông tin về các dự án bạn đã tham gia',
+      data: {}
     },
+    // {
+    //   type: 'awards',
+    //   icon: 'emoji_events',
+    //   title: 'Giải thưởng',
+    //   description: 'Thông tin về các giải thưởng bạn đã nhận',
+    //   data: {}
+    // },
     {
-      id: 'certificates',
-      icon: 'emoji_events',
-      title: 'Chứng chỉ',
-      desc: 'Thành tựu và chứng chỉ',
-      type: 'certificates',
-      isActive: false,
-      order: 6,
-      canDuplicate: true // Có thể có nhiều chứng chỉ
-    },
-    {
-      id: 'languages',
+      type: 'languages',
       icon: 'language',
       title: 'Ngôn ngữ',
-      desc: 'Ngôn ngữ bạn nói và trình độ',
-      type: 'languages',
-      isActive: false,
-      order: 7,
-      canDuplicate: true // Có thể có nhiều ngôn ngữ
-    }
+      description: 'Thông tin về các ngôn ngữ bạn biết',
+      data: {}
+    },
+    // {
+    //   type: 'interests',
+    //   icon: 'favorite',
+    //   title: 'Sở thích',
+    //   description: 'Thông tin về các sở thích của bạn',
+    //   data: {}
+    // },
+    // {
+    //   type: 'courses',
+    //   icon: 'school',
+    //   title: 'Khóa học',
+    //   description: 'Thông tin về các khóa học bạn đã tham gia',
+    //   data: {}
+    // },
+    // {
+    //   type: 'organizations',
+    //   icon: 'business',
+    //   title: 'Tổ chức',
+    //   description: 'Thông tin về các tổ chức bạn đã tham gia',
+    //   data: {}
+    // },
+    // {
+    //   type: 'publications',
+    //   icon: 'article',
+    //   title: 'Công bố',
+    //   description: 'Thông tin về các công bố của bạn',
+    //   data: {}
+    // },
+    // {
+    //   type: 'references',
+    //   icon: 'people',
+    //   title: 'Người tham khảo',
+    //   description: 'Thông tin về các người tham khảo của bạn',
+    //   data: {}
+    // },
+    // {
+    //   type: 'certifications',
+    //   icon: 'verified',
+    //   title: 'Chứng chỉ',
+    //   description: 'Thông tin về các chứng chỉ bạn đã đạt được',
+    //   data: {}
+    // },
+    // {
+    //   type: 'declaration',
+    //   icon: 'description',
+    //   title: 'Tuyên bố',
+    //   description: 'Thông tin về tuyên bố của bạn',
+    //   data: {}
+    // },
+    // {
+    //   type: 'customSections',
+    //   icon: 'note',
+    //   title: 'Phần tùy chỉnh',
+    //   description: 'Thông tin về các phần tùy chỉnh của bạn',
+    //   data: {}
+    // }
   ];
 
-  // ngOnInit() {
-  //   // Lấy các blocks có thể thêm (chưa active)
-  //   this.cvSectionsService.sections$.subscribe((sections) => {
-  //     this.availableBlocks = this.cvSectionsService.getAvailableSections();
-  //     this.currentSections = sections.filter((s) => s.isActive);
-  //   });
-  // }
 
-  // toggleSidebar() {
-  //   this.isCollapsed = !this.isCollapsed;
-  // }
 
-  // // Thêm block vào CV
-  addBlock(section: any) {
-    switch (section.type) {
-      case 'personal':
-        this.store.dispatch(CvSectionsActions.addCvPersonalSection({ section: {
-          type: section.type,
-          personalInfo: {
-            name: '',
-            title: '',
-            email: '',
-            phone: '',
-            address: '',
-            website: '',
-            linkedin: '',
-            github: '',
-            photoUrl: '',
-            summary: '',
-          },
-        } }));
-        break;
-      case 'education':
-        this.store.dispatch(CvSectionsActions.addCvEducationSections({ section: {
-          type: section.type,
-          education: [
-            {
-               "degree": "Master of Software Engineering",
-              "institution": "FPT University",
-              "location": "Hà Nội, Việt Nam",
-              "startDate": "2018-09",
-              "gpa": "3.9/4.0",
-              "description": "Specialized in Advanced Software Architecture and AI/ML applications. Thesis: 'Microservices Architecture for Large-Scale Web Applications'."
-            }
-          ]
-        } }));
-        break;
-    }
+  // Thêm block vào CV
+  addBlock(section: CVBlockForRendering) {
+    this.store.dispatch(CvSectionsActions.addCvSection({ 
+      section: section.data,
+      sectionForRender: {
+        type: section.type,
+        icon: section.icon,
+        title: section.title,
+        description: section.description,
+      }, 
+      sectionType: section.type}));
   }
 
 }
+function uuidv4(): string {
+  // Generates a RFC4122 version 4 UUID
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
