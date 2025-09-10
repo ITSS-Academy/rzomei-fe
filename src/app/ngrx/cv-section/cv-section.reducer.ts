@@ -18,7 +18,9 @@ const initialState: CvSectionState = {
   isUpdateSectionLoading: false,
   updateSectionError: undefined,
   isExporting: false,
-  exportingError: undefined
+  exportingError: undefined,
+  exportSuccess: false,
+  cvBlob: undefined
 };
 
 export const cvSectionReducer = createReducer(
@@ -317,15 +319,19 @@ export const cvSectionReducer = createReducer(
     return <CvSectionState>{
       ...state,
       isExporting: true,
+      cvBlob: null,
+      exportSuccess: false,
       exportingError: null,
     };
   }),
   
-  on(CvSectionActions.exportCvSuccess, (state, { type }) => {
+  on(CvSectionActions.exportCvSuccess, (state, { type, blob }) => {
     console.log(type);
     return <CvSectionState>{
       ...state,
       isExporting: false,
+      cvBlob: blob,
+      exportSuccess: true,
       exportingError: null,
     };
   }),
@@ -335,7 +341,19 @@ export const cvSectionReducer = createReducer(
     return <CvSectionState>{
       ...state,
       isExporting: false,
+      cvBlob: null,
+      exportSuccess: false,
       exportingError: error,
+    };
+  }),
+
+  on(CvSectionActions.clearCvBlob, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      cvBlob: null,
+      exportSuccess: false,
+      exportingError: null,
     };
   })
 );

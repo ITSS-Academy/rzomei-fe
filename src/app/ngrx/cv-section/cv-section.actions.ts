@@ -24,6 +24,7 @@ export const updateCvByIdSuccess = createAction('[CV Section] Update CV By Id Su
 export const updateCvByIdFailure = createAction('[CV Section] Update CV By Id Failure', props<{ error: any }>());
 
 export const exportCv = createAction('[CV Section] Export CV', props<{ data: any }>());
-export const exportCvSuccess = createAction('[CV Section] Export CV Success');
+export const clearCvBlob = createAction('[CV Section] Clear CV Blob');
+export const exportCvSuccess = createAction('[CV Section] Export CV Success', props<{ blob: any }>());
 export const exportCvFailure = createAction('[CV Section] Export CV Failure', props<{ error: any }>());
 

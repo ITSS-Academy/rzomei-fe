@@ -18,5 +18,7 @@ export interface CvSectionState {
     updateSectionError: any;
 
     isExporting: boolean;
+    cvBlob: any;
+    exportSuccess: boolean;
     exportingError: any;
 }

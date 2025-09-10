@@ -80,7 +80,7 @@ export const exportCv$ = createEffect(
       ofType(CvSectionActions.exportCv),
       exhaustMap((action) =>
         cvService.exportCv(action.data).pipe(
-          map(() => CvSectionActions.exportCvSuccess()),
+          map((blob) => CvSectionActions.exportCvSuccess({ blob })),
           catchError((error: { message: string }) =>
             of(CvSectionActions.exportCvFailure({ error: error.message }))
           )
