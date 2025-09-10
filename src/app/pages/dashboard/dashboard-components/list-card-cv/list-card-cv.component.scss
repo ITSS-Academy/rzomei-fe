@@ -1,13 +1,23 @@
 .list-cv-card {
-  background: var(--mat-sys-surface-container-lowest, #fff);
-  border: 1px solid var(--mat-sys-outline-variant, #c7c5d0);
-  border-radius: 16px;
-  transition: all 0.2s ease-in-out;
-  font-family: var(--mat-sys-plain-font-family, 'Roboto', Arial, sans-serif);
+  border-radius: 20px !important;
+  background-color: var(--mat-sys-on-primary) !important;
+  box-shadow: 0px 5px 15px 0px rgba(218, 226, 249, 1) !important;
+  padding: 0 !important;
+  border: none !important;
+  font-family: var(--mat-sys-plain-font-family, "Roboto", Arial, sans-serif);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 
   &:hover {
-    border-color: var(--mat-sys-primary, #405f90);
-    box-shadow: 0 2px 8px rgba(64, 95, 144, 0.12);
+    transform: translateY(-8px);
+    box-shadow: 0px 15px 30px 0px rgba(218, 226, 249, 0.4) !important;
+
+    .cv-card__preview img {
+      transform: scale(1.05);
+    }
+
+    .cv-card__title {
+      color: var(--mat-sys-primary, #405f90) !important;
+    }
   }
 
   &__content {
@@ -111,7 +121,7 @@
     .more-btn {
       width: 40px;
       height: 40px;
-      
+
       mat-icon {
         font-size: 20px;
       }

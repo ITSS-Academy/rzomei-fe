@@ -22,3 +22,54 @@ export const genCv$ = createEffect(
   },
   { functional: true }
 );
+
+export const getAllCvs$ = createEffect(
+  (actions$ = inject(Actions), cvService = inject(CvService)) => {
+    return actions$.pipe(
+      ofType(CvSectionActions.getAllCvs),
+      exhaustMap(() =>
+        cvService.getAllCvs().pipe(
+          map((data) => CvSectionActions.getAllCvsSuccess({ data })),
+          catchError((error: { message: string }) =>
+            of(CvSectionActions.getAllCvsFailure({ error: error.message }))
+          )
+        )
+      )
+    );
+  },
+  { functional: true }
+);
+
+export const getCvById$ = createEffect(
+  (actions$ = inject(Actions), cvService = inject(CvService)) => {
+    return actions$.pipe(
+      ofType(CvSectionActions.getCvById),
+      exhaustMap((action) =>
+        cvService.getCvById(action.id).pipe(
+          map((data) => CvSectionActions.getCvByIdSuccess({ data })),
+          catchError((error: { message: string }) =>
+            of(CvSectionActions.getCvByIdFailure({ error: error.message }))
+          )
+        )
+      )
+    );
+  },
+  { functional: true }
+);
+
+export const updateCvById$ = createEffect(
+  (actions$ = inject(Actions), cvService = inject(CvService)) => {
+    return actions$.pipe(
+      ofType(CvSectionActions.updateCvById),
+      exhaustMap((action) =>
+        cvService.updateCvById(action.id, action.data).pipe(
+          map(() => CvSectionActions.updateCvByIdSuccess()),
+          catchError((error: { message: string }) =>
+            of(CvSectionActions.updateCvByIdFailure({ error: error.message }))
+          )
+        )
+      )
+    );
+  },
+  { functional: true }
+);

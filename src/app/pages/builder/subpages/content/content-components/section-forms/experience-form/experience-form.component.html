@@ -1,0 +1,44 @@
+<mat-expansion-panel class="cv-section-panel">
+  <mat-expansion-panel-header class="section-header">
+    <mat-panel-title class="panel-title">
+      <div class="title-content">
+        <mat-icon class="section-icon">work</mat-icon>
+        <span class="section-name">Kinh nghiệm</span>
+      </div>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <!-- Panel Content -->
+  <div class="panel-content">
+    <div class="experience-forms-container">
+      <!-- Experience Forms List -->
+      <div class="forms-list">
+        <app-experience-form-edit
+          *ngFor="let experience of experienceForms; let i = index"
+          [experienceData]="experience"
+          [isReadOnly]="false"
+          [forceCollapse]="
+            currentEditingIndex !== null && currentEditingIndex !== i
+          "
+          (formChange)="updateForm(i, $event)"
+          (deleteForm)="deleteForm(i)"
+          (requestEdit)="onFormExpanded(i)"
+          (editToggle)="$event ? onFormExpanded(i) : onFormCollapsed(i)"
+          class="form-item"
+        ></app-experience-form-edit>
+      </div>
+      <div class="button-edit">
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="addForm()"
+          class="add-form-btn"
+          matTooltip="Thêm kinh nghiệm mới"
+        >
+          <mat-icon>add</mat-icon>
+          Thêm kinh nghiệm
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-expansion-panel>

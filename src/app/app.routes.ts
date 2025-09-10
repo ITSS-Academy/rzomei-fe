@@ -11,14 +11,9 @@ export const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: 'builder',
+    path: 'builder/:id',
     component: BuilderComponent,
     children: [
-      {
-        path: '',
-        redirectTo: 'content',
-        pathMatch: 'full', // Đảm bảo khớp toàn bộ đường dẫn
-      },
       {
         path: 'content',
         component: ContentComponent,
@@ -37,5 +32,10 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+  },
+  {
+    path: '**',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
   },
 ];

@@ -1,0 +1,44 @@
+<mat-expansion-panel class="cv-section-panel">
+  <mat-expansion-panel-header class="section-header">
+    <mat-panel-title class="panel-title">
+      <div class="title-content">
+        <mat-icon class="section-icon">military_tech</mat-icon>
+        <span class="section-name">Giải thưởng</span>
+      </div>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <!-- Panel Content -->
+  <div class="panel-content">
+    <div class="experience-forms-container">
+      <!-- Award Forms List -->
+      <div class="forms-list">
+        <app-award-form-edit
+          *ngFor="let award of awardForms; let i = index"
+          [awardData]="award"
+          [isReadOnly]="false"
+          [forceCollapse]="
+            currentEditingIndex !== null && currentEditingIndex !== i
+          "
+          (formChange)="updateForm(i, $event)"
+          (deleteForm)="deleteForm(i)"
+          (requestEdit)="onFormExpanded(i)"
+          (editToggle)="$event ? onFormExpanded(i) : onFormCollapsed(i)"
+          class="form-item"
+        ></app-award-form-edit>
+      </div>
+      <div class="button-edit">
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="addForm()"
+          class="add-form-btn"
+          matTooltip="Thêm giải thưởng/chứng nhận mới"
+        >
+          <mat-icon>add</mat-icon>
+          Thêm giải thưởng
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-expansion-panel>

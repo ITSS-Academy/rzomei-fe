@@ -1,10 +1,19 @@
 import { CVBlock } from "../../models/cv-block.model";
 
 export interface CvSectionState {
-    sections: CVBlock;
-    sectionsForRendering: any[];
+    sections: CVBlock | null;
 
     isGenerating: boolean;
     generatingError: any;
     generatedCv: any;
+
+    isGetAllCvsLoading: boolean;
+    getAllCvsError: any;
+    allCvs: any[];
+
+    isGetSectionLoading: boolean;
+    getSectionError: any;
+
+    isUpdateSectionLoading: boolean;
+    updateSectionError: any;
 }

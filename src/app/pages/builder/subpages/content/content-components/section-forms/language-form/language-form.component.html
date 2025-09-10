@@ -1,0 +1,44 @@
+<mat-expansion-panel class="cv-section-panel">
+  <mat-expansion-panel-header class="section-header">
+    <mat-panel-title class="panel-title">
+      <div class="title-content">
+        <mat-icon class="section-icon">language</mat-icon>
+        <span class="section-name">Ngôn ngữ</span>
+      </div>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <!-- Panel Content -->
+  <div class="panel-content">
+    <div class="experience-forms-container">
+      <!-- Language Forms List -->
+      <div class="forms-list">
+        <app-language-form-edit
+          *ngFor="let language of languageForms; let i = index"
+          [languageData]="language"
+          [isReadOnly]="false"
+          [forceCollapse]="
+            currentEditingIndex !== null && currentEditingIndex !== i
+          "
+          (formChange)="updateForm(i, $event)"
+          (deleteForm)="deleteForm(i)"
+          (requestEdit)="onFormExpanded(i)"
+          (editToggle)="$event ? onFormExpanded(i) : onFormCollapsed(i)"
+          class="form-item"
+        ></app-language-form-edit>
+      </div>
+      <div class="button-edit">
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="addForm()"
+          class="add-form-btn"
+          matTooltip="Thêm ngôn ngữ mới"
+        >
+          <mat-icon>add</mat-icon>
+          Thêm ngôn ngữ
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-expansion-panel>

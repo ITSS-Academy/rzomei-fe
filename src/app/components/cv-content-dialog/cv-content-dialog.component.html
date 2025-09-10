@@ -1,0 +1,35 @@
+<div mat-dialog-title class="dialog-header">
+  <h2 class="dialog-title">Thêm Nội Dung</h2>
+</div>
+
+<mat-dialog-content class="dialog-container">
+  <!-- Content Grid -->
+  <div class="content-grid">
+    @for (contentType of contentTypes; track contentType.value) {
+    <mat-card
+      class="content-card"
+      [class.custom-card]="contentType.value === 'custom'"
+      (click)="onSelectContent(contentType)"
+      mat-ripple
+    >
+      <mat-card-content class="card-layout">
+        <div class="card-icon">
+          <mat-icon>{{ contentType.icon }}</mat-icon>
+        </div>
+        <div class="card-text">
+          <mat-card-title class="card-title">{{
+            contentType.title
+          }}</mat-card-title>
+          <mat-card-subtitle class="card-description">{{
+            contentType.description
+          }}</mat-card-subtitle>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    }
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button mat-dialog-close>Đóng</button>
+</mat-dialog-actions>

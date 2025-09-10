@@ -1,0 +1,244 @@
+// cv-content-dialog.component.scss
+.dialog-header {
+  display: flex;
+  align-items: center;
+  padding: 24px 32px 16px 32px;
+  background: var(--mat-sys-surface);
+  //   border-bottom: 1px solid var(--mat-sys-outline-variant);
+
+  .dialog-title {
+    font: var(--mat-sys-headline-medium);
+    font-weight: var(--mat-sys-medium-font-weight);
+    color: var(--mat-sys-on-surface);
+    margin: 0;
+    letter-spacing: var(--mat-sys-headline-medium-tracking);
+  }
+}
+
+.dialog-container {
+  max-width: 1000px;
+  width: 100%;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: var(--mat-sys-surface);
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    padding: 24px 32px;
+    max-height: 500px;
+    overflow-y: auto;
+    // border-radius: 50px;
+    // background-color: var(--mat-sys-on-primary);
+
+    .content-card {
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: var(--mat-sys-corner-medium) !important;
+      background: var(--mat-sys-surface-container-low);
+      box-shadow: 0px 5px 15px 0px rgba(218, 226, 249, 1);
+      //   border: 1px solid var(--mat-sys-outline-variant);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--mat-sys-level2);
+        background: var(--mat-sys-surface-container);
+        border-color: var(--mat-sys-outline);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--mat-sys-primary);
+        outline-offset: 2px;
+      }
+
+      &.custom-card {
+        border: 2px dashed var(--mat-sys-outline-variant);
+        background: var(--mat-sys-surface-container-lowest);
+
+        &:hover {
+          border-color: var(--mat-sys-primary);
+          background: var(--mat-sys-primary-container);
+
+          .card-text .card-title {
+            color: var(--mat-sys-on-primary-container);
+          }
+
+          .card-text .card-description {
+            color: var(--mat-sys-on-primary-container);
+            opacity: 0.8;
+          }
+        }
+      }
+
+      .card-layout {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 20px !important;
+
+        .card-icon {
+          flex-shrink: 0;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: var(--mat-sys-primary);
+          border-radius: var(--mat-sys-corner-small);
+
+          mat-icon {
+            color: var(--mat-sys-on-primary);
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+          }
+        }
+
+        .card-text {
+          flex: 1;
+          min-width: 0; // Prevents flex item overflow
+
+          .card-title {
+            font: var(--mat-sys-title-medium) !important;
+            font-weight: var(--mat-sys-medium-font-weight) !important;
+            color: var(--mat-sys-on-surface) !important;
+            letter-spacing: var(--mat-sys-title-medium-tracking) !important;
+            line-height: var(--mat-sys-title-medium-line-height) !important;
+          }
+
+          .card-description {
+            font: var(--mat-sys-body-medium) !important;
+            color: var(--mat-sys-on-surface-variant) !important;
+            margin: 0 !important;
+            letter-spacing: var(--mat-sys-body-medium-tracking) !important;
+            line-height: var(--mat-sys-body-medium-line-height) !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+.dialog-actions {
+  padding: 16px 32px !important;
+  background: var(--mat-sys-surface);
+  border-top: 1px solid var(--mat-sys-outline-variant);
+
+  button {
+    font: var(--mat-sys-label-large);
+    font-weight: var(--mat-sys-medium-font-weight);
+    letter-spacing: var(--mat-sys-label-large-tracking);
+  }
+}
+
+// Material 3 scrollbar styling
+.content-grid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content-grid::-webkit-scrollbar-track {
+  background: var(--mat-sys-surface-variant);
+  border-radius: var(--mat-sys-corner-extra-small);
+}
+
+.content-grid::-webkit-scrollbar-thumb {
+  background: var(--mat-sys-outline);
+  border-radius: var(--mat-sys-corner-extra-small);
+  border: 1px solid var(--mat-sys-surface-variant);
+
+  &:hover {
+    background: var(--mat-sys-on-surface-variant);
+  }
+
+  &:active {
+    background: var(--mat-sys-on-surface);
+  }
+}
+
+// Dialog container styling cho Material 3
+::ng-deep .cv-content-dialog {
+  .mat-mdc-dialog-container {
+    .mdc-dialog__surface {
+      border-radius: var(--mat-sys-corner-extra-large) !important;
+      background: var(--mat-sys-surface-container-high);
+      box-shadow: var(--mat-sys-level3);
+    }
+  }
+
+  // State layer effects cho ripple
+  .mat-ripple-element {
+    background-color: color-mix(
+      in srgb,
+      var(--mat-sys-on-surface) var(--mat-sys-pressed-state-layer-opacity),
+      transparent
+    );
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .dialog-container {
+    .content-grid {
+      grid-template-columns: 1fr;
+      padding: 16px 24px;
+      gap: 12px;
+
+      .content-card {
+        .card-layout {
+          padding: 16px !important;
+          gap: 12px;
+
+          .card-icon {
+            width: 36px;
+            height: 36px;
+
+            mat-icon {
+              font-size: 18px;
+              width: 18px;
+              height: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .dialog-header {
+    padding: 16px 24px 12px 24px;
+
+    .dialog-title {
+      font: var(--mat-sys-headline-small);
+    }
+  }
+
+  .dialog-actions {
+    padding: 12px 24px !important;
+  }
+}
+
+// Focus management
+.content-card {
+  &:focus {
+    outline: 2px solid var(--mat-sys-primary);
+    outline-offset: 2px;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+// Animation for state changes
+@keyframes elevation-rise {
+  from {
+    box-shadow: var(--mat-sys-level1);
+  }
+  to {
+    box-shadow: var(--mat-sys-level2);
+  }
+}
+
+.content-card:hover {
+  animation: elevation-rise 0.2s ease-out forwards;
+}

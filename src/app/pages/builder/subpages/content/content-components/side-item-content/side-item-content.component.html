@@ -1,3 +1,41 @@
 <div id="blocks-container">
-    <app-personal-form></app-personal-form>
+  @for (item of (cvSections$ | async) | keyvalue | sectionOrder; track item.key)
+  { @switch (item.key) { @case ('personalInfo') {
+  <app-personal-form class="content-block"></app-personal-form>
+  } @case ('education') { @if (hasData(item.value)) {
+  <app-education-form class="content-block"></app-education-form>
+  } } @case ('experience') { @if (hasData(item.value)) {
+  <app-experience-form class="content-block"></app-experience-form>
+  } } @case ('skills') { @if (hasData(item.value)) {
+  <app-skill-form class="content-block"></app-skill-form>
+  } } @case ('projects') { @if (hasData(item.value)) {
+  <app-project-form class="content-block"></app-project-form>
+  } } @case ('awards') { @if (hasData(item.value)) {
+  <app-award-form class="content-block"></app-award-form>
+  } } @case ('languages') { @if (hasData(item.value)) {
+  <app-language-form class="content-block"></app-language-form>
+  } } @case ('interests') { @if (hasData(item.value)) {
+  <app-interest-form class="content-block"></app-interest-form>
+  } } @case ('courses') { @if (hasData(item.value)) {
+  <app-course-form class="content-block"></app-course-form>
+  } } @case ('organizations') { @if (hasData(item.value)) {
+  <app-organization-form class="content-block"></app-organization-form>
+  } } @case ('certifications') { @if (hasData(item.value)) {
+  <app-certification-form class="content-block"></app-certification-form>
+  } } @case ('references') { @if (hasData(item.value)) {
+  <app-reference-form class="content-block"></app-reference-form>
+  } } @case ('publications') { @if (hasData(item.value)) {
+  <app-publication-form class="content-block"></app-publication-form>
+  } } @case ('declaration') { @if (hasData(item.value)) {
+  <app-declaration-form class="content-block"></app-declaration-form>
+  }
+  <button
+    mat-fab
+    extended
+    class="add-content-btn"
+    (click)="openAddContentDialog()"
+  >
+    <mat-icon>add</mat-icon>
+    Add Content</button
+  >} } }
 </div>

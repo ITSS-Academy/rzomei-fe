@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Route, Router, RouterOutlet } from '@angular/router';
 import { AuthState } from './ngrx/auth/auth.state';
 import { Store } from '@ngrx/store';
 import { Auth, onAuthStateChanged } from '@angular/fire/auth';
@@ -12,28 +12,34 @@ import { CvService } from './services/cv.service';
   selector: 'app-root',
   imports: [RouterOutlet, MaterialModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'rzomie-fe';
   auth$!: Observable<AuthModel | null>;
 
-  constructor(private store: Store<{ auth: AuthState }>, private auth: Auth) {
+  constructor(private store: Store<{ auth: AuthState }>, private auth: Auth, private router: Router) {
     // this.cvService.generateCv({});
-    this.auth$ = this.store.select('auth', "authInfo");
+    this.auth$ = this.store.select('auth', 'authInfo');
     onAuthStateChanged(this.auth, async (user) => {
       if (user) {
         const token = await user.getIdToken();
+        console.log(token);
         const { email, displayName, photoURL } = user;
-        this.store.dispatch(storeAuth(
-          { 
-            authInfo: { email: email!, name: displayName!, photoURL: photoURL! },
-            token: token 
-          }
-        ))
+        this.store.dispatch(
+          storeAuth({
+            authInfo: {
+              email: email!,
+              name: displayName!,
+              photoURL: photoURL!,
+            },
+            token: token,
+          })
+        );
       } else {
         this.store.dispatch(clearAuth());
+        this.router.navigate(['/login']).then(() => {});
       }
-    })
+    });
   }
 }
