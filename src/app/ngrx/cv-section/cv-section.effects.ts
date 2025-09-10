@@ -1,5 +1,5 @@
 import { inject } from '@angular/core';
-import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+import { catchError, exhaustMap, map, of, switchMap, tap } from 'rxjs';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { CvService } from '../../services/cv.service';
 
@@ -27,7 +27,7 @@ export const getAllCvs$ = createEffect(
   (actions$ = inject(Actions), cvService = inject(CvService)) => {
     return actions$.pipe(
       ofType(CvSectionActions.getAllCvs),
-      exhaustMap(() =>
+      switchMap(() =>
         cvService.getAllCvs().pipe(
           map((data) => CvSectionActions.getAllCvsSuccess({ data })),
           catchError((error: { message: string }) =>
@@ -44,7 +44,7 @@ export const getCvById$ = createEffect(
   (actions$ = inject(Actions), cvService = inject(CvService)) => {
     return actions$.pipe(
       ofType(CvSectionActions.getCvById),
-      exhaustMap((action) =>
+      switchMap((action) =>
         cvService.getCvById(action.id).pipe(
           map((data) => CvSectionActions.getCvByIdSuccess({ data })),
           catchError((error: { message: string }) =>
@@ -61,11 +61,28 @@ export const updateCvById$ = createEffect(
   (actions$ = inject(Actions), cvService = inject(CvService)) => {
     return actions$.pipe(
       ofType(CvSectionActions.updateCvById),
-      exhaustMap((action) =>
+      switchMap((action) =>
         cvService.updateCvById(action.id, action.data).pipe(
           map(() => CvSectionActions.updateCvByIdSuccess()),
           catchError((error: { message: string }) =>
             of(CvSectionActions.updateCvByIdFailure({ error: error.message }))
+          )
+        )
+      )
+    );
+  },
+  { functional: true }
+);
+
+export const exportCv$ = createEffect(
+  (actions$ = inject(Actions), cvService = inject(CvService)) => {
+    return actions$.pipe(
+      ofType(CvSectionActions.exportCv),
+      exhaustMap((action) =>
+        cvService.exportCv(action.data).pipe(
+          map(() => CvSectionActions.exportCvSuccess()),
+          catchError((error: { message: string }) =>
+            of(CvSectionActions.exportCvFailure({ error: error.message }))
           )
         )
       )

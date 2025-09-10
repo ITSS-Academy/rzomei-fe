@@ -35,12 +35,6 @@ export class LanguageFormComponent implements OnInit, OnDestroy {
       this.cvSections$.subscribe((data) => {
         if (data && data.length > 0) {
           this.languageForms = [...data];
-          this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { languages: this.languageForms },
-            })
-          );
         } else {
           // Initialize with empty array if no data
           this.languageForms = [];
@@ -74,6 +68,12 @@ export class LanguageFormComponent implements OnInit, OnDestroy {
           data: updatedForms,
         })
       );
+      this.store.dispatch(
+            updateCvById({
+              id: this.id,
+              data: { languages: this.languageForms },
+            })
+          );
     }
   }
 

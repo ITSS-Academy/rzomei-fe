@@ -40,12 +40,6 @@ export class SkillFormComponent implements OnInit, OnDestroy {
       this.cvSections$.subscribe((data) => {
         if (data && data.length > 0) {
           this.skillForms = [...data];
-          this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { skills: this.skillForms },
-            })
-          );
         } else {
           // Initialize with empty array if no data
           this.skillForms = [];
@@ -79,6 +73,12 @@ export class SkillFormComponent implements OnInit, OnDestroy {
           data: updatedForms,
         })
       );
+                this.store.dispatch(
+            updateCvById({
+              id: this.id,
+              data: { skills: this.skillForms },
+            })
+          );
     }
   }
 

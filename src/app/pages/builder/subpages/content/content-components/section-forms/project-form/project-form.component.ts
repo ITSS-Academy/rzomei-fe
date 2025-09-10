@@ -35,12 +35,6 @@ export class ProjectFormComponent implements OnInit, OnDestroy {
       this.cvSections$.subscribe((data) => {
         if (data && data.length > 0) {
           this.projectForms = [...data];
-          this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { projects: this.projectForms },
-            })
-          );
         } else {
           // Initialize with empty array if no data
           this.projectForms = [];
@@ -74,6 +68,12 @@ export class ProjectFormComponent implements OnInit, OnDestroy {
         data: updatedForms,
       })
     );
+              this.store.dispatch(
+            updateCvById({
+              id: this.id,
+              data: { projects: this.projectForms },
+            })
+          );
   }
 
   deleteForm(index: number): void {

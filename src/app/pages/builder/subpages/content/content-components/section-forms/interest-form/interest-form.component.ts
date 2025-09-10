@@ -35,12 +35,6 @@ export class InterestFormComponent implements OnInit, OnDestroy {
       this.cvSections$.subscribe((interestData) => {
         if (interestData && interestData.length > 0) {
           this.interestForms = [...interestData];
-          this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { interests: this.interestForms },
-            })
-          );
         } else {
           // Initialize with empty array if no data
           this.interestForms = [];
@@ -59,6 +53,12 @@ export class InterestFormComponent implements OnInit, OnDestroy {
         data: updatedForms,
       })
     );
+    this.store.dispatch(
+            updateCvById({
+              id: this.id,
+              data: { interests: this.interestForms },
+            })
+          );
     // Set form mới này làm form đang edit (sau khi cập nhật giá trị)
     this.currentEditingIndex = updatedForms.length - 1;
   }

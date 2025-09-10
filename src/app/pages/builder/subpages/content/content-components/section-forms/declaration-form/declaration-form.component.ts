@@ -87,12 +87,6 @@ export class DeclarationFormComponent implements OnInit, OnDestroy {
             signature: declarationData.signature || '',
             id: declarationData.id || '',
           });
-          this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { declaration: this.declarationData },
-            })
-          );
         }
       })
     );
@@ -109,6 +103,12 @@ export class DeclarationFormComponent implements OnInit, OnDestroy {
         data: declarationInfo,
       })
     );
+    this.store.dispatch(
+            updateCvById({
+              id: this.id,
+              data: { declaration: this.declarationData },
+            })
+          );
   }
 
   ngOnDestroy(): void {

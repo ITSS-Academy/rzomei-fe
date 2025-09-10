@@ -16,7 +16,9 @@ const initialState: CvSectionState = {
   isGetSectionLoading: false,
   getSectionError: undefined,
   isUpdateSectionLoading: false,
-  updateSectionError: undefined
+  updateSectionError: undefined,
+  isExporting: false,
+  exportingError: undefined
 };
 
 export const cvSectionReducer = createReducer(
@@ -307,6 +309,33 @@ export const cvSectionReducer = createReducer(
       ...state,
       isUpdateSectionLoading: false,
       updateSectionError: error,
+    };
+  }),
+
+  on(CvSectionActions.exportCv, (state, { type }) => {
+    console.log(type);
+    return <CvSectionState>{
+      ...state,
+      isExporting: true,
+      exportingError: null,
+    };
+  }),
+  
+  on(CvSectionActions.exportCvSuccess, (state, { type }) => {
+    console.log(type);
+    return <CvSectionState>{
+      ...state,
+      isExporting: false,
+      exportingError: null,
+    };
+  }),
+  
+  on(CvSectionActions.exportCvFailure, (state, { type, error }) => {
+    console.log(type);
+    return <CvSectionState>{
+      ...state,
+      isExporting: false,
+      exportingError: error,
     };
   })
 );

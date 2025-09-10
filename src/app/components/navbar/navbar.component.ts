@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../../ngrx/auth/auth.state';
 import { CvSectionState } from '../../ngrx/cv-section/cv-section.state';
+import { CvService } from '../../services/cv.service';
 
 @Component({
   selector: 'app-navbar',
@@ -26,13 +27,14 @@ import { CvSectionState } from '../../ngrx/cv-section/cv-section.state';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit{
   id = '';
   AllCvs$!: Observable<any[] | null>;
+  currentCv$!: Observable<any | null>;
 
   constructor(
     private router: Router,
-    private store: Store<{ cvSections: CvSectionState; auth: AuthState }>
+    private store: Store<{ cvSections: CvSectionState; auth: AuthState }>,
   ) {
     // Initialize id from current URL
     const urlParts = this.router.url.split('/');
@@ -48,6 +50,9 @@ export class NavbarComponent {
         }
       }
     });
-    this.AllCvs$ = this.store.select('cvSections', 'allCvs');
+    this.currentCv$ = this.store.select('cvSections', 'generatedCv');
+  }
+  ngOnInit(): void {
+    
   }
 }

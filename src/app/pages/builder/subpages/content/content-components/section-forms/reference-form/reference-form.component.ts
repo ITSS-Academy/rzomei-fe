@@ -36,12 +36,6 @@ export class ReferenceFormComponent implements OnInit, OnDestroy {
       this.cvSections$.subscribe((referenceData) => {
         if (referenceData && referenceData.length > 0) {
           this.referenceForms = [...referenceData];
-          this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { references: this.referenceForms },
-            })
-          );
         } else {
           // Initialize with empty array if no data
           this.referenceForms = [];
@@ -75,6 +69,12 @@ export class ReferenceFormComponent implements OnInit, OnDestroy {
           data: updatedForms,
         })
       );
+                this.store.dispatch(
+            updateCvById({
+              id: this.id,
+              data: { references: this.referenceForms },
+            })
+          );
     }
   }
 

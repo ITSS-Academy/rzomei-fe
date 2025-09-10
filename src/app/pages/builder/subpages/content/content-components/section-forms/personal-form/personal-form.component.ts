@@ -80,10 +80,6 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
             github: personalInfo.github || '',
             avatar: personalInfo.avatar || '',
           });
-          this.store.dispatch(CvActions.updateCvById({ id: this.id, data: {
-            personalInfo: this.formGroup.value
-          } 
-        }));
         }
       })
     );
@@ -117,6 +113,10 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
 
   updateSection() {
     this.store.dispatch(CvActions.updateCvSection({ sectionType: 'personalInfo', data: this.formGroup.value }));
+    this.store.dispatch(CvActions.updateCvById({ id: this.id, data: {
+            personalInfo: this.formGroup.value
+          } 
+        }));
     this.toggleEditMode(); // Exit edit mode after saving
   }
 

@@ -26,4 +26,8 @@ export class CvService {
   updateCvById(id: number, data: any) {
     return this.http.put(`${this.baseEndpoint}/${id}`, data);
   }
+
+  exportCv(data: any){
+    return this.http.post(`${this.baseEndpoint}/export-pdf`, data, { responseType: 'blob' });
+  }
 }

@@ -36,12 +36,6 @@ export class PublicationFormComponent implements OnInit, OnDestroy {
       this.cvSections$.subscribe((publicationData) => {
         if (publicationData && publicationData.length > 0) {
           this.publicationForms = [...publicationData];
-          this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { publications: this.publicationForms },
-            })
-          );
         } else {
           // Initialize with empty array if no data
           this.publicationForms = [];
@@ -75,6 +69,12 @@ export class PublicationFormComponent implements OnInit, OnDestroy {
           data: updatedForms,
         })
       );
+                this.store.dispatch(
+            updateCvById({
+              id: this.id,
+              data: { publications: this.publicationForms },
+            })
+          );
     }
   }
 

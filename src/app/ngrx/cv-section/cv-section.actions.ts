@@ -23,3 +23,7 @@ export const updateCvById = createAction('[CV Section] Update CV By Id', props<{
 export const updateCvByIdSuccess = createAction('[CV Section] Update CV By Id Success');
 export const updateCvByIdFailure = createAction('[CV Section] Update CV By Id Failure', props<{ error: any }>());
 
+export const exportCv = createAction('[CV Section] Export CV', props<{ data: any }>());
+export const exportCvSuccess = createAction('[CV Section] Export CV Success');
+export const exportCvFailure = createAction('[CV Section] Export CV Failure', props<{ error: any }>());
+

@@ -16,4 +16,7 @@ export interface CvSectionState {
 
     isUpdateSectionLoading: boolean;
     updateSectionError: any;
+
+    isExporting: boolean;
+    exportingError: any;
 }

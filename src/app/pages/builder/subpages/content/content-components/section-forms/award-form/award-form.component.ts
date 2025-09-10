@@ -37,12 +37,6 @@ export class AwardFormComponent implements OnInit, OnDestroy {
       this.cvSections$.subscribe((data) => {
         if (data && data.length > 0) {
           this.awardForms = [...data];
-          this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { awards: this.awardForms },
-            })
-          );
         } else {
           // Initialize with empty array if no data
           this.awardForms = [];
@@ -76,6 +70,12 @@ export class AwardFormComponent implements OnInit, OnDestroy {
         data: updatedForms,
       })
     );
+    this.store.dispatch(
+            updateCvById({
+              id: this.id,
+              data: { awards: this.awardForms },
+            })
+          );
   }
 
   deleteForm(index: number): void {

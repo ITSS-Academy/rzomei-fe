@@ -41,12 +41,6 @@ export class ExperienceFormComponent implements OnInit, OnDestroy {
       this.cvSections$.subscribe((experienceData) => {
         if (experienceData && experienceData.length > 0) {
           this.experienceForms = [...experienceData];
-          this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { experience: this.experienceForms },
-            })
-          );
         } else {
           // Initialize with empty array if no data
           this.experienceForms = [];
@@ -65,6 +59,12 @@ export class ExperienceFormComponent implements OnInit, OnDestroy {
         data: updatedForms,
       })
     );
+    this.store.dispatch(
+            updateCvById({
+              id: this.id,
+              data: { experience: this.experienceForms },
+            })
+          );
     // Set form mới này làm form đang edit (sau khi cập nhật giá trị)
     this.currentEditingIndex = updatedForms.length - 1;
   }
