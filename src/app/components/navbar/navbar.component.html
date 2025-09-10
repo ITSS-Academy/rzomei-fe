@@ -10,10 +10,11 @@
         <mat-icon>apps</mat-icon>
         về Dashboard
       </button>
+      @if (id) {
       <button
         mat-button
         class="nav-item"
-        routerLink="/builder/content"
+        [routerLink]="['/builder', id, 'content']"
         routerLinkActive="active"
       >
         <mat-icon>description</mat-icon>
@@ -22,12 +23,13 @@
       <button
         mat-button
         class="nav-item"
-        routerLink="/builder/customize"
+        [routerLink]="['/builder', id, 'customize']"
         routerLinkActive="active"
       >
         <mat-icon>edit</mat-icon>
         Chỉnh sửa
       </button>
+      }
     </div>
     <div class="navbar-right">
       <button mat-flat-button color="accent" class="nav-item">

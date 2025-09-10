@@ -1,26 +1,39 @@
 import { Component } from '@angular/core';
 import { MaterialModule } from '../../../../shared/material/material.module';
+import { Observable } from 'rxjs';
+import { AuthModel } from '../../../../models/auth.model';
+import { Store } from '@ngrx/store';
+import { AuthState } from '../../../../ngrx/auth/auth.state';
+import { clearAuth } from '../../../../ngrx/auth/auth.actions';
+import { AsyncPipe } from '@angular/common';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MaterialModule],
+  imports: [MaterialModule, AsyncPipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  user = {
-    name: 'Văn Hữu Gia Cường',
-    // email: 'cuongdeptrai@gmail.com',
-    avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
-  };
+  currentUser$: Observable<AuthModel | null>;
 
-  changeLanguage() {
-    console.log('Language changed');
+  constructor(
+    private store: Store<{ auth: AuthState }>,
+    private router: Router
+  ) {
+    this.currentUser$ = this.store.select((state) => state.auth.authInfo);
+    this.currentUser$.subscribe((user) => {
+      console.log('User data:', user);
+      if (user) {
+        console.log('Photo URL:', user.photoURL);
+      }
+    });
   }
 
-  onLogoutClick() {
-    console.log('Logout clicked');
-    // Implement logout logic
+  logout() {
+    this.store.dispatch(clearAuth());
+    //redirect to login page
+    this.router.navigate(['/login']);
   }
 }

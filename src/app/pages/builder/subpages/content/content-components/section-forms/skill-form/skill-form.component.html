@@ -1,0 +1,43 @@
+<mat-expansion-panel class="cv-section-panel">
+  <mat-expansion-panel-header class="section-header">
+    <mat-panel-title class="panel-title">
+      <div class="title-content">
+        <mat-icon class="section-icon">psychology</mat-icon>
+        <span class="section-name">Kỹ năng</span>
+      </div>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <!-- Panel Content -->
+  <div class="panel-content">
+    <div class="experience-forms-container">
+      <!-- Experience Forms List -->
+      <div class="forms-list">
+        <app-skill-form-edit
+          *ngFor="let skills of skillForms; let i = index"
+          [skillData]="skills"
+          [forceCollapse]="
+            currentEditingIndex !== null && currentEditingIndex !== i
+          "
+          (formChange)="updateForm(i, $event)"
+          (deleteForm)="deleteForm(i)"
+          (requestEdit)="onFormExpanded(i)"
+          (editToggle)="$event ? onFormExpanded(i) : onFormCollapsed(i)"
+          class="form-item"
+        ></app-skill-form-edit>
+      </div>
+      <div class="button-edit">
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="addForm()"
+          class="add-form-btn"
+          matTooltip="Thêm kỹ năng mới"
+        >
+          <mat-icon>add</mat-icon>
+          Thêm kỹ năng
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-expansion-panel>

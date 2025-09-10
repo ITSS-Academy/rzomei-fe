@@ -4,9 +4,11 @@ import {Observable, Subscription} from 'rxjs';
 import {PersonalInfo} from '../../../../../../../models/cv-block.model';
 import {Store} from '@ngrx/store';
 import {CvSectionState} from '../../../../../../../ngrx/cv-section/cv-section.state';
-import {updateCvSection} from '../../../../../../../ngrx/cv-section/cv-section.actions';
+import * as CvActions from '../../../../../../../ngrx/cv-section/cv-section.actions';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { MaterialModule } from '../../../../../../../shared/material/material.module';
+import { AuthState } from '../../../../../../../ngrx/auth/auth.state';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-personal-form',
     imports: [
@@ -22,7 +24,9 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
 
   private subscription = new Subscription();
   cvSections$!: Observable<PersonalInfo | null>;
+  cvSectionUpdate$!: Observable<any>;
   isEditing = false; // Flag to control editing mode
+  id = 0
 
   // Form Controls
   nameFormControl = new FormControl('');
@@ -50,8 +54,12 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
     avatar: this.avatarFormControl
   });
 
-  constructor(private store: Store<{ cvSections: CvSectionState }>) {
-    this.cvSections$ = this.store.select(state => state.cvSections.sections.personalInfo);
+  constructor(private store: Store<{ cvSections: CvSectionState, auth: AuthState }>, 
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.cvSections$ = this.store.select(state => state.cvSections.sections!.personalInfo);
+    this.cvSectionUpdate$ = this.store.select(state => state.cvSections);
+    this.id = this.activatedRoute.parent?.snapshot.params['id'];
   }
 
   ngOnInit(): void {
@@ -72,6 +80,10 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
             github: personalInfo.github || '',
             avatar: personalInfo.avatar || '',
           });
+          this.store.dispatch(CvActions.updateCvById({ id: this.id, data: {
+            personalInfo: this.formGroup.value
+          } 
+        }));
         }
       })
     );
@@ -104,7 +116,7 @@ export class PersonalFormComponent implements OnInit, OnDestroy {
   }
 
   updateSection() {
-    this.store.dispatch(updateCvSection({ sectionType: 'personalInfo', data: this.formGroup.value }));
+    this.store.dispatch(CvActions.updateCvSection({ sectionType: 'personalInfo', data: this.formGroup.value }));
     this.toggleEditMode(); // Exit edit mode after saving
   }
 

@@ -1,0 +1,44 @@
+<mat-expansion-panel class="cv-section-panel">
+  <mat-expansion-panel-header class="section-header">
+    <mat-panel-title class="panel-title">
+      <div class="title-content">
+        <mat-icon class="section-icon">verified</mat-icon>
+        <span class="section-name">Chứng chỉ</span>
+      </div>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <!-- Panel Content -->
+  <div class="panel-content">
+    <div class="certification-forms-container">
+      <!-- Certification Forms List -->
+      <div class="forms-list">
+        <app-certification-form-edit
+          *ngFor="let certification of certificationForms; let i = index"
+          [certificationData]="certification"
+          [isReadOnly]="false"
+          [forceCollapse]="
+            currentEditingIndex !== null && currentEditingIndex !== i
+          "
+          (formChange)="updateForm(i, $event)"
+          (deleteForm)="deleteForm(i)"
+          (requestEdit)="onFormExpanded(i)"
+          (editToggle)="$event ? onFormExpanded(i) : onFormCollapsed(i)"
+          class="form-item"
+        ></app-certification-form-edit>
+      </div>
+      <div class="button-edit">
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="addForm()"
+          class="add-form-btn"
+          matTooltip="Thêm chứng chỉ mới"
+        >
+          <mat-icon>add</mat-icon>
+          Thêm chứng chỉ
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-expansion-panel>

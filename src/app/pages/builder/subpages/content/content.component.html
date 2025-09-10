@@ -1,1 +1,88 @@
+@if (isLoading$ | async) {
+<div class="skeleton-container">
+  <!-- Personal Info Skeleton -->
+  <div class="skeleton-block">
+    <ngx-skeleton-loader
+      count="1"
+      appearance="line"
+      [theme]="{
+        'border-radius': '12px',
+        height: '80px',
+        'margin-bottom': '16px',
+        background:
+          'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)'
+      }"
+    >
+    </ngx-skeleton-loader>
+
+    <!-- Form fields skeleton -->
+    <div class="skeleton-form-fields">
+      <ngx-skeleton-loader
+        count="3"
+        appearance="line"
+        [theme]="{
+          'border-radius': '8px',
+          height: '56px',
+          'margin-bottom': '12px',
+          background:
+            'linear-gradient(90deg, #fafafa 25%, #f0f0f0 50%, #fafafa 75%)'
+        }"
+      >
+      </ngx-skeleton-loader>
+    </div>
+  </div>
+
+  <!-- Other Sections Skeletons -->
+  @for (i of [1,2,3]; track i) {
+  <div class="skeleton-block">
+    <ngx-skeleton-loader
+      count="1"
+      appearance="line"
+      [theme]="{
+        'border-radius': '12px',
+        height: '70px',
+        'margin-bottom': '16px',
+        background:
+          'linear-gradient(90deg, #f8f8f8 25%, #e8e8e8 50%, #f8f8f8 75%)'
+      }"
+    >
+    </ngx-skeleton-loader>
+
+    <div class="skeleton-form-fields">
+      <ngx-skeleton-loader
+        count="2"
+        appearance="line"
+        [theme]="{
+          'border-radius': '8px',
+          height: '48px',
+          'margin-bottom': '10px',
+          background:
+            'linear-gradient(90deg, #fcfcfc 25%, #f4f4f4 50%, #fcfcfc 75%)'
+        }"
+      >
+      </ngx-skeleton-loader>
+    </div>
+  </div>
+  }
+
+  <!-- Add Button Skeleton -->
+  <div class="skeleton-add-button">
+    <ngx-skeleton-loader
+      count="1"
+      appearance="circle"
+      [theme]="{
+        'border-radius': '50px',
+        height: '56px',
+        width: '200px',
+        margin: '20px auto',
+        background:
+          'linear-gradient(90deg, #e3f2fd 25%, #bbdefb 50%, #e3f2fd 75%)'
+      }"
+    >
+    </ngx-skeleton-loader>
+  </div>
+</div>
+} @else {
+<!-- Actual Content + Button -->
 <app-side-item-content></app-side-item-content>
+}

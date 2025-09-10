@@ -1,0 +1,44 @@
+<mat-expansion-panel class="cv-section-panel">
+  <mat-expansion-panel-header class="section-header">
+    <mat-panel-title class="panel-title">
+      <div class="title-content">
+        <mat-icon class="section-icon">school</mat-icon>
+        <span class="section-name">Khóa học</span>
+      </div>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <!-- Panel Content -->
+  <div class="panel-content">
+    <div class="experience-forms-container">
+      <!-- Course Forms List -->
+      <div class="forms-list">
+        <app-course-form-edit
+          *ngFor="let course of courseForms; let i = index"
+          [courseData]="course"
+          [isReadOnly]="false"
+          [forceCollapse]="
+            currentEditingIndex !== null && currentEditingIndex !== i
+          "
+          (formChange)="updateForm(i, $event)"
+          (deleteForm)="deleteForm(i)"
+          (requestEdit)="onFormExpanded(i)"
+          (editToggle)="$event ? onFormExpanded(i) : onFormCollapsed(i)"
+          class="form-item"
+        ></app-course-form-edit>
+      </div>
+      <div class="button-edit">
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="addForm()"
+          class="add-form-btn"
+          matTooltip="Thêm khóa học mới"
+        >
+          <mat-icon>add</mat-icon>
+          Thêm khóa học
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-expansion-panel>

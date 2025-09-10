@@ -1,10 +1,10 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideHttpClient } from '@angular/common/http';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { cvSectionReducer } from './ngrx/cv-section/cv-section.reducer';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
@@ -23,11 +23,21 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(),
-
+    provideNativeDateAdapter(),
 
     HttpClientAuth,
 
-    provideFirebaseApp(() => initializeApp({ projectId: "rzomie-4d56b", appId: "1:1066506289495:web:b472905faf07e84b72be12", storageBucket: "rzomie-4d56b.firebasestorage.app", apiKey: "AIzaSyB19jeacZpC8hVo89cATGgEwQJ7ZWxbhKY", authDomain: "rzomie-4d56b.firebaseapp.com", messagingSenderId: "1066506289495" })), provideAuth(() => getAuth()),
+    provideFirebaseApp(() =>
+      initializeApp({
+        projectId: 'rzomie-4d56b',
+        appId: '1:1066506289495:web:b472905faf07e84b72be12',
+        storageBucket: 'rzomie-4d56b.firebasestorage.app',
+        apiKey: 'AIzaSyB19jeacZpC8hVo89cATGgEwQJ7ZWxbhKY',
+        authDomain: 'rzomie-4d56b.firebaseapp.com',
+        messagingSenderId: '1066506289495',
+      })
+    ),
+    provideAuth(() => getAuth()),
 
     provideStore({
       auth: authReducer,

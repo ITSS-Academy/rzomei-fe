@@ -1,0 +1,79 @@
+<mat-expansion-panel class="cv-section-panel">
+  <mat-expansion-panel-header class="section-header">
+    <mat-panel-title class="panel-title">
+      <div class="title-content">
+        <mat-icon class="section-icon">assignment</mat-icon>
+        <span class="section-name">Tuyên bố</span>
+      </div>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <!-- Panel Content -->
+  <div class="panel-content">
+    <div class="declaration-form-container">
+      <form [formGroup]="formGroup" class="declaration-form">
+        <!-- Statement with Rich Text Editor -->
+        <div class="form-row">
+          <div class="full-width editor-container">
+            <label class="field-label">Nội dung tuyên bố</label>
+            <div class="ngx-editor-wrapper">
+              <ngx-editor-menu
+                [editor]="editor"
+                [toolbar]="toolbar"
+              ></ngx-editor-menu>
+              <ngx-editor
+                style="height: fit-content;"
+                [editor]="editor"
+                [placeholder]="'Nhập nội dung tuyên bố...'"
+                [formControlName]="'statement'"
+              ></ngx-editor>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 1: Place and Date -->
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Nơi ký</mat-label>
+            <input
+              matInput
+              formControlName="place"
+              placeholder="Ví dụ: Hà Nội"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Ngày ký</mat-label>
+            <input matInput formControlName="date" type="date" />
+          </mat-form-field>
+        </div>
+
+        <!-- Row 2: Signature -->
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field full-width">
+            <mat-label>Chữ ký</mat-label>
+            <input
+              matInput
+              formControlName="signature"
+              placeholder="Ví dụ: Nguyễn Văn A"
+            />
+            <mat-hint>Tên người ký</mat-hint>
+          </mat-form-field>
+        </div>
+      </form>
+
+      <!-- Save Button -->
+      <div class="form-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="saveForm()"
+          class="save-button"
+        >
+          <mat-icon>save</mat-icon>
+          Lưu
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-expansion-panel>

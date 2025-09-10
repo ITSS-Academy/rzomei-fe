@@ -9,13 +9,63 @@
     <div class="builder-right">
       <!-- use iframe to preview the cv -->
       @if(generatedCv$ | async) {
-        <iframe 
-        [srcdoc]="safeHtml" 
-        class="cv-preview-iframe"
-        frameborder="0">
+      <iframe [srcdoc]="safeHtml" class="cv-preview-iframe" frameborder="0">
       </iframe>
       } @else {
-        <h2>Loading...</h2>
+      <!-- CV Preview Skeleton -->
+      <div class="cv-preview-skeleton">
+        <!-- Header skeleton -->
+        <div class="skeleton-header">
+          <ngx-skeleton-loader
+            count="1"
+            appearance="circle"
+            [theme]="{
+              'border-radius': '50%',
+              height: '80px',
+              width: '80px',
+              margin: '0 auto 16px',
+              background:
+                'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)'
+            }"
+          >
+          </ngx-skeleton-loader>
+
+          <ngx-skeleton-loader
+            count="2"
+            appearance="line"
+            [theme]="{
+              'border-radius': '8px',
+              height: '24px',
+              'margin-bottom': '8px',
+              background:
+                'linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%)'
+            }"
+          >
+          </ngx-skeleton-loader>
+        </div>
+
+        <!-- Contact info skeleton -->
+            <div class="skeleton-contact">
+          <ngx-skeleton-loader
+            count="3"
+            appearance="line"
+            [theme]="{
+              'border-radius': '6px',
+              height: '16px',
+              'margin-bottom': '6px',
+              background:
+                'linear-gradient(90deg, #fafafa 25%, #f0f0f0 50%, #fafafa 75%)'
+            }"
+          >
+          </ngx-skeleton-loader>
+        </div>
+
+        <!-- Loading text -->
+        <div class="skeleton-loading-text">
+          <mat-icon class="spinning-icon">refresh</mat-icon>
+          <p>Đang tạo CV...</p>
+        </div>
+      </div>
       }
     </div>
   </div>
