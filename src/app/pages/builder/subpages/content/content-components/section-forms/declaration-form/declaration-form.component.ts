@@ -104,11 +104,11 @@ export class DeclarationFormComponent implements OnInit, OnDestroy {
       })
     );
     this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { declaration: this.declarationData },
-            })
-          );
+      updateCvById({
+        id: this.id,
+        data: { declaration: this.declarationData },
+      })
+    );
   }
 
   ngOnDestroy(): void {

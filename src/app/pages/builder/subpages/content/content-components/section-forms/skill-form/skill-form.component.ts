@@ -49,16 +49,25 @@ export class SkillFormComponent implements OnInit, OnDestroy {
   }
 
   addForm(): void {
-    // Thêm object rỗng
+    const last = this.skillForms[this.skillForms.length - 1];
+    const isEmpty =
+      last == null ||
+      (typeof last === 'object' && Object.keys(last).length === 0);
+
+    if (isEmpty) {
+      // Nếu phần tử cuối là null hoặc object rỗng thì không thêm mới
+      this.currentEditingIndex = this.skillForms.length - 1;
+      return;
+    }
+
+    this.currentEditingIndex = this.skillForms.length;
     const updatedForms = [...this.skillForms, {} as Skill];
-    // Dispatch action to save to store
     this.store.dispatch(
       updateCvSection({
         sectionType: 'skills',
         data: updatedForms,
       })
     );
-    // Set form mới này làm form đang edit (sau khi cập nhật giá trị)
     this.currentEditingIndex = updatedForms.length - 1;
   }
 
@@ -73,12 +82,12 @@ export class SkillFormComponent implements OnInit, OnDestroy {
           data: updatedForms,
         })
       );
-                this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { skills: this.skillForms },
-            })
-          );
+      this.store.dispatch(
+        updateCvById({
+          id: this.id,
+          data: { skills: this.skillForms },
+        })
+      );
     }
   }
 
@@ -104,6 +113,13 @@ export class SkillFormComponent implements OnInit, OnDestroy {
       updateCvSection({
         sectionType: 'skills',
         data: updatedForms,
+      })
+    );
+
+    this.store.dispatch(
+      updateCvById({
+        id: this.id,
+        data: { skills: this.skillForms },
       })
     );
   }

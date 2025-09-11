@@ -5,7 +5,10 @@ import { Certification } from '../../../../../../../models/cv-block.model';
 import { CvSectionState } from '../../../../../../../ngrx/cv-section/cv-section.state';
 import { Store } from '@ngrx/store';
 import { CertificationFormEditComponent } from './certification-form-edit.component';
-import { updateCvById, updateCvSection } from '../../../../../../../ngrx/cv-section/cv-section.actions';
+import {
+  updateCvById,
+  updateCvSection,
+} from '../../../../../../../ngrx/cv-section/cv-section.actions';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
@@ -47,16 +50,31 @@ export class CertificationFormComponent implements OnInit, OnDestroy {
   }
 
   addForm(): void {
-    // Thêm object rỗng
+    const last = this.certificationForms[this.certificationForms.length - 1];
+    const isEmpty =
+      last == null ||
+      (typeof last === 'object' && Object.keys(last).length === 0);
+
+    if (isEmpty) {
+      // Nếu phần tử cuối là null hoặc object rỗng thì không thêm mới
+      this.currentEditingIndex = this.certificationForms.length - 1;
+      return;
+    }
+
+    // Thêm object rỗng mới
     const updatedForms = [...this.certificationForms, {} as Certification];
-    // Dispatch action to save to store
     this.store.dispatch(
       updateCvSection({
         sectionType: 'certifications',
         data: updatedForms,
       })
     );
-    // Set form mới này làm form đang edit (sau khi cập nhật giá trị)
+    this.store.dispatch(
+      updateCvById({
+        id: this.id,
+        data: { interests: updatedForms },
+      })
+    );
     this.currentEditingIndex = updatedForms.length - 1;
   }
 
@@ -72,11 +90,11 @@ export class CertificationFormComponent implements OnInit, OnDestroy {
         })
       );
       this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { certifications: this.certificationForms },
-            })
-          );
+        updateCvById({
+          id: this.id,
+          data: { certifications: this.certificationForms },
+        })
+      );
     }
   }
 
@@ -102,6 +120,13 @@ export class CertificationFormComponent implements OnInit, OnDestroy {
       updateCvSection({
         sectionType: 'certifications',
         data: updatedForms,
+      })
+    );
+
+    this.store.dispatch(
+      updateCvById({
+        id: this.id,
+        data: { certifications: this.certificationForms },
       })
     );
   }

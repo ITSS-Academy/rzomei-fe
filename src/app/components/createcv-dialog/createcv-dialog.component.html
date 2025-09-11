@@ -1,0 +1,57 @@
+<div class="dialog-container">
+  <h2 class="create-cv-title">Tạo CV Mới</h2>
+  <p class="create-cv-desc">
+    Bắt đầu bằng cách đặt tên cho CV và chọn giao diện
+  </p>
+
+  <!-- Đặt tên CV -->
+  <div class="cv-block">
+    <div class="block-header">
+      <mat-icon class="block-icon" color="primary">edit</mat-icon>
+      <span class="block-title">Tên CV</span>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Tên CV</mat-label>
+      <input matInput placeholder="Nhập tên CV" />
+    </mat-form-field>
+  </div>
+
+  <!-- Chọn giao diện -->
+  <div class="cv-block">
+    <div class="block-header">
+      <mat-icon class="block-icon" color="primary">palette</mat-icon>
+      <span class="block-title">Chọn Giao Diện</span>
+    </div>
+    <div class="theme-carousel">
+      <button
+        class="theme-carousel-btn"
+        (click)="prevTheme()"
+        [disabled]="selectedThemeIndex === 0"
+      >
+        &#8592;
+      </button>
+      @for (item of themes; track $index) {
+      <div
+        class="theme-slide"
+        [class.selected]="$index === selectedThemeIndex"
+        tabindex="0"
+        (click)="selectTheme($index)"
+        (keydown.enter)="selectTheme($index)"
+      >
+        <div class="theme-preview">
+          <h4>{{ item.label }}</h4>
+          <p>{{ item.desc }}</p>
+        </div>
+      </div>
+      }
+      <button
+        class="theme-carousel-btn"
+        (click)="nextTheme()"
+        [disabled]="selectedThemeIndex === themes.length - 1"
+      >
+        &#8594;
+      </button>
+    </div>
+  </div>
+</div>

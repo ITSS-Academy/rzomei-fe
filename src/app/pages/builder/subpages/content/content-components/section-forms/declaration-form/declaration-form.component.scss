@@ -71,9 +71,18 @@
         gap: 20px;
 
         .form-row {
+          .delete-btn {
+            color: #f44336;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            &:hover {
+              opacity: 1;
+              background-color: #ffebee;
+            }
+          }
           display: flex;
           gap: 16px;
-          align-items: flex-start;
+          align-items: center;
 
           .form-field {
             flex: 1;

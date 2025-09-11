@@ -47,16 +47,31 @@ export class EducationFormComponent implements OnInit, OnDestroy {
   }
 
   addForm(): void {
-    // Thêm object rỗng
+    const last = this.educationForms[this.educationForms.length - 1];
+    const isEmpty =
+      last == null ||
+      (typeof last === 'object' && Object.keys(last).length === 0);
+
+    if (isEmpty) {
+      // Nếu phần tử cuối là null hoặc object rỗng thì không thêm mới
+      this.currentEditingIndex = this.educationForms.length - 1;
+      return;
+    }
+
+    // Thêm object rỗng mới
     const updatedForms = [...this.educationForms, {} as Education];
-    // Dispatch action to save to store
     this.store.dispatch(
       updateCvSection({
         sectionType: 'education',
         data: updatedForms,
       })
     );
-    // Set form mới này làm form đang edit (sau khi cập nhật giá trị)
+    this.store.dispatch(
+      updateCvById({
+        id: this.id,
+        data: { interests: updatedForms },
+      })
+    );
     this.currentEditingIndex = updatedForms.length - 1;
   }
 
@@ -72,11 +87,11 @@ export class EducationFormComponent implements OnInit, OnDestroy {
         })
       );
       this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { education: this.educationForms },
-            })
-          );
+        updateCvById({
+          id: this.id,
+          data: { education: this.educationForms },
+        })
+      );
     }
   }
 
@@ -102,6 +117,13 @@ export class EducationFormComponent implements OnInit, OnDestroy {
       updateCvSection({
         sectionType: 'education',
         data: updatedForms,
+      })
+    );
+
+    this.store.dispatch(
+      updateCvById({
+        id: this.id,
+        data: { education: this.educationForms },
       })
     );
   }

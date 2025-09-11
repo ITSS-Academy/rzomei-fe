@@ -11,6 +11,7 @@ import {
 } from '../../../../../../../ngrx/cv-section/cv-section.actions';
 import { CommonModule } from '@angular/common'; // Thêm CommonModule
 import { ActivatedRoute } from '@angular/router';
+import { E } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-experience-form',
@@ -50,9 +51,19 @@ export class ExperienceFormComponent implements OnInit, OnDestroy {
   }
 
   addForm(): void {
-    // Thêm object rỗng
+    const last = this.experienceForms[this.experienceForms.length - 1];
+    const isEmpty =
+      last == null ||
+      (typeof last === 'object' && Object.keys(last).length === 0);
+
+    if (isEmpty) {
+      // Nếu phần tử cuối là null hoặc object rỗng thì không thêm mới
+      this.currentEditingIndex = this.experienceForms.length - 1;
+      return;
+    }
+
+    // Thêm object rỗng mới
     const updatedForms = [...this.experienceForms, {} as Experience];
-    // Dispatch action to save to store
     this.store.dispatch(
       updateCvSection({
         sectionType: 'experience',
@@ -60,12 +71,11 @@ export class ExperienceFormComponent implements OnInit, OnDestroy {
       })
     );
     this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { experience: this.experienceForms },
-            })
-          );
-    // Set form mới này làm form đang edit (sau khi cập nhật giá trị)
+      updateCvById({
+        id: this.id,
+        data: { interests: updatedForms },
+      })
+    );
     this.currentEditingIndex = updatedForms.length - 1;
   }
 
@@ -105,6 +115,13 @@ export class ExperienceFormComponent implements OnInit, OnDestroy {
       updateCvSection({
         sectionType: 'experience',
         data: updatedForms,
+      })
+    );
+
+    this.store.dispatch(
+      updateCvById({
+        id: this.id,
+        data: { experience: this.experienceForms },
       })
     );
   }

@@ -53,7 +53,8 @@
     padding-left: 0 !important;
   }
 
-  ::ng-deep .mat-button-toggle-standalone.mat-button-toggle-appearance-standard
+  ::ng-deep
+    .mat-button-toggle-standalone.mat-button-toggle-appearance-standard
     .mat-pseudo-checkbox,
   ::ng-deep .mat-button-toggle-group-appearance-standard .mat-pseudo-checkbox {
     display: none;
@@ -177,6 +178,22 @@
       border-radius: 20px;
     }
   }
+}
+
+/* Skeleton List View */
+.skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.skeleton-list-card {
+  width: 100%;
+  min-width: 320px;
+  max-height: 100px;
+  max-width: 1250px;
+  margin: 0 auto;
 }
 
 // Skeleton shimmer animation
