@@ -10,32 +10,19 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 })
 export class CreatecvDialogComponent {
   themes = [
-    { label: 'Classic', desc: 'Giao diện truyền thống' },
-    { label: 'Modern', desc: 'Giao diện hiện đại' },
-    { label: 'Minimal', desc: 'Giao diện tối giản' },
-    { label: 'Classic', desc: 'Giao diện truyền thống' },
-    { label: 'Modern', desc: 'Giao diện hiện đại' },
-    { label: 'Minimal', desc: 'Giao diện tối giản' },
-    { label: 'Classic', desc: 'Giao diện truyền thống' },
-    { label: 'Modern', desc: 'Giao diện hiện đại' },
-    { label: 'Minimal', desc: 'Giao diện tối giản' },
+    { label: 'black-white' },
+    { label: 'black-white' },
+    { label: 'black-white' },
+    { label: 'black-white' },
+    { label: 'black-white' },
+    { label: 'black-white' },
+    { label: 'black-white' },
+    { label: 'black-white' },
     // Thêm các theme khác nếu có
   ];
   selectedThemeIndex = 0;
 
   selectTheme(index: number) {
     this.selectedThemeIndex = index;
-  }
-
-  prevTheme() {
-    if (this.selectedThemeIndex > 0) {
-      this.selectedThemeIndex--;
-    }
-  }
-
-  nextTheme() {
-    if (this.selectedThemeIndex < this.themes.length - 1) {
-      this.selectedThemeIndex++;
-    }
   }
 }

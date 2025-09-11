@@ -1,14 +1,19 @@
 <div class="dialog-container">
-  <h2 class="create-cv-title">Tạo CV Mới</h2>
-  <p class="create-cv-desc">
-    Bắt đầu bằng cách đặt tên cho CV và chọn giao diện
-  </p>
+  <div class="cv-title">
+    <h2 class="create-cv-title">Tạo CV Mới</h2>
+    <p class="create-cv-desc">
+      Bắt đầu bằng cách đặt tên cho CV và chọn giao diện
+    </p>
+  </div>
 
   <!-- Đặt tên CV -->
   <div class="cv-block">
     <div class="block-header">
       <mat-icon class="block-icon" color="primary">edit</mat-icon>
-      <span class="block-title">Tên CV</span>
+      <div class="title">
+        <span class="block-title">Tên CV</span>
+        <p>Đặt tên cho CV của bạn một cách dễ nhớ</p>
+      </div>
     </div>
 
     <mat-form-field appearance="outline" class="full-width">
@@ -21,17 +26,13 @@
   <div class="cv-block">
     <div class="block-header">
       <mat-icon class="block-icon" color="primary">palette</mat-icon>
-      <span class="block-title">Chọn Giao Diện</span>
+      <div class="title">
+        <span class="block-title">Chọn Giao Diện</span>
+        <p>Chọn giao diện phù hợp với phong cách và ngành nghề của bạn</p>
+      </div>
     </div>
     <div class="theme-carousel">
-      <button
-        class="theme-carousel-btn"
-        (click)="prevTheme()"
-        [disabled]="selectedThemeIndex === 0"
-      >
-        &#8592;
-      </button>
-      @for (item of themes; track $index) {
+      <!-- @for (item of themes; track $index) {
       <div
         class="theme-slide"
         [class.selected]="$index === selectedThemeIndex"
@@ -40,18 +41,26 @@
         (keydown.enter)="selectTheme($index)"
       >
         <div class="theme-preview">
+          <img src="images.png" alt="" />
           <h4>{{ item.label }}</h4>
-          <p>{{ item.desc }}</p>
         </div>
       </div>
-      }
-      <button
-        class="theme-carousel-btn"
-        (click)="nextTheme()"
-        [disabled]="selectedThemeIndex === themes.length - 1"
-      >
-        &#8594;
-      </button>
+      
+      } -->
+      <mat-form-field>
+        <mat-label>Chọn giao diện</mat-label>
+        <mat-select>
+          @for (item of themes; track $index) {
+          <mat-option [value]="item.label">{{ item.label }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
     </div>
+  </div>
+  <div class="button-edit">
+    <button mat-flat-button color="primary">
+      <mat-icon>add</mat-icon>
+      Thêm giải thưởng
+    </button>
   </div>
 </div>

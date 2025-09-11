@@ -1,6 +1,6 @@
 .dialog-container {
-  padding: 24px 28px;
-  max-width: 1000px;
+  padding: 1rem;
+  max-width: 2000px;
   width: 100%;
   box-sizing: border-box;
   background: var(--mat-sys-surface);
@@ -9,26 +9,38 @@
   box-shadow: var(--mat-sys-level2);
 }
 
-.create-cv-title {
-  font: var(--mat-sys-headline-medium);
-  margin: 0 0 4px 0;
-  color: var(--mat-sys-on-surface);
+.title {
+  display: flex;
+  flex-direction: column;
+  span {
+    font-weight: 600;
+  }
+  p {
+    color: var(--mat-sys-on-surface-variant);
+  }
+  span,
+  p {
+    margin: 0.5vh;
+  }
 }
 
-.create-cv-desc {
-  margin: 0 0 18px 0;
-  font: var(--mat-sys-body-medium);
-  color: var(--mat-sys-on-surface-variant);
+.cv-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h2 {
+    margin: 0 !important;
+  }
 }
 
 .cv-block {
   display: block;
-  background: var(--mat-sys-surface-container-low);
-  border-radius: var(--mat-sys-corner-medium);
+  border-radius: 20px !important;
+  background-color: var(--mat-sys-on-primary) !important;
+  box-shadow: 0px 5px 15px 0px rgba(218, 226, 249, 1) !important;
   padding: 18px;
-  box-shadow: var(--mat-sys-level1);
   margin-bottom: 18px;
-  border: 1px solid var(--mat-sys-outline-variant);
   transition: transform 0.18s, box-shadow 0.18s;
 }
 
@@ -73,81 +85,52 @@
   display: block;
 }
 
-.mat-form-field-appearance-outline .mat-form-field-outline {
-  border-radius: var(--mat-sys-corner-small);
-}
-
 .mat-form-field .mat-input-element {
   padding: 12px 14px;
   font: var(--mat-sys-body-medium);
   color: var(--mat-sys-on-surface);
 }
 
-.theme-carousel {
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 16px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  border: 2px dashed var(--mat-sys-outline-variant);
-  border-radius: var(--mat-sys-corner-large);
-  background: var(--mat-sys-surface-container-lowest);
-  overflow-x: auto;
-  overflow-y: hidden;
-}
+// .theme-carousel {
+//   width: 100%;
+//   max-width: 1000px;
+//   margin: 0 auto;
+//   padding: 16px 0;
+//   display: flex;
+//   align-items: center;
+//   justify-content: flex-start;
+//   gap: 12px;
+//   overflow-x: auto;
+//   overflow-y: hidden;
+// }
 
-.theme-slide {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 120px; 
-  height: 200px;
-  background: var(--mat-sys-surface);
-  border: 2px solid var(--mat-sys-outline-variant);
-  border-radius: var(--mat-sys-corner-small);
-  margin: 0 4px;
-  box-shadow: var(--mat-sys-level1);
-  cursor: pointer;
-  transition: border 0.2s, box-shadow 0.2s;
-  outline: none;
-}
+// .theme-slide {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   background: var(--mat-sys-surface);
+//   border-radius: var(--mat-sys-corner-small);
+//   // margin: 0 4px;
+//   box-shadow: var(--mat-sys-level1);
+//   cursor: pointer;
+//   transition: border 0.2s, box-shadow 0.2s;
+//   outline: none;
+// }
 
-.theme-slide.selected,
-.theme-slide:focus,
-.theme-slide:hover {
-  border: 2px solid var(--mat-sys-primary);
-  box-shadow: var(--mat-sys-level3);
-}
+// .theme-slide.selected,
+// .theme-slide:focus,
+// .theme-slide:hover {
+//   box-shadow: var(--mat-sys-level3);
+// }
 
-.theme-preview {
-  width: 150px;
-  text-align: center;
-  font: var(--mat-sys-label-medium);
-  padding: 0;
-  color: var(--mat-sys-on-surface);
-}
+// .theme-preview {
+//   text-align: center;
+//   font: var(--mat-sys-label-medium);
+//   padding: 0;
+// }
 
-.theme-carousel-btn {
-  background: var(--mat-sys-primary-container);
-  border: none;
-  border-radius: var(--mat-sys-corner-full);
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--mat-sys-on-primary-container);
-  font-size: 20px;
-  cursor: pointer;
-  transition: background 0.15s;
-  margin: 0 4px;
-  box-shadow: var(--mat-sys-level1);
-}
-.theme-carousel-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.mat-mdc-select-panel-above div.mat-mdc-select-panel {
+  border-radius: 1rem !important;
+  background:  var(--mat-sys-surface) !important;
 }
