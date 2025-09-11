@@ -20,7 +20,8 @@ const initialState: CvSectionState = {
   isExporting: false,
   exportingError: undefined,
   exportSuccess: false,
-  cvBlob: undefined
+  cvBlob: undefined,
+  currentCvData: undefined
 };
 
 export const cvSectionReducer = createReducer(
@@ -264,6 +265,7 @@ export const cvSectionReducer = createReducer(
       getSectionError: null,
       sections: null,
       generatedCv: null,
+      currentCvData: null
     };
   }),
 
@@ -275,6 +277,7 @@ export const cvSectionReducer = createReducer(
       isGetSectionLoading: false,
       getSectionError: null,
       sections: data.cvData,
+      currentCvData: data
     };
   }),
 
@@ -285,6 +288,7 @@ export const cvSectionReducer = createReducer(
       isGetSectionLoading: false,
       getSectionError: error,
       sections: <CVBlock>{},
+      currentCvData: null
     };
   }),
 
