@@ -1,24 +1,28 @@
-import { CVBlock } from "../../models/cv-block.model";
+import { CVBlock } from '../../models/cv-block.model';
 
 export interface CvSectionState {
-    sections: CVBlock | null;
+  sections: CVBlock | null;
 
-    isGenerating: boolean;
-    generatingError: any;
-    generatedCv: any;
+  isGenerating: boolean;
+  generatingError: any;
+  generatedCv: any;
 
-    isGetAllCvsLoading: boolean;
-    getAllCvsError: any;
-    allCvs: any[];
+  isGetAllCvsLoading: boolean;
+  getAllCvsError: any;
+  allCvs: any[];
 
-    isGetSectionLoading: boolean;
-    getSectionError: any;
+  isGetSectionLoading: boolean;
+  getSectionError: any;
 
-    isUpdateSectionLoading: boolean;
-    updateSectionError: any;
+  isUpdateSectionLoading: boolean;
+  updateSectionError: any;
 
-    isExporting: boolean;
-    cvBlob: any;
-    exportSuccess: boolean;
-    exportingError: any;
+  isExporting: boolean;
+  cvBlob: any;
+  exportSuccess: boolean;
+  exportingError: any;
+
+//   isCopying: boolean;
+//   copySuccess: boolean;
+//   copyingError: any;
 }

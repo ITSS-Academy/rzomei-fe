@@ -1,29 +1,7 @@
 <div class="dialog-container">
   <div class="cv-title">
     <h2 class="create-cv-title">Tạo CV Mới</h2>
-    <p class="create-cv-desc">
-      Bắt đầu bằng cách đặt tên cho CV và chọn giao diện
-    </p>
-  </div>
-
-  <!-- Đặt tên CV -->
-  <div class="cv-block">
-    <div class="block-header">
-      <mat-icon class="block-icon" color="primary">edit</mat-icon>
-      <div class="title">
-        <span class="block-title">Tên CV</span>
-        <p>Đặt tên cho CV của bạn một cách dễ nhớ</p>
-      </div>
-    </div>
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Tên CV</mat-label>
-      <input matInput placeholder="Nhập tên CV" />
-    </mat-form-field>
-  </div>
-
-  <!-- Chọn giao diện -->
-  <div class="cv-block">
+    <br>
     <div class="block-header">
       <mat-icon class="block-icon" color="primary">palette</mat-icon>
       <div class="title">
@@ -31,36 +9,27 @@
         <p>Chọn giao diện phù hợp với phong cách và ngành nghề của bạn</p>
       </div>
     </div>
-    <div class="theme-carousel">
-      <!-- @for (item of themes; track $index) {
-      <div
-        class="theme-slide"
-        [class.selected]="$index === selectedThemeIndex"
-        tabindex="0"
-        (click)="selectTheme($index)"
-        (keydown.enter)="selectTheme($index)"
-      >
-        <div class="theme-preview">
-          <img src="images.png" alt="" />
-          <h4>{{ item.label }}</h4>
-        </div>
-      </div>
-      
-      } -->
-      <mat-form-field>
-        <mat-label>Chọn giao diện</mat-label>
-        <mat-select>
-          @for (item of themes; track $index) {
-          <mat-option [value]="item.label">{{ item.label }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-    </div>
   </div>
-  <div class="button-edit">
-    <button mat-flat-button color="primary">
-      <mat-icon>add</mat-icon>
-      Thêm giải thưởng
-    </button>
+
+  <!-- Đặt tên CV -->
+  <div class="cv-block">
+    <div class="theme-carousel-wrapper">
+      <div class="theme-grid">
+        @for (item of themes; track $index) {
+        <div
+          class="theme-item"
+          [class.selected]="selectedThemeIndex === $index"
+          (click)="selectedThemeIndex = $index"
+        >
+          <div class="theme-preview">
+            <img src="images.png" alt="" />
+          </div>
+          <div class="theme-label">
+            <h4>{{ item.label }}</h4>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
   </div>
 </div>

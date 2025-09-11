@@ -65,8 +65,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   openCreateCvDialog() {
     this.dialog.open(CreatecvDialogComponent, {
-      width: '700px',
+      width: '1000px',
       maxWidth: 'none', // hoặc 'none'
+      maxHeight: '80vh', // Thêm dòng này để dialog có thể scroll
+      autoFocus: false,
     });
   }
 

@@ -61,6 +61,9 @@
     [routerLink]="['/builder', item.id, 'content']"
     [title]="item.cvName"
     [template]="item.cvTheme"
+    [createdAt]="item.create_date"
+    [updatedAt]="item.update_time"
+    [imageUrl]="item.thumbnailUrl"
   ></app-card-cv>
   }
 </div>

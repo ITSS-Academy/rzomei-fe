@@ -13,4 +13,7 @@ export class CardCvComponent {
   @Input() title = 'Demo';
   @Input() template = 'templates_demo_form_resume_1';
   @Input() viewMode: 'grid' | 'list' = 'grid';
+  @Input() createdAt = '';
+  @Input() updatedAt = '';
+  @Input() imageUrl = '';
 }

@@ -28,3 +28,8 @@ export const clearCvBlob = createAction('[CV Section] Clear CV Blob');
 export const exportCvSuccess = createAction('[CV Section] Export CV Success', props<{ blob: any }>());
 export const exportCvFailure = createAction('[CV Section] Export CV Failure', props<{ error: any }>());
 
+export const copyCv = createAction('[CV Section] Copy CV', props<{ id: number }>());
+export const copyCvSuccess = createAction('[CV Section] Copy CV Success');
+export const copyCvFailure = createAction('[CV Section] Copy CV Failure', props<{ error: any }>());
+
+
