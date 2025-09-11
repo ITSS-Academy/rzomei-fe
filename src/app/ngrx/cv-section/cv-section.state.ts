@@ -22,6 +22,8 @@ export interface CvSectionState {
   exportSuccess: boolean;
   exportingError: any;
 
+  currentCvData: any;
+
 //   isCopying: boolean;
 //   copySuccess: boolean;
 //   copyingError: any;

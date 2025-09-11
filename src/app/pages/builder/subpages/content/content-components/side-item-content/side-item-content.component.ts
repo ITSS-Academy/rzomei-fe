@@ -59,13 +59,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SideItemContentComponent implements OnInit {
   readonly dialog = inject(MatDialog);
-  cvData$!: Observable<CVBlock | null>;
   authState$!: Observable<string | null>;
   cvSections$!: Observable<any | null>;
   isLoading$!: Observable<boolean>;
   isDataLoaded = false;
   blocks: any[] = [];
-  dataCV: any;
+  dataCV$!: Observable<any | null>;
+  currentCvData: any;
 
   // Định nghĩa thứ tự sections mong muốn
   sectionOrder = [
@@ -92,21 +92,33 @@ export class SideItemContentComponent implements OnInit {
     private activeRoute: ActivatedRoute
   ) {
     this.cvSections$ = this.store.select('cvSections', 'sections');
+    this.dataCV$ = this.store.select('cvSections', 'currentCvData');
     this.authState$ = this.store.select('auth', 'token');
     this.isLoading$ = this.store.select('cvSections', 'isGetSectionLoading');
-    
   }
 
   ngOnInit(): void {
-    
+    this.dataCV$.subscribe((data) => {
+      this.currentCvData = data;
+    });
+
     this.authState$.subscribe((token) => {
       if (token) {
         this.cvSections$.subscribe((data) => {
           if (data) {
             const { id } = this.activeRoute.parent?.snapshot.params!;
+            
             this.isDataLoaded = true;
-            this.store.dispatch(CvSectionActions.generateCv({ data: {data, id}}));
-            this.dataCV = data;
+            this.store.dispatch(
+              CvSectionActions.generateCv({
+                data: {
+                  data: data,
+                  id: id,
+                  cvTheme: this.currentCvData.cvTheme,
+                },
+              })
+            );
+            // this.dataCV = data;
 
             // Chuyển đổi object thành mảng key-value
             this.blocks = Object.keys(data).map((key) => ({
