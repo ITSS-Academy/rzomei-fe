@@ -1,0 +1,35 @@
+<div class="dialog-container">
+  <div class="cv-title">
+    <h2 class="create-cv-title">Tạo CV Mới</h2>
+    <br>
+    <div class="block-header">
+      <mat-icon class="block-icon" color="primary">palette</mat-icon>
+      <div class="title">
+        <span class="block-title">Chọn Giao Diện</span>
+        <p>Chọn giao diện phù hợp với phong cách và ngành nghề của bạn</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Đặt tên CV -->
+  <div class="cv-block">
+    <div class="theme-carousel-wrapper">
+      <div class="theme-grid">
+        @for (item of themes; track $index) {
+        <div
+          class="theme-item"
+          [class.selected]="selectedThemeIndex === $index"
+          (click)="selectedThemeIndex = $index"
+        >
+          <div class="theme-preview">
+            <img src="images.png" alt="" />
+          </div>
+          <div class="theme-label">
+            <h4>{{ item.label }}</h4>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

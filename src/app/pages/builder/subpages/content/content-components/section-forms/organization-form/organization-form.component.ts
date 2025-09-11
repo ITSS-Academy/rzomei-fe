@@ -4,7 +4,10 @@ import { Observable, Subscription } from 'rxjs';
 import { Organization } from '../../../../../../../models/cv-block.model';
 import { CvSectionState } from '../../../../../../../ngrx/cv-section/cv-section.state';
 import { Store } from '@ngrx/store';
-import { updateCvById, updateCvSection } from '../../../../../../../ngrx/cv-section/cv-section.actions';
+import {
+  updateCvById,
+  updateCvSection,
+} from '../../../../../../../ngrx/cv-section/cv-section.actions';
 import { CommonModule } from '@angular/common';
 import { OrganizationFormEditComponent } from './organization-form-edit.component';
 import { ActivatedRoute } from '@angular/router';
@@ -23,8 +26,10 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
   currentEditingIndex: number | null = null; // Track index của form đang edit
   id = 0;
 
-  constructor(private store: Store<{ cvSections: CvSectionState }>,
-              private activatedRoute: ActivatedRoute) {
+  constructor(
+    private store: Store<{ cvSections: CvSectionState }>,
+    private activatedRoute: ActivatedRoute
+  ) {
     this.cvSections$ = this.store.select(
       (state) => state.cvSections.sections!.organizations
     );
@@ -45,16 +50,25 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
   }
 
   addForm(): void {
-    // Thêm object rỗng
+    const last = this.organizationForms[this.organizationForms.length - 1];
+    const isEmpty =
+      last == null ||
+      (typeof last === 'object' && Object.keys(last).length === 0);
+
+    if (isEmpty) {
+      // Nếu phần tử cuối là null hoặc object rỗng thì không thêm mới
+      this.currentEditingIndex = this.organizationForms.length - 1;
+      return;
+    }
+
+    // Thêm object rỗng mới
     const updatedForms = [...this.organizationForms, {} as Organization];
-    // Dispatch action to save to store
     this.store.dispatch(
       updateCvSection({
         sectionType: 'organizations',
         data: updatedForms,
       })
     );
-    // Set form mới này làm form đang edit (sau khi cập nhật giá trị)
     this.currentEditingIndex = updatedForms.length - 1;
   }
 
@@ -70,11 +84,11 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
         })
       );
       this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { organizations: this.organizationForms },
-            })
-          );
+        updateCvById({
+          id: this.id,
+          data: { organizations: this.organizationForms },
+        })
+      );
     }
   }
 
@@ -100,6 +114,13 @@ export class OrganizationFormComponent implements OnInit, OnDestroy {
       updateCvSection({
         sectionType: 'organizations',
         data: updatedForms,
+      })
+    );
+
+    this.store.dispatch(
+      updateCvById({
+        id: this.id,
+        data: { organizations: this.organizationForms },
       })
     );
   }

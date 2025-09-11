@@ -3,7 +3,10 @@ import { Award } from '../../../../../../../models/cv-block.model';
 import { Store } from '@ngrx/store';
 import { Subscription, Observable } from 'rxjs';
 import { CvSectionState } from '../../../../../../../ngrx/cv-section/cv-section.state';
-import { updateCvById, updateCvSection } from '../../../../../../../ngrx/cv-section/cv-section.actions';
+import {
+  updateCvById,
+  updateCvSection,
+} from '../../../../../../../ngrx/cv-section/cv-section.actions';
 import { MaterialModule } from '../../../../../../../shared/material/material.module';
 import { AwardFormEditComponent } from './award-form-edit.component';
 import { CommonModule } from '@angular/common';
@@ -46,16 +49,31 @@ export class AwardFormComponent implements OnInit, OnDestroy {
   }
 
   addForm(): void {
-    // Thêm object rỗng
+    const last = this.awardForms[this.awardForms.length - 1];
+    const isEmpty =
+      last == null ||
+      (typeof last === 'object' && Object.keys(last).length === 0);
+
+    if (isEmpty) {
+      // Nếu phần tử cuối là null hoặc object rỗng thì không thêm mới
+      this.currentEditingIndex = this.awardForms.length - 1;
+      return;
+    }
+
+    // Thêm object rỗng mới
     const updatedForms = [...this.awardForms, {} as Award];
-    // Dispatch action to save to store
     this.store.dispatch(
       updateCvSection({
         sectionType: 'awards',
         data: updatedForms,
       })
     );
-    // Set editing index to the new form
+    this.store.dispatch(
+      updateCvById({
+        id: this.id,
+        data: { interests: updatedForms },
+      })
+    );
     this.currentEditingIndex = updatedForms.length - 1;
   }
 
@@ -71,11 +89,11 @@ export class AwardFormComponent implements OnInit, OnDestroy {
       })
     );
     this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { awards: this.awardForms },
-            })
-          );
+      updateCvById({
+        id: this.id,
+        data: { awards: this.awardForms },
+      })
+    );
   }
 
   deleteForm(index: number): void {
@@ -86,6 +104,13 @@ export class AwardFormComponent implements OnInit, OnDestroy {
       updateCvSection({
         sectionType: 'awards',
         data: updatedForms,
+      })
+    );
+
+    this.store.dispatch(
+      updateCvById({
+        id: this.id,
+        data: { awards: this.awardForms },
       })
     );
 

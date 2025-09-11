@@ -5,7 +5,10 @@ import { Reference } from '../../../../../../../models/cv-block.model';
 import { CvSectionState } from '../../../../../../../ngrx/cv-section/cv-section.state';
 import { Store } from '@ngrx/store';
 import { ReferenceFormEditComponent } from './reference-form-edit.component';
-import { updateCvById, updateCvSection } from '../../../../../../../ngrx/cv-section/cv-section.actions';
+import {
+  updateCvById,
+  updateCvSection,
+} from '../../../../../../../ngrx/cv-section/cv-section.actions';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
@@ -23,8 +26,10 @@ export class ReferenceFormComponent implements OnInit, OnDestroy {
   currentEditingIndex: number | null = null; // Track index của form đang edit
   id = 0;
 
-  constructor(private store: Store<{ cvSections: CvSectionState }>,
-              private activatedRoute: ActivatedRoute) {
+  constructor(
+    private store: Store<{ cvSections: CvSectionState }>,
+    private activatedRoute: ActivatedRoute
+  ) {
     this.cvSections$ = this.store.select(
       (state) => state.cvSections.sections!.references
     );
@@ -45,16 +50,25 @@ export class ReferenceFormComponent implements OnInit, OnDestroy {
   }
 
   addForm(): void {
-    // Thêm object rỗng
+    const last = this.referenceForms[this.referenceForms.length - 1];
+    const isEmpty =
+      last == null ||
+      (typeof last === 'object' && Object.keys(last).length === 0);
+
+    if (isEmpty) {
+      // Nếu phần tử cuối là null hoặc object rỗng thì không thêm mới
+      this.currentEditingIndex = this.referenceForms.length - 1;
+      return;
+    }
+
+    this.currentEditingIndex = this.referenceForms.length;
     const updatedForms = [...this.referenceForms, {} as Reference];
-    // Dispatch action to save to store
     this.store.dispatch(
       updateCvSection({
         sectionType: 'references',
         data: updatedForms,
       })
     );
-    // Set form mới này làm form đang edit (sau khi cập nhật giá trị)
     this.currentEditingIndex = updatedForms.length - 1;
   }
 
@@ -63,18 +77,20 @@ export class ReferenceFormComponent implements OnInit, OnDestroy {
       const updatedForms = [...this.referenceForms];
       updatedForms[index] = { ...updatedData };
       // Trigger debounced save
+      const filteredForms = updatedForms.filter((f) => f !== null);
       this.store.dispatch(
         updateCvSection({
           sectionType: 'references',
-          data: updatedForms,
+          data: filteredForms,
         })
       );
-                this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { references: this.referenceForms },
-            })
-          );
+
+      this.store.dispatch(
+        updateCvById({
+          id: this.id,
+          data: { references: this.referenceForms },
+        })
+      );
     }
   }
 
@@ -100,6 +116,13 @@ export class ReferenceFormComponent implements OnInit, OnDestroy {
       updateCvSection({
         sectionType: 'references',
         data: updatedForms,
+      })
+    );
+
+    this.store.dispatch(
+      updateCvById({
+        id: this.id,
+        data: { references: this.referenceForms },
       })
     );
   }

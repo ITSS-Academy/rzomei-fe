@@ -3,7 +3,10 @@ import { Language } from '../../../../../../../models/cv-block.model';
 import { Store } from '@ngrx/store';
 import { Subscription, Observable } from 'rxjs';
 import { CvSectionState } from '../../../../../../../ngrx/cv-section/cv-section.state';
-import { updateCvById, updateCvSection } from '../../../../../../../ngrx/cv-section/cv-section.actions';
+import {
+  updateCvById,
+  updateCvSection,
+} from '../../../../../../../ngrx/cv-section/cv-section.actions';
 import { MaterialModule } from '../../../../../../../shared/material/material.module';
 import { LanguageFormEditComponent } from '../language-form/language-form-edit.component';
 import { CommonModule } from '@angular/common';
@@ -22,8 +25,10 @@ export class LanguageFormComponent implements OnInit, OnDestroy {
   currentEditingIndex: number | null = null; // Track index của form đang edit
   id = 0;
 
-  constructor(private store: Store<{ cvSections: CvSectionState }>,
-              private activatedRoute: ActivatedRoute) {
+  constructor(
+    private store: Store<{ cvSections: CvSectionState }>,
+    private activatedRoute: ActivatedRoute
+  ) {
     this.cvSections$ = this.store.select(
       (state) => state.cvSections.sections!.languages
     );
@@ -44,16 +49,25 @@ export class LanguageFormComponent implements OnInit, OnDestroy {
   }
 
   addForm(): void {
-    // Thêm object rỗng
+    const last = this.languageForms[this.languageForms.length - 1];
+    const isEmpty =
+      last == null ||
+      (typeof last === 'object' && Object.keys(last).length === 0);
+
+    if (isEmpty) {
+      // Nếu phần tử cuối là null hoặc object rỗng thì không thêm mới
+      this.currentEditingIndex = this.languageForms.length - 1;
+      return;
+    }
+
+    // Thêm object rỗng mới
     const updatedForms = [...this.languageForms, {} as Language];
-    // Dispatch action to save to store
     this.store.dispatch(
       updateCvSection({
         sectionType: 'languages',
         data: updatedForms,
       })
     );
-    // Set form mới này làm form đang edit (sau khi cập nhật giá trị)
     this.currentEditingIndex = updatedForms.length - 1;
   }
 
@@ -69,11 +83,11 @@ export class LanguageFormComponent implements OnInit, OnDestroy {
         })
       );
       this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { languages: this.languageForms },
-            })
-          );
+        updateCvById({
+          id: this.id,
+          data: { languages: this.languageForms },
+        })
+      );
     }
   }
 
@@ -99,6 +113,13 @@ export class LanguageFormComponent implements OnInit, OnDestroy {
       updateCvSection({
         sectionType: 'languages',
         data: updatedForms,
+      })
+    );
+
+    this.store.dispatch(
+      updateCvById({
+        id: this.id,
+        data: { languages: this.languageForms },
       })
     );
   }

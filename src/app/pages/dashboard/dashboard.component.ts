@@ -13,6 +13,8 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 import * as CvSectionActions from '../../ngrx/cv-section/cv-section.actions';
 import { RouterLink } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { CreatecvDialogComponent } from '../../components/createcv-dialog/createcv-dialog.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,8 +26,8 @@ import { RouterLink } from '@angular/router';
     ListCardCvComponent,
     FormsModule,
     RouterLink,
-    NgxSkeletonLoaderModule
-],
+    NgxSkeletonLoaderModule,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
@@ -36,7 +38,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   isLoading$!: Observable<boolean>;
 
   constructor(
-    private store: Store<{ cvSections: CvSectionState; auth: AuthState }>
+    private store: Store<{ cvSections: CvSectionState; auth: AuthState }>,
+    private dialog: MatDialog
   ) {
     this.AllCvs$ = this.store.select('cvSections', 'allCvs');
     this.authState$ = this.store.select('auth', 'token');
@@ -48,6 +51,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
       if (token) {
         this.store.dispatch(CvSectionActions.getAllCvs());
       }
+    });
+    const savedViewMode = localStorage.getItem('dashboardViewMode');
+    if (savedViewMode === 'grid' || savedViewMode === 'list') {
+      this.viewMode = savedViewMode;
+    }
+  }
+
+  onViewModeChange(mode: 'grid' | 'list') {
+    this.viewMode = mode;
+    localStorage.setItem('dashboardViewMode', mode);
+  }
+
+  openCreateCvDialog() {
+    this.dialog.open(CreatecvDialogComponent, {
+      width: '1000px',
+      maxWidth: 'none', // hoặc 'none'
+      maxHeight: '80vh', // Thêm dòng này để dialog có thể scroll
+      autoFocus: false,
     });
   }
 

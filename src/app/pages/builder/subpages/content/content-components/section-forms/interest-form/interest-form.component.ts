@@ -5,7 +5,10 @@ import { Interest } from '../../../../../../../models/cv-block.model';
 import { CvSectionState } from '../../../../../../../ngrx/cv-section/cv-section.state';
 import { Store } from '@ngrx/store';
 import { InterestFormEditComponent } from './interest-form-edit.component';
-import { updateCvById, updateCvSection } from '../../../../../../../ngrx/cv-section/cv-section.actions';
+import {
+  updateCvById,
+  updateCvSection,
+} from '../../../../../../../ngrx/cv-section/cv-section.actions';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
@@ -13,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-interest-form',
   imports: [MaterialModule, InterestFormEditComponent, CommonModule],
   templateUrl: './interest-form.component.html',
-  styleUrl: './interest-form.component.scss'
+  styleUrl: './interest-form.component.scss',
 })
 export class InterestFormComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();
@@ -22,8 +25,10 @@ export class InterestFormComponent implements OnInit, OnDestroy {
   currentEditingIndex: number | null = null; // Track index của form đang edit
   id = 0;
 
-  constructor(private store: Store<{ cvSections: CvSectionState }>,
-              private activatedRoute: ActivatedRoute) {
+  constructor(
+    private store: Store<{ cvSections: CvSectionState }>,
+    private activatedRoute: ActivatedRoute
+  ) {
     this.cvSections$ = this.store.select(
       (state) => state.cvSections.sections!.interests
     );
@@ -44,9 +49,19 @@ export class InterestFormComponent implements OnInit, OnDestroy {
   }
 
   addForm(): void {
-    // Thêm object rỗng
+    const last = this.interestForms[this.interestForms.length - 1];
+    const isEmpty =
+      last == null ||
+      (typeof last === 'object' && Object.keys(last).length === 0);
+
+    if (isEmpty) {
+      // Nếu phần tử cuối là null hoặc object rỗng thì không thêm mới
+      this.currentEditingIndex = this.interestForms.length - 1;
+      return;
+    }
+
+    // Thêm object rỗng mới
     const updatedForms = [...this.interestForms, {} as Interest];
-    // Dispatch action to save to store
     this.store.dispatch(
       updateCvSection({
         sectionType: 'interests',
@@ -54,12 +69,11 @@ export class InterestFormComponent implements OnInit, OnDestroy {
       })
     );
     this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { interests: this.interestForms },
-            })
-          );
-    // Set form mới này làm form đang edit (sau khi cập nhật giá trị)
+      updateCvById({
+        id: this.id,
+        data: { interests: updatedForms },
+      })
+    );
     this.currentEditingIndex = updatedForms.length - 1;
   }
 
@@ -99,6 +113,13 @@ export class InterestFormComponent implements OnInit, OnDestroy {
       updateCvSection({
         sectionType: 'interests',
         data: updatedForms,
+      })
+    );
+
+    this.store.dispatch(
+      updateCvById({
+        id: this.id,
+        data: { interests: this.interestForms },
       })
     );
   }

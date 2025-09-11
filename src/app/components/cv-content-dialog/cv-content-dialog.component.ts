@@ -33,10 +33,7 @@ export interface DialogData {
 @Component({
   selector: 'app-cv-content-dialog',
   standalone: true,
-  imports: [
-    MaterialModule, 
-    CommonModule
-  ],
+  imports: [MaterialModule, CommonModule],
   templateUrl: './cv-content-dialog.component.html',
   styleUrl: './cv-content-dialog.component.scss',
 })
@@ -45,92 +42,80 @@ export class CvContentDialogComponent {
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
 
   // cv-content-dialog.component.ts
-contentTypes: ContentType[] = [
-  {
-    icon: 'person',
-    title: 'Thông tin cá nhân',
-    description: 'Thông tin liên lạc cơ bản',
-    value: 'profile',
-  },
-  {
-    icon: 'school',
-    title: 'Học vấn',
-    description: 'Nền tảng học thuật và bằng cấp',
-    value: 'education',
-  },
-  {
-    icon: 'work',
-    title: 'Kinh nghiệm làm việc',
-    description: 'Lịch sử công việc chuyên môn',
-    value: 'experience',
-  },
-  {
-    icon: 'psychology',
-    title: 'Kỹ năng',
-    description: 'Kỹ năng kỹ thuật và mềm',
-    value: 'skills',
-  },
-  {
-    icon: 'folder',
-    title: 'Dự án',
-    description: 'Các dự án và thành tựu',
-    value: 'projects',
-  },
-  {
-    icon: 'military_tech',
-    title: 'Giải thưởng',
-    description: 'Thành tựu và giải thưởng',
-    value: 'awards',
-  },
-  {
-    icon: 'verified',
-    title: 'Chứng chỉ',
-    description: 'Chứng chỉ chuyên môn',
-    value: 'certifications',
-  },
-  {
-    icon: 'language',
-    title: 'Ngôn ngữ',
-    description: 'Ngôn ngữ bạn nói và trình độ',
-    value: 'languages',
-  },
-  {
-    icon: 'interests',
-    title: 'Sở thích & Thú vui',
-    description: 'Sở thích và thú vui cá nhân',
-    value: 'interests',
-  },
-  {
-    icon: 'school',
-    title: 'Khóa học & Đào tạo',
-    description: 'Khóa học bổ sung và đào tạo đã hoàn thành',
-    value: 'courses',
-  },
-  {
-    icon: 'groups',
-    title: 'Tổ chức',
-    description: 'Tổ chức chuyên môn và công việc tình nguyện',
-    value: 'organizations',
-  },
-  {
-    icon: 'article',
-    title: 'Xuất bản',
-    description: 'Công trình nghiên cứu và xuất bản',
-    value: 'publications',
-  },
-  {
-    icon: 'contacts',
-    title: 'Người tham chiếu',
-    description: 'Người tham chiếu chuyên môn có thể xác nhận công việc',
-    value: 'references',
-  },
-  {
-    icon: 'assignment',
-    title: 'Tuyên bố',
-    description: 'Tuyên bố chính thức về tính xác thực',
-    value: 'declaration',
-  },
-];
+  contentTypes: ContentType[] = [
+    {
+      icon: 'school',
+      title: 'Học vấn',
+      description: 'Nền tảng học thuật và bằng cấp',
+      value: 'education',
+    },
+    {
+      icon: 'work',
+      title: 'Kinh nghiệm làm việc',
+      description: 'Lịch sử công việc chuyên môn',
+      value: 'experience',
+    },
+    {
+      icon: 'psychology',
+      title: 'Kỹ năng',
+      description: 'Kỹ năng kỹ thuật và mềm',
+      value: 'skills',
+    },
+    {
+      icon: 'folder',
+      title: 'Dự án',
+      description: 'Các dự án và thành tựu',
+      value: 'projects',
+    },
+    {
+      icon: 'military_tech',
+      title: 'Giải thưởng',
+      description: 'Thành tựu và giải thưởng',
+      value: 'awards',
+    },
+    {
+      icon: 'language',
+      title: 'Ngôn ngữ',
+      description: 'Ngôn ngữ bạn nói và trình độ',
+      value: 'languages',
+    },
+    {
+      icon: 'interests',
+      title: 'Sở thích & Thú vui',
+      description: 'Sở thích và thú vui cá nhân',
+      value: 'interests',
+    },
+    {
+      icon: 'school',
+      title: 'Khóa học & Đào tạo',
+      description: 'Khóa học bổ sung và đào tạo đã hoàn thành',
+      value: 'courses',
+    },
+    {
+      icon: 'groups',
+      title: 'Tổ chức',
+      description: 'Tổ chức chuyên môn và công việc tình nguyện',
+      value: 'organizations',
+    },
+    {
+      icon: 'article',
+      title: 'Xuất bản',
+      description: 'Công trình nghiên cứu và xuất bản',
+      value: 'publications',
+    },
+    {
+      icon: 'contacts',
+      title: 'Người tham chiếu',
+      description: 'Người tham chiếu chuyên môn có thể xác nhận công việc',
+      value: 'references',
+    },
+    {
+      icon: 'assignment',
+      title: 'Tuyên bố',
+      description: 'Tuyên bố chính thức về tính xác thực',
+      value: 'declaration',
+    },
+  ];
 
   onClose(): void {
     this.dialogRef.close();
@@ -140,7 +125,7 @@ contentTypes: ContentType[] = [
     // Đóng dialog và trả về content type đã chọn
     this.dialogRef.close({
       action: 'add',
-      contentType: contentType.value
+      contentType: contentType.value,
     });
   }
 }

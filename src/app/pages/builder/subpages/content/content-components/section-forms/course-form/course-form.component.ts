@@ -5,7 +5,10 @@ import { Course } from '../../../../../../../models/cv-block.model';
 import { CvSectionState } from '../../../../../../../ngrx/cv-section/cv-section.state';
 import { Store } from '@ngrx/store';
 import { CourseFormEditComponent } from './course-form-edit.component';
-import { updateCvById, updateCvSection } from '../../../../../../../ngrx/cv-section/cv-section.actions';
+import {
+  updateCvById,
+  updateCvSection,
+} from '../../../../../../../ngrx/cv-section/cv-section.actions';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
@@ -46,16 +49,31 @@ export class CourseFormComponent implements OnInit, OnDestroy {
   }
 
   addForm(): void {
-    // Thêm object rỗng
+    const last = this.courseForms[this.courseForms.length - 1];
+    const isEmpty =
+      last == null ||
+      (typeof last === 'object' && Object.keys(last).length === 0);
+
+    if (isEmpty) {
+      // Nếu phần tử cuối là null hoặc object rỗng thì không thêm mới
+      this.currentEditingIndex = this.courseForms.length - 1;
+      return;
+    }
+
+    // Thêm object rỗng mới
     const updatedForms = [...this.courseForms, {} as Course];
-    // Dispatch action to save to store
     this.store.dispatch(
       updateCvSection({
         sectionType: 'courses',
         data: updatedForms,
       })
     );
-    // Set form mới này làm form đang edit (sau khi cập nhật giá trị)
+    this.store.dispatch(
+      updateCvById({
+        id: this.id,
+        data: { interests: updatedForms },
+      })
+    );
     this.currentEditingIndex = updatedForms.length - 1;
   }
 
@@ -71,11 +89,11 @@ export class CourseFormComponent implements OnInit, OnDestroy {
         })
       );
       this.store.dispatch(
-            updateCvById({
-              id: this.id,
-              data: { courses: this.courseForms },
-            })
-          );
+        updateCvById({
+          id: this.id,
+          data: { courses: this.courseForms },
+        })
+      );
     }
   }
 
@@ -101,6 +119,13 @@ export class CourseFormComponent implements OnInit, OnDestroy {
       updateCvSection({
         sectionType: 'courses',
         data: updatedForms,
+      })
+    );
+
+    this.store.dispatch(
+      updateCvById({
+        id: this.id,
+        data: { courses: this.courseForms },
       })
     );
   }

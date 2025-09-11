@@ -7,7 +7,12 @@
   </div>
 
   <div class="edit-cv">
-    <button mat-flat-button color="primary" class="create-cv-btn">
+    <button
+      mat-flat-button
+      color="primary"
+      class="create-cv-btn"
+      (click)="openCreateCvDialog()"
+    >
       + Tạo CV mới
     </button>
 
@@ -15,7 +20,8 @@
       <mat-button-toggle-group
         name="viewMode"
         aria-label="View Mode"
-        [(ngModel)]="viewMode"
+        [value]="viewMode"
+        (change)="onViewModeChange($event.value)"
       >
         <mat-button-toggle value="grid">
           <mat-icon>grid_view</mat-icon>
@@ -55,10 +61,31 @@
     [routerLink]="['/builder', item.id, 'content']"
     [title]="item.cvName"
     [template]="item.cvTheme"
+    [createdAt]="item.create_date"
+    [updatedAt]="item.update_time"
+    [imageUrl]="item.thumbnailUrl"
   ></app-card-cv>
   }
 </div>
-} } @else {
+} } @else { @if (isLoading$ | async) {
+<!-- Skeleton List View -->
+<div class="list-card-cv list-view skeleton-list">
+  @for (item of [1,2,3,4]; track $index) {
+  <div class="skeleton-list-card">
+    <ngx-skeleton-loader
+      count="1"
+      [theme]="{
+        'border-radius': '8px',
+        height: '64px',
+        width: '100%',
+        'margin-bottom': '12px'
+      }"
+    >
+    </ngx-skeleton-loader>
+  </div>
+  }
+</div>
+} @else {
 <!-- List View -->
 <div class="list-card-cv list-view">
   @for (item of (AllCvs$ | async); track $index) {
@@ -69,4 +96,4 @@
   ></app-list-card-cv>
   }
 </div>
-}
+} }

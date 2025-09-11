@@ -30,6 +30,7 @@ import { CertificationFormComponent } from '../section-forms/certification-form/
 import { C } from '@angular/cdk/keycodes';
 import { AuthState } from '../../../../../../ngrx/auth/auth.state';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-side-item-content',
   imports: [
@@ -84,22 +85,27 @@ export class SideItemContentComponent implements OnInit {
     'declaration',
     'customSections',
   ];
+  id = 0;
 
   constructor(
-    private store: Store<{ cvSections: CvSectionState; auth: AuthState }>
+    private store: Store<{ cvSections: CvSectionState; auth: AuthState }>,
+    private activeRoute: ActivatedRoute
   ) {
     this.cvSections$ = this.store.select('cvSections', 'sections');
     this.authState$ = this.store.select('auth', 'token');
     this.isLoading$ = this.store.select('cvSections', 'isGetSectionLoading');
+    
   }
 
   ngOnInit(): void {
+    
     this.authState$.subscribe((token) => {
       if (token) {
         this.cvSections$.subscribe((data) => {
           if (data) {
+            const { id } = this.activeRoute.parent?.snapshot.params!;
             this.isDataLoaded = true;
-            this.store.dispatch(CvSectionActions.generateCv({ data }));
+            this.store.dispatch(CvSectionActions.generateCv({ data: {data, id}}));
             this.dataCV = data;
 
             // Chuyển đổi object thành mảng key-value
