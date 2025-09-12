@@ -36,11 +36,11 @@
         </div>
       </div>
 
-      <div class="profile-image">
+      <!-- <div class="profile-image">
         <div class="image-placeholder">
           <mat-icon>photo_camera</mat-icon>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <form *ngIf="isEditing" [formGroup]="formGroup" class="personal-form">
@@ -63,7 +63,7 @@
             <mat-hint align="start">Ví dụ: Software Engineer</mat-hint>
           </mat-form-field>
         </div>
-        <div class="photo-block">
+        <!-- <div class="photo-block">
           <label class="photo-title">Photo</label>
           <div class="photo-circle" (click)="fileInput.click()">
             <img *ngIf="avatarPreview" [src]="avatarPreview" alt="avatar" />
@@ -73,7 +73,7 @@
             <button mat-button color="warn" type="button" (click)="removeAvatar()" *ngIf="avatarPreview">Remove</button>
             <input #fileInput type="file" accept="image/*" (change)="onAvatarSelected($event)" hidden />
           </div>
-        </div>
+        </div> -->
       </div>
 
       <div class="form-grid">

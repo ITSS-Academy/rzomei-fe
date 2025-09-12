@@ -8,7 +8,7 @@ export class CvService {
   baseEndpoint = 'cv';
 
   constructor(private http: HttpClientAuth) {
-    console.log(http.idToken)
+    console.log(http.idToken);
   }
 
   generateCv(data: any) {
@@ -27,7 +27,21 @@ export class CvService {
     return this.http.put(`${this.baseEndpoint}/${id}`, data);
   }
 
-  exportCv(data: any){
-    return this.http.post(`${this.baseEndpoint}/export-pdf`, data, { responseType: 'blob' });
+  exportCv(data: any) {
+    return this.http.post(`${this.baseEndpoint}/export-pdf`, data, {
+      responseType: 'blob',
+    });
+  }
+
+  getBaseCVThemes() {
+    return this.http.get(`${this.baseEndpoint}/get-themes`);
+  }
+
+  createNewCv(data: any) {
+    return this.http.post(`${this.baseEndpoint}/create`, data);
+  }
+
+  deleteCvById(id: number) {
+    return this.http.delete(`${this.baseEndpoint}/${id}`);
   }
 }

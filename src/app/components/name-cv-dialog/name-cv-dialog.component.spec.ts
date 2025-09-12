@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListCardCvComponent } from './list-card-cv.component';
+import { NameCvDialogComponent } from './name-cv-dialog.component';
 
-describe('ListCardCvComponent', () => {
-  let component: ListCardCvComponent;
-  let fixture: ComponentFixture<ListCardCvComponent>;
+describe('NameCvDialogComponent', () => {
+  let component: NameCvDialogComponent;
+  let fixture: ComponentFixture<NameCvDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ListCardCvComponent]
+      imports: [NameCvDialogComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ListCardCvComponent);
+    fixture = TestBed.createComponent(NameCvDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

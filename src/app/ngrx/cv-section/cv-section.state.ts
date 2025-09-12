@@ -24,7 +24,15 @@ export interface CvSectionState {
 
   currentCvData: any;
 
-//   isCopying: boolean;
-//   copySuccess: boolean;
-//   copyingError: any;
+  baseThemes: any[];
+  isGetBaseThemesLoading: boolean;
+  getBaseThemesError: any;
+
+  isCreatingNewCv: boolean;
+  createNewCvError: any;
+  createSuccess: boolean;
+
+  isDeletingCv: boolean;
+  deleteSuccess: boolean;
+  deleteCvError: any;
 }
