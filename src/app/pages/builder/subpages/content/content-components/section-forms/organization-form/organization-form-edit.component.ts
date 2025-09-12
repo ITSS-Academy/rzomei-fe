@@ -75,6 +75,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Tên tổ chức</mat-label>
+              <mat-icon matPrefix>groups</mat-icon>
               <input
                 matInput
                 formControlName="name"
@@ -84,6 +85,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
 
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Vai trò</mat-label>
+              <mat-icon matPrefix>badge</mat-icon>
               <input
                 matInput
                 formControlName="role"
@@ -96,11 +98,13 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Ngày bắt đầu</mat-label>
+              <mat-icon matPrefix>event</mat-icon>
               <input matInput formControlName="startDate" type="date" />
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Ngày kết thúc</mat-label>
+              <mat-icon matPrefix>event_available</mat-icon>
               <input matInput formControlName="endDate" type="date" />
               <mat-hint>Để trống nếu vẫn đang tham gia</mat-hint>
             </mat-form-field>
@@ -146,6 +150,10 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
   `,
   styles: [
     `
+      mat-form-field mat-icon[matprefix] {
+        color: var(--mat-sys-primary);
+        opacity: 0.95;
+      }
       .organization-expansion-panel {
         margin-bottom: 16px !important;
         border-radius: 12px !important;

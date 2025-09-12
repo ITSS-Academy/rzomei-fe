@@ -205,3 +205,18 @@
     background-position: calc(200px + 100%) 0;
   }
 }
+
+.no-cv-message {
+  text-align: center;
+  color: var(--mat-sys-primary, #405f90);
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 48px 0 32px 0;
+  padding: 32px 0;
+  // background: #f6f8fc;
+  border-radius: 16px;
+  // box-shadow: 0 2px 12px 0 rgba(64, 95, 144, 0.06);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}

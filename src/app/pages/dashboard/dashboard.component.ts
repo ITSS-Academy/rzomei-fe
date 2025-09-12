@@ -21,11 +21,11 @@ import { CreatecvDialogComponent } from '../../components/createcv-dialog/create
   imports: [
     CommonModule,
     MaterialModule,
-    HeaderComponent,
     CardCvComponent,
     ListCardCvComponent,
     FormsModule,
     NgxSkeletonLoaderModule,
+    HeaderComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],

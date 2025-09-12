@@ -12,6 +12,8 @@ export interface PersonalInfo {
     id: string;
 }
 
+
+
 export interface Experience {
     company: string;
     position: string;
@@ -148,6 +150,7 @@ export interface CustomSection {
 
 export interface CVBlock {
     personalInfo: PersonalInfo | null;
+    summary: string | null;
     experience: Experience[] | null;
     education: Education[] | null;
     certifications: Certification[] | null;

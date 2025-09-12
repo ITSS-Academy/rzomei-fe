@@ -1,0 +1,20 @@
+<div class="share-cv-root">
+  <main class="share-cv-main">
+    <div class="cv-preview-container">
+      <section class="cv-content">
+        @if (isLoading$ | async) {
+        <div class="loading-cv">
+          <p>Đang tải CV...</p>
+          <mat-spinner></mat-spinner>
+        </div>
+        } @else {
+        <iframe
+          [srcdoc]="safeHtml"
+          class="cv-preview-iframe"
+          frameborder="0"
+        ></iframe>
+        }
+      </section>
+    </div>
+  </main>
+</div>

@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MaterialModule } from '../../shared/material/material.module';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { PreviewCvComponent } from '../preview-cv/preview-cv.component';
@@ -13,10 +9,15 @@ import { CvSectionState } from '../../ngrx/cv-section/cv-section.state';
 import { Observable, Subscription } from 'rxjs';
 import * as CvSectionActions from '../../ngrx/cv-section/cv-section.actions';
 import { AsyncPipe } from '@angular/common';
-
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 @Component({
   selector: 'app-createcv-dialog',
-  imports: [MaterialModule, SlickCarouselModule, AsyncPipe],
+  imports: [
+    MaterialModule,
+    SlickCarouselModule,
+    AsyncPipe,
+    NgxSkeletonLoaderModule,
+  ],
   templateUrl: './createcv-dialog.component.html',
   styleUrl: './createcv-dialog.component.scss',
 })
@@ -33,9 +34,12 @@ export class CreatecvDialogComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private store: Store<{ cvSections: CvSectionState; auth: AuthState }>
   ) {
-    this.createSuccess$ = this.store.select((state) => state.cvSections.createSuccess);
+    this.createSuccess$ = this.store.select(
+      (state) => state.cvSections.createSuccess
+    );
     this.baseCVThemes$ = this.store.select('cvSections', 'baseThemes');
     this.token$ = this.store.select('auth', 'token');
+    this.isLoading$ = this.store.select('cvSections', 'isGetBaseThemesLoading');
   }
 
   openThemeDialog(theme: any) {
@@ -56,11 +60,6 @@ export class CreatecvDialogComponent implements OnInit, OnDestroy {
         }
       }),
 
-      this.baseCVThemes$.subscribe((themes) => {
-        if (themes) {
-          console.log('Base CV Themes:', themes);
-        }
-      }),
       this.createSuccess$.subscribe((success) => {
         if (success) {
           console.log(success);

@@ -37,6 +37,7 @@ export class CardCvComponent {
         confirmText: 'Xóa',
         cancelText: 'Hủy',
       },
+      autoFocus: false,
     });
   }
 }

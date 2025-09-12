@@ -35,4 +35,8 @@ export interface CvSectionState {
   isDeletingCv: boolean;
   deleteSuccess: boolean;
   deleteCvError: any;
+
+  isGettingShareCv: boolean;
+  getShareCvError: any;
+  shareCvData: any;
 }

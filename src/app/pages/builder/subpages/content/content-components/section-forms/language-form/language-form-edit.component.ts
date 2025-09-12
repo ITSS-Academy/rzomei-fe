@@ -70,6 +70,7 @@ import { NgxEditorComponent, NgxEditorMenuComponent } from 'ngx-editor';
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Ngôn ngữ</mat-label>
+              <mat-icon matPrefix>language</mat-icon>
               <input
                 matInput
                 formControlName="language"
@@ -84,6 +85,7 @@ import { NgxEditorComponent, NgxEditorMenuComponent } from 'ngx-editor';
 
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Trình độ</mat-label>
+              <mat-icon matPrefix>bar_chart</mat-icon>
               <mat-select formControlName="level">
                 <mat-option value="Sơ cấp">Sơ cấp</mat-option>
                 <mat-option value="Trung cấp">Trung cấp</mat-option>
@@ -103,6 +105,7 @@ import { NgxEditorComponent, NgxEditorMenuComponent } from 'ngx-editor';
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Chứng chỉ (tùy chọn)</mat-label>
+              <mat-icon matPrefix>verified</mat-icon>
               <input
                 matInput
                 formControlName="certification"
@@ -112,6 +115,7 @@ import { NgxEditorComponent, NgxEditorMenuComponent } from 'ngx-editor';
 
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Điểm số (tùy chọn)</mat-label>
+              <mat-icon matPrefix>star</mat-icon>
               <input
                 matInput
                 formControlName="score"
@@ -155,6 +159,10 @@ import { NgxEditorComponent, NgxEditorMenuComponent } from 'ngx-editor';
   `,
   styles: [
     `
+      mat-form-field mat-icon[matprefix] {
+        color: var(--mat-sys-primary);
+        opacity: 0.95;
+      }
       .experience-expansion-panel {
         margin-bottom: 16px !important;
         border-radius: 12px !important;

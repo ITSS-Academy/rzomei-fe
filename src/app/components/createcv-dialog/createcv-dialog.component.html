@@ -2,6 +2,7 @@
   <div class="cv-title">
     <h2 class="create-cv-title">Tạo CV Mới</h2>
     <br />
+
     <div class="block-header">
       <mat-icon class="block-icon" color="primary">palette</mat-icon>
       <div class="title">
@@ -15,24 +16,51 @@
   <div class="cv-block">
     <div class="theme-carousel-wrapper">
       <div class="theme-grid">
-        @for (item of (baseCVThemes$ | async); track $index) {
-        <div
-          class="theme-item"
-          [class.selected]="selectedThemeIndex === $index"
-          (click)="selectedThemeIndex = $index"
-        >
-          <div
-            class="theme-preview"
-            [class.selected]="selectedThemeIndex === $index"
-            (click)="openThemeDialog(item)"
-          >
-            <img src="{{ item.imageUrl }}" alt="" />
-          </div>
-          <div class="theme-label">
-            <h4>{{ item.display_name }}</h4>
-          </div>
-        </div>
+
+        @if (isLoading$ | async) {
+          @for (item of [1,2,3,4,5,6,7,8,9,10]; track item) {
+            <div class="theme-item">
+              <div class="theme-preview">
+                <ngx-skeleton-loader
+                  [theme]="{
+                    width: '14rem',
+                    height: '17rem',
+                    'border-radius': '8px'
+                  }"
+                ></ngx-skeleton-loader>
+              </div>
+              <div class="theme-label">
+                <ngx-skeleton-loader
+                  [theme]="{
+                    width: '3rem',
+                    height: '1.5rem',
+                    'border-radius': '4px'
+                  }"
+                ></ngx-skeleton-loader>
+              </div>
+            </div>
+          }
+        } @else {
+          @for (item of (baseCVThemes$ | async); track $index) {
+            <div
+              class="theme-item"
+              [class.selected]="selectedThemeIndex === $index"
+              (click)="selectedThemeIndex = $index"
+            >
+              <div
+                class="theme-preview"
+                [class.selected]="selectedThemeIndex === $index"
+                (click)="openThemeDialog(item)"
+              >
+                <img [src]="item.imageUrl" alt="" />
+              </div>
+              <div class="theme-label">
+                <h4>{{ item.display_name }}</h4>
+              </div>
+            </div>
+          }
         }
+
       </div>
     </div>
   </div>

@@ -18,13 +18,16 @@ export class AppComponent {
   title = 'rzomie-fe';
   auth$!: Observable<AuthModel | null>;
 
-  constructor(private store: Store<{ auth: AuthState }>, private auth: Auth, private router: Router) {
+  constructor(
+    private store: Store<{ auth: AuthState }>,
+    private auth: Auth,
+    private router: Router
+  ) {
     // this.cvService.generateCv({});
     this.auth$ = this.store.select('auth', 'authInfo');
     onAuthStateChanged(this.auth, async (user) => {
       if (user) {
         const token = await user.getIdToken();
-        console.log(token);
         const { email, displayName, photoURL } = user;
         this.store.dispatch(
           storeAuth({

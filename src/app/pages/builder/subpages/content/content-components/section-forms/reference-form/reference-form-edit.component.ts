@@ -66,6 +66,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Họ và tên</mat-label>
+              <mat-icon matPrefix>person</mat-icon>
               <input
                 matInput
                 formControlName="name"
@@ -75,6 +76,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
 
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Chức danh</mat-label>
+              <mat-icon matPrefix>work</mat-icon>
               <input
                 matInput
                 formControlName="title"
@@ -87,6 +89,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Công ty</mat-label>
+              <mat-icon matPrefix>business</mat-icon>
               <input
                 matInput
                 formControlName="company"
@@ -96,6 +99,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
 
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Mối quan hệ</mat-label>
+              <mat-icon matPrefix>groups</mat-icon>
               <input
                 matInput
                 formControlName="relationship"
@@ -108,6 +112,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Email</mat-label>
+              <mat-icon matPrefix>email</mat-icon>
               <input
                 matInput
                 formControlName="email"
@@ -118,6 +123,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
 
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Số điện thoại</mat-label>
+              <mat-icon matPrefix>call</mat-icon>
               <input
                 matInput
                 formControlName="phone"
@@ -144,6 +150,10 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
   `,
   styles: [
     `
+      mat-form-field mat-icon[matprefix] {
+        color: var(--mat-sys-primary);
+        opacity: 0.95;
+      }
       .reference-expansion-panel {
         margin-bottom: 16px !important;
         border-radius: 12px !important;

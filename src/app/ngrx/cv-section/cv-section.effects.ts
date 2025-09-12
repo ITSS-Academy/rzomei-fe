@@ -10,7 +10,7 @@ export const genCv$ = createEffect(
   (actions$ = inject(Actions), cvService = inject(CvService)) => {
     return actions$.pipe(
       ofType(CvSectionActions.generateCv),
-      exhaustMap((data) =>
+      switchMap((data) =>
         cvService.generateCv(data).pipe(
           map((data) => CvSectionActions.generateCvSuccess({ data })),
           catchError((error: { message: string }) =>
@@ -147,6 +147,24 @@ export const deleteCvById$ = createEffect(
           map((data) => CvSectionActions.deleteCvByIdSuccess({ id: action.id })),
           catchError((error: { message: string }) =>
             of(CvSectionActions.deleteCvByIdFailure({ error: error.message }))
+          )
+        )
+      )
+    );
+  },
+  { functional: true }
+);
+
+
+export const getShareCvById$ = createEffect(
+  (actions$ = inject(Actions), cvService = inject(CvService)) => {
+    return actions$.pipe(
+      ofType(CvSectionActions.getShareCvById),
+      switchMap((action) =>
+        cvService.getShareCvById(action.id).pipe(
+          map((data) => CvSectionActions.getShareCvByIdSuccess({ data })),
+          catchError((error: { message: string }) =>
+            of(CvSectionActions.getShareCvByIdFailure({ error: error.message }))
           )
         )
       )

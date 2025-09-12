@@ -102,15 +102,12 @@ export class SideItemContentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     this.subscriptions.push(
       this.authState$.subscribe((token) => {
         if (token) {
           this.dataCV$.subscribe((data) => {
             if (data) {
-              // console.log(data);
               this.currentCvData = data;
-              console.log(data);
               this.isDataLoaded = true;
               this.cvSections$.subscribe((data) => {
                 if (data) {
@@ -124,7 +121,7 @@ export class SideItemContentComponent implements OnInit, OnDestroy {
                     })
                   );
                 }
-              },)
+              });
 
               // this.dataCV = data;
 
@@ -174,7 +171,6 @@ export class SideItemContentComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result?.action === 'add') {
-        console.log('Adding content type:', result.contentType);
         this.addNewFormComponent(result.contentType);
       }
     });
@@ -198,8 +194,6 @@ export class SideItemContentComponent implements OnInit, OnDestroy {
         },
       })
     );
-
-    console.log(`Added new ${contentType} form with data:`, newFormData);
   }
 
   private generateNewFormData(sectionType: string): any {

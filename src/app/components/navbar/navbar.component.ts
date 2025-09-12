@@ -46,6 +46,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const urlParts = this.router.url.split('/');
     if (urlParts[1] === 'builder' && urlParts[2]) {
       this.id = urlParts[2];
+
+      
     }
 
     this.router.events.subscribe((event) => {
@@ -111,6 +113,21 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }));
     }
   }
+
+
+  copyLinkToShareCv(): void {
+    const shareableLink = `${window.location.origin}/share/${this.id}`;
+    navigator.clipboard.writeText(shareableLink).then(() => {
+      this.snackBar.open('Đã sao chép link chia sẻ vào clipboard', 'Đóng', {
+        duration: 2000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        panelClass: ['info-snackbar']
+      });
+    });
+  }
+
+
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }

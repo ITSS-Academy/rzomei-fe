@@ -41,3 +41,7 @@ export const createNewCvFailure = createAction('[CV Section] Create New CV Failu
 export const deleteCvById = createAction('[CV Section] Delete CV By Id', props<{ id: number }>());
 export const deleteCvByIdSuccess = createAction('[CV Section] Delete CV By Id Success', props<{ id: number }>());
 export const deleteCvByIdFailure = createAction('[CV Section] Delete CV By Id Failure', props<{ error: any }>());
+
+export const getShareCvById = createAction('[CV Section] Get Share CV By Id', props<{ id: number }>());
+export const getShareCvByIdSuccess = createAction('[CV Section] Get Share CV By Id Success', props<{ data: any }>());
+export const getShareCvByIdFailure = createAction('[CV Section] Get Share CV By Id Failure', props<{ error: any }>());
