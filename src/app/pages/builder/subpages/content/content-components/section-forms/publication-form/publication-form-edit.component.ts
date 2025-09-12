@@ -74,6 +74,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field full-width">
               <mat-label>Tiêu đề xuất bản</mat-label>
+              <mat-icon matPrefix>title</mat-icon>
               <input
                 matInput
                 formControlName="title"
@@ -93,6 +94,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
                 >
                   <mat-form-field appearance="outline" class="author-field">
                     <mat-label>Tác giả {{ i + 1 }}</mat-label>
+                    <mat-icon matPrefix>person</mat-icon>
                     <input
                       matInput
                       [formControl]="$any(author)"
@@ -127,6 +129,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Nơi xuất bản</mat-label>
+              <mat-icon matPrefix>location_on</mat-icon>
               <input
                 matInput
                 formControlName="venue"
@@ -136,6 +139,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
 
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Ngày xuất bản</mat-label>
+              <mat-icon matPrefix>event</mat-icon>
               <input matInput formControlName="date" type="date" />
             </mat-form-field>
           </div>
@@ -144,6 +148,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>DOI</mat-label>
+              <mat-icon matPrefix>link</mat-icon>
               <input
                 matInput
                 formControlName="doi"
@@ -154,6 +159,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
 
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>URL</mat-label>
+              <mat-icon matPrefix>public</mat-icon>
               <input
                 matInput
                 formControlName="url"
@@ -197,6 +203,10 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
   `,
   styles: [
     `
+      mat-form-field mat-icon[matprefix] {
+        color: var(--mat-sys-primary);
+        opacity: 0.95;
+      }
       .publication-expansion-panel {
         margin-bottom: 16px !important;
         border-radius: 12px !important;

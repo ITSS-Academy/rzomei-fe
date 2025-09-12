@@ -32,9 +32,10 @@ export class ListCardCvComponent {
         cvId: this.cvId,
         title: 'Xóa CV',
         message: 'Bạn có chắc muốn xóa CV này?',
-        confirmText: 'Xóa',
-        cancelText: 'Hủy',
+        // confirmText: 'Xóa',
+        // cancelText: 'Hủy',
       },
+      autoFocus: false,
     });
   }
 }

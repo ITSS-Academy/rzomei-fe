@@ -26,10 +26,6 @@
     </div>
 
     <mat-card-actions class="list-cv-card__actions" align="end">
-      <button mat-stroked-button color="primary" class="action-btn">
-        <mat-icon>content_copy</mat-icon>
-        Sao chép
-      </button>
       <button mat-flat-button color="primary" (click)="onEdit()">
         <mat-icon>edit</mat-icon>
         Chỉnh sửa
@@ -43,7 +39,11 @@
           <mat-icon>dialpad</mat-icon>
           <span>Chia Sẻ</span>
         </button>
-        <button mat-menu-item class="delete-menu-item text-warn" (click)="onDelete()">
+        <button
+          mat-menu-item
+          class="delete-menu-item text-warn"
+          (click)="onDelete()"
+        >
           <mat-icon>delete</mat-icon>
           <span>Xóa</span>
         </button>

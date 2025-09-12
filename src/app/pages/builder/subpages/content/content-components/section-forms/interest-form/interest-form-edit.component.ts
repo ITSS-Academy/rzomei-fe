@@ -73,6 +73,7 @@ import { NgxEditorComponent, NgxEditorMenuComponent } from 'ngx-editor';
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field full-width">
               <mat-label>Danh mục sở thích</mat-label>
+              <mat-icon matPrefix>category</mat-icon>
               <input
                 matInput
                 formControlName="category"
@@ -149,6 +150,10 @@ import { NgxEditorComponent, NgxEditorMenuComponent } from 'ngx-editor';
   `,
   styles: [
     `
+      mat-form-field mat-icon[matprefix] {
+        color: var(--mat-sys-primary);
+        opacity: 0.95;
+      }
       .experience-expansion-panel {
         margin-bottom: 20px !important; // Increased margin for interest forms
         border-radius: 12px !important;
@@ -427,7 +432,7 @@ export class InterestFormEditComponent implements OnInit, OnDestroy, OnChanges {
     ['bold', 'italic'],
     ['underline', 'strike'],
     ['ordered_list', 'bullet_list'],
-    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    [{ heading: ['h4', 'h5', 'h6'] }],
     ['link'],
     ['text_color', 'background_color'],
     ['align_left', 'align_center', 'align_right', 'align_justify'],
@@ -548,7 +553,7 @@ export class InterestFormEditComponent implements OnInit, OnDestroy, OnChanges {
 
   onDelete(): void {
     const dialogRef = this.dialog.open(CvDeleteConfirmDialogComponent, {
-      width: '400px',
+      width: 'fit-content',
       data: {
         title: 'Xác nhận xóa',
         message: 'Bạn có chắc chắn muốn xóa sở thích này?',

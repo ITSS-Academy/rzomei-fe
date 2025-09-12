@@ -2,7 +2,7 @@
   padding: 1.5rem;
   width: 100%;
   box-sizing: border-box;
-  border-radius: 20px !important;
+  border-radius: 10px !important;
   // background-color: var(--mat-sys-background)  !important;
   background-color: var(--mat-sys-background) !important;
   box-shadow: 0px 5px 15px 0px rgba(218, 226, 249, 1) !important;
@@ -98,8 +98,10 @@
 }
 
 .theme-preview img {
-  width: 100%;
+  width: 14rem;
+  height: 17rem;
   max-width: 220px;
+  border-radius: 0.5rem;
   background-color: var(--mat-sys-on-primary) !important;
   box-shadow: 0px 5px 15px 0px rgba(218, 226, 249, 1) !important;
 }

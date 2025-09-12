@@ -20,7 +20,7 @@
         <mat-icon>description</mat-icon>
         Nội dung
       </button>
-      <button
+      <!-- <button
         mat-button
         class="nav-item"
         [routerLink]="['/builder', id, 'customize']"
@@ -28,11 +28,11 @@
       >
         <mat-icon>edit</mat-icon>
         Chỉnh sửa
-      </button>
+      </button> -->
       }
     </div>
     <div class="navbar-right">
-      <button mat-flat-button color="accent" class="nav-item">
+      <button mat-flat-button color="accent" class="nav-item" (click)="copyLinkToShareCv()">
         <mat-icon>open_in_new</mat-icon>
         Chia sẻ
       </button>

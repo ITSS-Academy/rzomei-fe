@@ -75,6 +75,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Vị trí công việc</mat-label>
+              <mat-icon matPrefix>work</mat-icon>
               <input
                 matInput
                 formControlName="position"
@@ -84,6 +85,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
 
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Công ty</mat-label>
+              <mat-icon matPrefix>business</mat-icon>
               <input
                 matInput
                 formControlName="company"
@@ -96,6 +98,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field full-width">
               <mat-label>Địa điểm</mat-label>
+              <mat-icon matPrefix>place</mat-icon>
               <input
                 matInput
                 formControlName="location"
@@ -108,11 +111,13 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Ngày bắt đầu</mat-label>
+              <mat-icon matPrefix>event</mat-icon>
               <input matInput formControlName="startDate" type="date" />
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Ngày kết thúc</mat-label>
+              <mat-icon matPrefix>event_available</mat-icon>
               <input matInput formControlName="endDate" type="date" />
               <mat-hint>Để trống nếu vẫn đang làm việc</mat-hint>
             </mat-form-field>
@@ -158,6 +163,11 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
   `,
   styles: [
     `
+      mat-form-field mat-icon[matprefix] {
+        color: var(--mat-sys-primary);
+        opacity: 0.95;
+      }
+
       .experience-expansion-panel {
         margin-bottom: 16px !important;
         border-radius: 12px !important;
@@ -195,7 +205,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
           gap: 8px;
           overflow: hidden;
           white-space: nowrap;
-          
+
           .job-title {
             font-size: 16px;
             font-weight: 600;

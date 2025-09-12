@@ -74,6 +74,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Bằng cấp</mat-label>
+              <mat-icon matPrefix>school</mat-icon>
               <input
                 matInput
                 formControlName="degree"
@@ -83,6 +84,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
 
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Trường/Cơ sở đào tạo</mat-label>
+              <mat-icon matPrefix>location_city</mat-icon>
               <input
                 matInput
                 formControlName="institution"
@@ -95,6 +97,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Địa chỉ</mat-label>
+              <mat-icon matPrefix>place</mat-icon>
               <input
                 matInput
                 formControlName="location"
@@ -104,6 +107,7 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
 
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>GPA</mat-label>
+              <mat-icon matPrefix>star</mat-icon>
               <input
                 matInput
                 formControlName="gpa"
@@ -117,11 +121,13 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Ngày bắt đầu</mat-label>
+              <mat-icon matPrefix>event</mat-icon>
               <input matInput formControlName="startDate" type="date" />
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Ngày kết thúc</mat-label>
+              <mat-icon matPrefix>event_available</mat-icon>
               <input matInput formControlName="endDate" type="date" />
             </mat-form-field>
           </div>
@@ -161,6 +167,10 @@ import { CvDeleteConfirmDialogComponent } from '../../../../../../../components/
   `,
   styles: [
     `
+      mat-form-field mat-icon[matprefix] {
+        color: var(--mat-sys-primary);
+        opacity: 0.95;
+      }
       .education-expansion-panel {
         margin-bottom: 16px !important;
         border-radius: 12px !important;

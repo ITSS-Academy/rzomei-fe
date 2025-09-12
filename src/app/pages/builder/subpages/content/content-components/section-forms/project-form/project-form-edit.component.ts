@@ -77,6 +77,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Tên dự án</mat-label>
+              <mat-icon matPrefix>title</mat-icon>
               <input
                 matInput
                 formControlName="title"
@@ -86,6 +87,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>URL dự án</mat-label>
+              <mat-icon matPrefix>public</mat-icon>
               <input
                 matInput
                 formControlName="url"
@@ -99,6 +101,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>GitHub Repository</mat-label>
+              <mat-icon matPrefix>code</mat-icon>
               <input
                 matInput
                 formControlName="github"
@@ -112,11 +115,13 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Ngày bắt đầu</mat-label>
+              <mat-icon matPrefix>event</mat-icon>
               <input matInput formControlName="startDate" type="date" />
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Ngày kết thúc</mat-label>
+              <mat-icon matPrefix>event_available</mat-icon>
               <input matInput formControlName="endDate" type="date" />
               <mat-hint>Để trống nếu vẫn đang phát triển</mat-hint>
             </mat-form-field>
@@ -126,6 +131,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field full-width">
               <mat-label>Công nghệ sử dụng</mat-label>
+              <mat-icon matPrefix>memory</mat-icon>
               <mat-chip-grid #chipGrid aria-label="Technology selection">
                 <mat-chip-row
                   *ngFor="let tech of technologiesFormControl.value"
@@ -185,6 +191,10 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
   `,
   styles: [
     `
+      mat-form-field mat-icon[matprefix] {
+        color: var(--mat-sys-primary);
+        opacity: 0.95;
+      }
       .experience-expansion-panel {
         margin-bottom: 16px !important;
         border-radius: 12px !important;

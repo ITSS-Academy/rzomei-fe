@@ -23,12 +23,7 @@ export class HeaderComponent {
     private router: Router
   ) {
     this.currentUser$ = this.store.select((state) => state.auth.authInfo);
-    this.currentUser$.subscribe((user) => {
-      console.log('User data:', user);
-      if (user) {
-        console.log('Photo URL:', user.photoURL);
-      }
-    });
+    this.currentUser$.subscribe((user) => {});
   }
 
   logout() {

@@ -36,66 +36,79 @@
   </div>
 </div>
 
-@if (viewMode === 'grid') { @if (isLoading$ | async) {
-<!-- Skeleton Grid View -->
-<div class="card-cv grid-view skeleton-grid">
-  @for (item of [1,2,3,4]; track $index) {
-  <div class="skeleton-card">
-    <ngx-skeleton-loader
-      count="1"
-      [theme]="{
-        'border-radius': '12px',
-        height: '220px',
-        width: '600px',
-        'margin-bottom': '0'
-      }"
-    >
-    </ngx-skeleton-loader>
-  </div>
+@if (viewMode === 'grid') { 
+  @if (isLoading$ | async) {
+    <!-- Skeleton Grid View -->
+    <div class="card-cv grid-view skeleton-grid">
+      @for (item of [1,2,3,4]; track $index) {
+        <div class="skeleton-card">
+          <ngx-skeleton-loader
+            count="1"
+            [theme]="{
+              'border-radius': '12px',
+              height: '14rem',
+              width: '38rem',
+              'margin-bottom': '0'
+            }"
+          ></ngx-skeleton-loader>
+        </div>
+      }
+    </div>
+  } @else {
+    @if ((AllCvs$ | async)?.length === 0) {
+      <div class="no-cv-message">
+        Bạn chưa có CV nào, hãy tạo mới!
+      </div>
+    } @else {
+      <div class="card-cv grid-view">
+        @for (item of (AllCvs$ | async); track $index) {
+          <app-card-cv
+            [title]="item.cvName"
+            [template]="item.cvTheme"
+            [createdAt]="item.create_date"
+            [updatedAt]="item.update_time"
+            [imageUrl]="item.thumbnailUrl"
+            [cvId]="item.id"
+          ></app-card-cv>
+        }
+      </div>
+    }
   }
-</div>
-} @else {
-<div class="card-cv grid-view">
-  @for (item of (AllCvs$ | async); track $index) {
-  <app-card-cv
-    [title]="item.cvName"
-    [template]="item.cvTheme"
-    [createdAt]="item.create_date"
-    [updatedAt]="item.update_time"
-    [imageUrl]="item.thumbnailUrl"
-    [cvId]="item.id"
-  ></app-card-cv>
+} @else { 
+  @if (isLoading$ | async) {
+    <!-- Skeleton List View -->
+    <div class="list-card-cv list-view skeleton-list">
+      @for (item of [1,2,3,4]; track $index) {
+        <div class="skeleton-list-card">
+          <ngx-skeleton-loader
+            count="1"
+            [theme]="{
+              'border-radius': '8px',
+              height: '64px',
+              width: '100%',
+              'margin-bottom': '12px'
+            }"
+          ></ngx-skeleton-loader>
+        </div>
+      }
+    </div>
+  } @else {
+    @if ((AllCvs$ | async)?.length === 0) {
+      <div class="no-cv-message">
+        Bạn chưa có CV nào, hãy tạo mới!
+      </div>
+    } @else {
+      <div class="list-card-cv list-view">
+        @for (item of (AllCvs$ | async); track $index) {
+          <app-list-card-cv
+            [title]="item.cvName"
+            [template]="item.cvTheme"
+            [createdAt]="item.create_date"
+            [updatedAt]="item.update_time"
+            [cvId]="item.id"
+          ></app-list-card-cv>
+        }
+      </div>
+    }
   }
-</div>
-} } @else { @if (isLoading$ | async) {
-<!-- Skeleton List View -->
-<div class="list-card-cv list-view skeleton-list">
-  @for (item of [1,2,3,4]; track $index) {
-  <div class="skeleton-list-card">
-    <ngx-skeleton-loader
-      count="1"
-      [theme]="{
-        'border-radius': '8px',
-        height: '64px',
-        width: '100%',
-        'margin-bottom': '12px'
-      }"
-    >
-    </ngx-skeleton-loader>
-  </div>
-  }
-</div>
-} @else {
-<!-- List View -->
-<div class="list-card-cv list-view">
-  @for (item of (AllCvs$ | async); track $index) {
-  <app-list-card-cv
-    [title]="item.cvName"
-    [template]="item.cvTheme"
-    [createdAt]="item.create_date"
-    [updatedAt]="item.update_time"
-    [cvId]="item.id"
-  ></app-list-card-cv>
-  }
-</div>
-} }
+}

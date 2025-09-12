@@ -1,23 +1,23 @@
 .cv-card {
   border-radius: 20px !important;
+  max-width: 38rem;
+  max-height: 14rem;
   background-color: var(--mat-sys-on-primary) !important;
   box-shadow: 0px 5px 15px 0px rgba(218, 226, 249, 1) !important;
   padding: 0 !important;
   border: none !important;
-  font-family: var(--mat-sys-plain-font-family, 'Roboto', Arial, sans-serif);
+  font-family: var(--mat-sys-plain-font-family, "Roboto", Arial, sans-serif);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   cursor: pointer;
-
 
   &:hover {
     transform: translateY(-8px);
     box-shadow: 0px 15px 30px 0px rgba(218, 226, 249, 0.4) !important;
-    
+
     .cv-card__preview img {
       transform: scale(1.05);
     }
-    
-    
+
     .cv-card__title {
       color: var(--mat-sys-primary, #405f90) !important;
     }
@@ -25,9 +25,9 @@
 
   &__content {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 32px;
-    padding: 1.5rem !important;
+    padding: 1rem !important;
   }
 
   &__info {
@@ -44,7 +44,6 @@
     margin: 0 0 4px 0 !important;
     line-height: 1.2 !important;
     transition: color 0.3s ease;
-
   }
 
   &__template {
@@ -118,14 +117,39 @@
     max-width: 160px;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 1px 4px 0 rgba(64, 95, 144, 0.10);
+    box-shadow: 0 1px 4px 0 rgba(64, 95, 144, 0.1);
 
     img {
-      width: 100%;
+      // width: 100%;
+      width: 140px;
+      height: 198px;
       display: block;
       border-radius: 12px;
       background: #fff;
       transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+  }
+}
+
+.more-options-menu {
+  button.mat-menu-item {
+    font-size: 0.95rem;
+    color: var(--mat-sys-on-surface, #1a1c1f);
+    transition: background-color 0.3s ease;
+
+    mat-icon {
+      font-size: 20px;
+      color: var(--mat-sys-on-surface-variant, #43474f);
+      margin-right: 12px;
+      transition: color 0.3s ease;
+    }
+
+    &:hover {
+      background-color: var(--mat-sys-primary-container, #d6e3ff);
+
+      mat-icon {
+        color: var(--mat-sys-primary, #405f90);
+      }
     }
   }
 }

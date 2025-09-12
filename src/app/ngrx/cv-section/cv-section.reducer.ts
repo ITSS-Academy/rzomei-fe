@@ -31,6 +31,9 @@ const initialState: CvSectionState = {
   isDeletingCv: false,
   deleteSuccess: false,
   deleteCvError: undefined,
+  isGettingShareCv: false,
+  getShareCvError: undefined,
+  shareCvData: null,
 };
 
 export const cvSectionReducer = createReducer(
@@ -138,10 +141,14 @@ export const cvSectionReducer = createReducer(
 
     switch (sectionType) {
       case 'personalInfo':
+        console.log(data);
         newSections['personalInfo'] = {
           ...newSections['personalInfo'],
           ...data,
         };
+        break;
+      case 'summary':
+        newSections['summary'] = data.summary || null;
         break;
       case 'education':
         newSections['education'] = [...data];
@@ -246,7 +253,6 @@ export const cvSectionReducer = createReducer(
 
   on(CvSectionActions.getAllCvsSuccess, (state, { type, data }) => {
     console.log(type);
-    console.log(data);
 
     return <CvSectionState>{
       ...state,
@@ -385,7 +391,7 @@ export const cvSectionReducer = createReducer(
 
   on(CvSectionActions.getBaseCVThemesSuccess, (state, { type, data }) => {
     console.log(type);
-    console.log(data);
+
     return <CvSectionState>{
       ...state,
       isGetBaseThemesLoading: false,
@@ -459,6 +465,37 @@ export const cvSectionReducer = createReducer(
       isDeletingCv: false,
       deleteSuccess: false,
       deleteCvError: error,
+    };
+  }),
+
+  on(CvSectionActions.getShareCvById, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingShareCv: true,
+      getShareCvError: null,
+      shareCvData: null,
+    };
+  }),
+
+  on(CvSectionActions.getShareCvByIdSuccess, (state, { type, data }) => {
+    console.log(type);
+    // console.log(data);
+    return {
+      ...state,
+      isGettingShareCv: false,
+      getShareCvError: null,
+      shareCvData: data,
+    };
+  }),
+
+  on(CvSectionActions.getShareCvByIdFailure, (state, { type, error }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingShareCv: false,
+      getShareCvError: error,
+      shareCvData: null,
     };
   })
 );

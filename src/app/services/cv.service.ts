@@ -44,4 +44,8 @@ export class CvService {
   deleteCvById(id: number) {
     return this.http.delete(`${this.baseEndpoint}/${id}`);
   }
+
+  getShareCvById(id: number) {
+    return this.http.get(`${this.baseEndpoint}/get-shared-cv/${id}`);
+  }
 }

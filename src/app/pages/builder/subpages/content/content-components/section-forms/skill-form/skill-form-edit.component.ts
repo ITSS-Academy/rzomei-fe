@@ -67,6 +67,7 @@ import { NgxEditorComponent, NgxEditorMenuComponent } from 'ngx-editor';
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Danh mục kỹ năng</mat-label>
+              <mat-icon matPrefix>category</mat-icon>
               <input
                 matInput
                 formControlName="category"
@@ -76,6 +77,7 @@ import { NgxEditorComponent, NgxEditorMenuComponent } from 'ngx-editor';
 
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Trình độ</mat-label>
+              <mat-icon matPrefix>bar_chart</mat-icon>
               <mat-select formControlName="level">
                 <mat-option value="Cơ bản">Cơ bản</mat-option>
                 <mat-option value="Trung bình">Trung bình</mat-option>
@@ -90,6 +92,7 @@ import { NgxEditorComponent, NgxEditorMenuComponent } from 'ngx-editor';
           <div class="form-row">
             <mat-form-field appearance="outline" class="form-field full-width">
               <mat-label>Các kỹ năng cụ thể</mat-label>
+              <mat-icon matPrefix>star</mat-icon>
               <mat-chip-grid #chipGrid aria-label="Skill selection">
                 <mat-chip-row
                   *ngFor="let skill of itemsFormControl.value"
@@ -341,6 +344,11 @@ import { NgxEditorComponent, NgxEditorMenuComponent } from 'ngx-editor';
             }
           }
         }
+      }
+
+      mat-form-field mat-icon[matprefix] {
+        color: var(--mat-sys-primary);
+        opacity: 0.95;
       }
     `,
   ],

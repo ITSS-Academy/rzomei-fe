@@ -6,11 +6,10 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import * as CvSectionActions from '../../../../ngrx/cv-section/cv-section.actions';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-delete-cv-dialog',
-  imports: [MaterialModule, AsyncPipe],
+  imports: [MaterialModule],
   templateUrl: './delete-cv-dialog.component.html',
   styleUrl: './delete-cv-dialog.component.scss',
 })

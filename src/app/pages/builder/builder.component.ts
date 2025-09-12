@@ -27,7 +27,7 @@ import * as CvSectionActions from '../../ngrx/cv-section/cv-section.actions';
 })
 export class BuilderComponent {
   generatedCv$!: Observable<any>;
-  private subscription = new Subscription();
+  subscription: Subscription[] = [];
   safeHtml!: SafeHtml;
   constructor(
     private store: Store<{ cvSections: CvSectionState; auth: AuthState }>,
@@ -43,20 +43,21 @@ export class BuilderComponent {
   token$!: Observable<string | null>;
 
   ngOnInit(): void {
-    this.token$.subscribe((token) => {
-    const { id } = this.activatedRoute.snapshot.params;
-      if (token) {
-        this.store.dispatch(CvSectionActions.getCvById({ id: id }));
-      }
-    });
-
-    this.generatedCv$.subscribe((data) => {
-      this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(data);
-    });
+    this.subscription.push(
+      this.token$.subscribe((token) => {
+        const { id } = this.activatedRoute.snapshot.params;
+        if (token) {
+          this.store.dispatch(CvSectionActions.getCvById({ id: id }));
+        }
+      }),
+      this.generatedCv$.subscribe((data) => {
+        this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(data);
+      })
+    );
   }
 
   ngOnDestroy(): void {
     // Clean up any subscriptions or resources here
-    this.subscription.unsubscribe();
+    this.subscription.forEach((sub) => sub.unsubscribe());
   }
 }
