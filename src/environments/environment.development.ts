@@ -8,6 +8,6 @@ export const environment = {
     authDomain: "rzomie-4d56b.firebaseapp.com",
     messagingSenderId: "1066506289495"
   },
-  // baseUrl: "https://rzomie-production.up.railway.app"
-  baseUrl: "http://localhost:3000"
+  baseUrl: "https://rzomie-production.up.railway.app"
+  // baseUrl: "http://localhost:3000"
 };

@@ -15,4 +15,8 @@ export class AuthService {
     const token = await credential.user.getIdToken();
     return { user: credential.user, token };
   }
+
+  logout() {
+    return this.auth.signOut();
+  }
 }
