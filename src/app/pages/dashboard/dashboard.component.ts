@@ -25,7 +25,6 @@ import { CreatecvDialogComponent } from '../../components/createcv-dialog/create
     CardCvComponent,
     ListCardCvComponent,
     FormsModule,
-    RouterLink,
     NgxSkeletonLoaderModule,
   ],
   templateUrl: './dashboard.component.html',

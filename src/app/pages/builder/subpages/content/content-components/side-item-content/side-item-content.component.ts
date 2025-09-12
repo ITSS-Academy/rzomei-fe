@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { MaterialModule } from '../../../../../../shared/material/material.module';
 import { CvSectionState } from '../../../../../../ngrx/cv-section/cv-section.state';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { PersonalFormComponent } from '../section-forms/personal-form/personal-form.component';
 import { EducationFormComponent } from '../section-forms/education-form/education-form.component';
 import { ExperienceFormComponent } from '../section-forms/experience-form/experience-form.component';
@@ -57,7 +57,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './side-item-content.component.html',
   styleUrl: './side-item-content.component.scss',
 })
-export class SideItemContentComponent implements OnInit {
+export class SideItemContentComponent implements OnInit, OnDestroy {
   readonly dialog = inject(MatDialog);
   authState$!: Observable<string | null>;
   cvSections$!: Observable<any | null>;
@@ -66,6 +66,7 @@ export class SideItemContentComponent implements OnInit {
   blocks: any[] = [];
   dataCV$!: Observable<any | null>;
   currentCvData: any;
+  subscriptions: Subscription[] = [];
 
   // Định nghĩa thứ tự sections mong muốn
   sectionOrder = [
@@ -95,42 +96,50 @@ export class SideItemContentComponent implements OnInit {
     this.dataCV$ = this.store.select('cvSections', 'currentCvData');
     this.authState$ = this.store.select('auth', 'token');
     this.isLoading$ = this.store.select('cvSections', 'isGetSectionLoading');
+    const { id } = this.activeRoute.parent?.snapshot.params!;
+    // console.log(id);
+    this.id = id;
   }
 
   ngOnInit(): void {
-    this.dataCV$.subscribe((data) => {
-      this.currentCvData = data;
-    });
 
-    this.authState$.subscribe((token) => {
-      if (token) {
-        this.cvSections$.subscribe((data) => {
-          if (data) {
-            const { id } = this.activeRoute.parent?.snapshot.params!;
-            
-            this.isDataLoaded = true;
-            this.store.dispatch(
-              CvSectionActions.generateCv({
-                data: {
-                  data: data,
-                  id: id,
-                  cvTheme: this.currentCvData.cvTheme,
-                },
-              })
-            );
-            // this.dataCV = data;
+    this.subscriptions.push(
+      this.authState$.subscribe((token) => {
+        if (token) {
+          this.dataCV$.subscribe((data) => {
+            if (data) {
+              // console.log(data);
+              this.currentCvData = data;
+              console.log(data);
+              this.isDataLoaded = true;
+              this.cvSections$.subscribe((data) => {
+                if (data) {
+                  this.store.dispatch(
+                    CvSectionActions.generateCv({
+                      data: {
+                        data: data,
+                        id: this.id || this.currentCvData.id,
+                        cvTheme: this.currentCvData.cvTheme,
+                      },
+                    })
+                  );
+                }
+              },)
 
-            // Chuyển đổi object thành mảng key-value
-            this.blocks = Object.keys(data).map((key) => ({
-              key,
-              value: data[key],
-            }));
-          } else {
-            this.isDataLoaded = false;
-          }
-        });
-      }
-    });
+              // this.dataCV = data;
+
+              // Chuyển đổi object thành mảng key-value
+              this.blocks = Object.keys(data).map((key) => ({
+                key,
+                value: data[key],
+              }));
+            } else {
+              this.isDataLoaded = false;
+            }
+          });
+        }
+      })
+    );
   }
 
   hasData(sectionData: any): boolean {
@@ -394,5 +403,12 @@ export class SideItemContentComponent implements OnInit {
 
   private generateId(): string {
     return 'id_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+  }
+
+  ngOnDestroy(): void {
+    // Hủy các subscription nếu có
+    this.subscriptions.forEach((sub) => {
+      sub.unsubscribe();
+    });
   }
 }

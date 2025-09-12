@@ -204,7 +204,7 @@ export const cvSectionReducer = createReducer(
   }),
 
   on(CvSectionActions.generateCv, (state, { type, data }) => {
-    console.log(data);
+    // console.log(data);
     console.log(type);
     return {
       ...state,

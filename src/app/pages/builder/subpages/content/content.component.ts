@@ -45,7 +45,7 @@ export class ContentComponent implements OnInit {
   
     // Debug loading state
     this.isLoading$.subscribe(loading => {
-      console.log('Is loading:', loading);
+      // console.log('Is loading:', loading);
     });
   }
 }
