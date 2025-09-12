@@ -23,21 +23,32 @@
           <mat-icon>content_copy</mat-icon>
           Sao chép
         </button>
-        <button mat-flat-button color="primary">
+        <button mat-flat-button color="primary" (click)="onEdit()">
           <mat-icon>edit</mat-icon>
           Chỉnh sửa
         </button>
-        <button mat-icon-button>
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+        >
           <mat-icon>more_vert</mat-icon>
         </button>
+        <mat-menu #menu="matMenu" class="more-options-menu">
+          <button mat-menu-item>
+            <mat-icon>dialpad</mat-icon>
+            <span>Chia Sẻ</span>
+          </button>
+          <button mat-menu-item (click)="onDelete()">
+            <mat-icon>delete</mat-icon>
+            <span>Xóa</span>
+          </button>
+        </mat-menu>
       </mat-card-actions>
     </div>
 
     <div class="cv-card__preview">
-      <img
-        src="{{imageUrl}}"
-        alt="CV Preview"
-      />
+      <img src="{{ imageUrl }}" alt="CV Preview" />
     </div>
   </mat-card-content>
 </mat-card>

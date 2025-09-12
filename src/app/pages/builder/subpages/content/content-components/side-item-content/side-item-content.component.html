@@ -28,7 +28,7 @@
   <app-publication-form class="content-block"></app-publication-form>
   } } @case ('declaration') { @if (hasData(item.value)) {
   <app-declaration-form class="content-block"></app-declaration-form>
-  }
+  } } } }
   <button
     mat-fab
     extended
@@ -36,6 +36,6 @@
     (click)="openAddContentDialog()"
   >
     <mat-icon>add</mat-icon>
-    Add Content</button
-  >} } }
+    Add Content
+  </button>
 </div>

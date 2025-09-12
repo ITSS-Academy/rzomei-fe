@@ -1,0 +1,35 @@
+<div class="cv-preview-layout">
+  <div class="cv-preview-left">
+    <img src="{{ data.imageUrl }}" alt="Theme preview" />
+  </div>
+
+  <div class="cv-preview-right">
+    <h2 class="cv-theme-title">{{ data.display_name }}</h2>
+    <p class="cv-theme-desc">
+      {{ data.description }}
+    </p>
+
+    <div class="cv-preview-actions">
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>Nhập tên CV của bạn</mat-label>
+        <input matInput [(ngModel)]="cvName" />
+      </mat-form-field>
+      <div class="button-actions">
+        <button
+          mat-stroked-button
+          color="primary"
+          class="cv-theme-btn"
+          (click)="closeDialog()"
+        >
+          <mat-icon>undo</mat-icon>
+          Trở về
+        </button>
+
+        <button (click)="createNewCv()" mat-flat-button color="primary" class="cv-theme-btn">
+          <mat-icon>add</mat-icon>
+          Sử dụng giao diện này
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

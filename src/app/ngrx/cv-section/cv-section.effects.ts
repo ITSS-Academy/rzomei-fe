@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { CvService } from '../../services/cv.service';
 
 import * as CvSectionActions from './cv-section.actions';
-
+import { Router } from '@angular/router';
 
 export const genCv$ = createEffect(
   (actions$ = inject(Actions), cvService = inject(CvService)) => {
@@ -83,6 +83,70 @@ export const exportCv$ = createEffect(
           map((blob) => CvSectionActions.exportCvSuccess({ blob })),
           catchError((error: { message: string }) =>
             of(CvSectionActions.exportCvFailure({ error: error.message }))
+          )
+        )
+      )
+    );
+  },
+  { functional: true }
+);
+
+export const getBaseCVThemes$ = createEffect(
+  (actions$ = inject(Actions), cvService = inject(CvService)) => {
+    return actions$.pipe(
+      ofType(CvSectionActions.getBaseCVThemes),
+      switchMap(() =>
+        cvService.getBaseCVThemes().pipe(
+          map((data) => CvSectionActions.getBaseCVThemesSuccess({ data })),
+          catchError((error: { message: string }) =>
+            of(
+              CvSectionActions.getBaseCVThemesFailure({ error: error.message })
+            )
+          )
+        )
+      )
+    );
+  },
+  { functional: true }
+);
+
+export const createNewCv$ = createEffect(
+  (
+    actions$ = inject(Actions),
+    cvService = inject(CvService),
+    router = inject(Router)
+  ) => {
+    return actions$.pipe(
+      ofType(CvSectionActions.createNewCv),
+      exhaustMap((action) =>
+        cvService.createNewCv(action.data).pipe(
+          map((data) => {
+            router.navigate(['builder/', data.id, 'content']);
+            return CvSectionActions.createNewCvSuccess({ data });
+          }),
+          catchError((error: { message: string }) =>
+            of(CvSectionActions.createNewCvFailure({ error: error.message }))
+          )
+        )
+      )
+    );
+  },
+  { functional: true }
+);
+
+export const deleteCvById$ = createEffect(
+  (
+    actions$ = inject(Actions),
+    cvService = inject(CvService),
+    router = inject(Router)
+  ) => {
+    return actions$.pipe(
+      ofType(CvSectionActions.deleteCvById),
+      switchMap((action) =>
+        cvService.deleteCvById(action.id).pipe(
+          map((data) => CvSectionActions.deleteCvByIdSuccess({ id: action.id })),
+          catchError((error: { message: string }) =>
+            of(CvSectionActions.deleteCvByIdFailure({ error: error.message }))
           )
         )
       )

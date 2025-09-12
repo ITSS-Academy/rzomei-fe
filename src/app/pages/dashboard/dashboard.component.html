@@ -58,12 +58,12 @@
 <div class="card-cv grid-view">
   @for (item of (AllCvs$ | async); track $index) {
   <app-card-cv
-    [routerLink]="['/builder', item.id, 'content']"
     [title]="item.cvName"
     [template]="item.cvTheme"
     [createdAt]="item.create_date"
     [updatedAt]="item.update_time"
     [imageUrl]="item.thumbnailUrl"
+    [cvId]="item.id"
   ></app-card-cv>
   }
 </div>
@@ -90,9 +90,11 @@
 <div class="list-card-cv list-view">
   @for (item of (AllCvs$ | async); track $index) {
   <app-list-card-cv
-    [routerLink]="['/builder', item.id, 'content']"
     [title]="item.cvName"
     [template]="item.cvTheme"
+    [createdAt]="item.create_date"
+    [updatedAt]="item.update_time"
+    [cvId]="item.id"
   ></app-list-card-cv>
   }
 </div>

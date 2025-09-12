@@ -3,7 +3,7 @@
     <div class="list-cv-card__icon">
       <mat-icon>description</mat-icon>
     </div>
-    
+
     <div class="list-cv-card__info">
       <div class="list-cv-card__main">
         <mat-card-title class="list-cv-card__title">{{ title }}</mat-card-title>
@@ -12,31 +12,42 @@
           {{ template }}
         </mat-card-subtitle>
       </div>
-      
+
       <div class="list-cv-card__dates">
         <span class="date-item">
           <mat-icon>event</mat-icon>
-          {{ createdAt | date: 'dd/MM/yyyy' }}
+          {{ createdAt | date : "dd/MM/yyyy" }}
         </span>
         <span class="date-item">
           <mat-icon>schedule</mat-icon>
-          {{ updatedAt | date: 'dd/MM/yyyy' }}
+          {{ updatedAt | date : "dd/MM/yyyy" }}
         </span>
       </div>
     </div>
-    
+
     <mat-card-actions class="list-cv-card__actions" align="end">
       <button mat-stroked-button color="primary" class="action-btn">
         <mat-icon>content_copy</mat-icon>
         Sao chép
       </button>
-      <button mat-flat-button color="primary" class="action-btn">
+      <button mat-flat-button color="primary" (click)="onEdit()">
         <mat-icon>edit</mat-icon>
         Chỉnh sửa
       </button>
-      <button mat-icon-button class="more-btn">
+      <button mat-icon-button class="more-btn" [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
+
+      <mat-menu #menu="matMenu" class="more-options-menu">
+        <button mat-menu-item>
+          <mat-icon>dialpad</mat-icon>
+          <span>Chia Sẻ</span>
+        </button>
+        <button mat-menu-item class="delete-menu-item text-warn" (click)="onDelete()">
+          <mat-icon>delete</mat-icon>
+          <span>Xóa</span>
+        </button>
+      </mat-menu>
     </mat-card-actions>
   </mat-card-content>
 </mat-card>

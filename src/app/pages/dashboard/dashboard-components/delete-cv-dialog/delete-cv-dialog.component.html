@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Xóa CV</h2>
+<mat-dialog-content>Bạn có chắc muốn xóa CV này không?</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Quay lại</button>
+  <button
+    mat-button
+    color="warn"
+    (click)="onDelete()"
+    [disabled]="isDeletingCv$ | async"
+  >
+    Xóa
+  </button>
+</mat-dialog-actions>

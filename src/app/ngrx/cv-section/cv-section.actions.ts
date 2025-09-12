@@ -28,8 +28,16 @@ export const clearCvBlob = createAction('[CV Section] Clear CV Blob');
 export const exportCvSuccess = createAction('[CV Section] Export CV Success', props<{ blob: any }>());
 export const exportCvFailure = createAction('[CV Section] Export CV Failure', props<{ error: any }>());
 
-export const copyCv = createAction('[CV Section] Copy CV', props<{ id: number }>());
-export const copyCvSuccess = createAction('[CV Section] Copy CV Success');
-export const copyCvFailure = createAction('[CV Section] Copy CV Failure', props<{ error: any }>());
+
+export const getBaseCVThemes = createAction('[CV Section] Get Base CV Themes');
+export const getBaseCVThemesSuccess = createAction('[CV Section] Get Base CV Themes Success', props<{ data: any }>());
+export const getBaseCVThemesFailure = createAction('[CV Section] Get Base CV Themes Failure', props<{ error: any }>());
 
 
+export const createNewCv = createAction('[CV Section] Create New CV', props<{ data: any }>());
+export const createNewCvSuccess = createAction('[CV Section] Create New CV Success', props<{ data: any }>());
+export const createNewCvFailure = createAction('[CV Section] Create New CV Failure', props<{ error: any }>());
+
+export const deleteCvById = createAction('[CV Section] Delete CV By Id', props<{ id: number }>());
+export const deleteCvByIdSuccess = createAction('[CV Section] Delete CV By Id Success', props<{ id: number }>());
+export const deleteCvByIdFailure = createAction('[CV Section] Delete CV By Id Failure', props<{ error: any }>());

@@ -21,7 +21,16 @@ const initialState: CvSectionState = {
   exportingError: undefined,
   exportSuccess: false,
   cvBlob: undefined,
-  currentCvData: undefined
+  currentCvData: undefined,
+  baseThemes: [],
+  isGetBaseThemesLoading: false,
+  getBaseThemesError: undefined,
+  isCreatingNewCv: false,
+  createNewCvError: undefined,
+  createSuccess: false,
+  isDeletingCv: false,
+  deleteSuccess: false,
+  deleteCvError: undefined,
 };
 
 export const cvSectionReducer = createReducer(
@@ -195,7 +204,7 @@ export const cvSectionReducer = createReducer(
   }),
 
   on(CvSectionActions.generateCv, (state, { type, data }) => {
-    console.log(data)
+    console.log(data);
     console.log(type);
     return {
       ...state,
@@ -265,7 +274,7 @@ export const cvSectionReducer = createReducer(
       getSectionError: null,
       sections: null,
       generatedCv: null,
-      currentCvData: null
+      currentCvData: null,
     };
   }),
 
@@ -277,7 +286,7 @@ export const cvSectionReducer = createReducer(
       isGetSectionLoading: false,
       getSectionError: null,
       sections: data.cvData,
-      currentCvData: data
+      currentCvData: data,
     };
   }),
 
@@ -288,7 +297,7 @@ export const cvSectionReducer = createReducer(
       isGetSectionLoading: false,
       getSectionError: error,
       sections: <CVBlock>{},
-      currentCvData: null
+      currentCvData: null,
     };
   }),
 
@@ -329,7 +338,7 @@ export const cvSectionReducer = createReducer(
       exportingError: null,
     };
   }),
-  
+
   on(CvSectionActions.exportCvSuccess, (state, { type, blob }) => {
     console.log(type);
     return <CvSectionState>{
@@ -340,7 +349,7 @@ export const cvSectionReducer = createReducer(
       exportingError: null,
     };
   }),
-  
+
   on(CvSectionActions.exportCvFailure, (state, { type, error }) => {
     console.log(type);
     return <CvSectionState>{
@@ -359,6 +368,95 @@ export const cvSectionReducer = createReducer(
       cvBlob: null,
       exportSuccess: false,
       exportingError: null,
+    };
+  }),
+
+  on(CvSectionActions.getBaseCVThemes, (state, { type }) => {
+    console.log(type);
+    return <CvSectionState>{
+      ...state,
+      isGetBaseThemesLoading: true,
+      getBaseThemesError: null,
+      baseThemes: [],
+    };
+  }),
+
+  on(CvSectionActions.getBaseCVThemesSuccess, (state, { type, data }) => {
+    console.log(type);
+    console.log(data);
+    return <CvSectionState>{
+      ...state,
+      isGetBaseThemesLoading: false,
+      getBaseThemesError: null,
+      baseThemes: data,
+    };
+  }),
+
+  on(CvSectionActions.getBaseCVThemesFailure, (state, { type, error }) => {
+    console.log(type);
+    return <CvSectionState>{
+      ...state,
+      isGetBaseThemesLoading: false,
+      getBaseThemesError: error,
+      baseThemes: [],
+    };
+  }),
+
+  on(CvSectionActions.createNewCv, (state, { type, data }) => {
+    console.log(type);
+    return {
+      ...state,
+      isCreatingNewCv: true,
+      createSuccess: false,
+      createNewCvError: null,
+    };
+  }),
+
+  on(CvSectionActions.createNewCvSuccess, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isCreatingNewCv: false,
+      createNewCvError: null,
+      createSuccess: true,
+    };
+  }),
+
+  on(CvSectionActions.createNewCvFailure, (state, { type, error }) => {
+    console.log(type);
+    return {
+      ...state,
+      isCreatingNewCv: false,
+      createNewCvError: error,
+      createSuccess: false,
+    };
+  }),
+
+  on(CvSectionActions.deleteCvById, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isDeletingCv: true,
+      deleteSuccess: false,
+      deleteCvError: null,
+    };
+  }),
+  on(CvSectionActions.deleteCvByIdSuccess, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isDeletingCv: false,
+      deleteSuccess: true,
+      deleteCvError: null,
+    };
+  }),
+  on(CvSectionActions.deleteCvByIdFailure, (state, { type, error }) => {
+    console.log(type);
+    return {
+      ...state,
+      isDeletingCv: false,
+      deleteSuccess: false,
+      deleteCvError: error,
     };
   })
 );
