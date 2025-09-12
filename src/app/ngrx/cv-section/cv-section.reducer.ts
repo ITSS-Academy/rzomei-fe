@@ -250,6 +250,8 @@ export const cvSectionReducer = createReducer(
 
     return <CvSectionState>{
       ...state,
+      createSuccess: false,
+      deleteSuccess: false,
       isGetAllCvsLoading: false,
       getAllCvsError: null,
       allCvs: data,

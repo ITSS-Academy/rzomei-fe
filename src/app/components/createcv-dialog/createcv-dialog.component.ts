@@ -63,6 +63,7 @@ export class CreatecvDialogComponent implements OnInit, OnDestroy {
       }),
       this.createSuccess$.subscribe((success) => {
         if (success) {
+          console.log(success);
           this.dialog.closeAll();
         }
       })
